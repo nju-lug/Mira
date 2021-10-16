@@ -35,6 +35,9 @@ module.exports = {
     'semi': [
       'warn',
       'always'
+    ],
+    'vue/no-multiple-template-root': [
+      'off'
     ]
   }
 };
