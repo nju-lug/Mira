@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="tsx">
 import {
   MenuOption,
   NMenu,
@@ -7,7 +7,9 @@ import {
   NText,
   NDropdown,
   NButton,
-  NIcon
+  NIcon,
+  NSwitch,
+  useMessage
 } from 'naive-ui';
 import { h } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
@@ -17,29 +19,42 @@ import { useStore } from '../store';
 
 const store = useStore();
 const route = useRoute();
+const message = useMessage();
 
 const createRoute = (to: string, name: string): MenuOption => ({
   label: () => h(RouterLink, { to }, { default: () => name }),
   key: to
 });
 
+const darkmode: MenuOption = {
+  label: () => h(NSwitch, {
+    defaultValue: store.state.darkmode,
+    onUpdateValue: (value) => {
+      store.commit('setDarkmode', value);
+      message.info(`Side of ${value ? 'Tairitsu' : 'Hikari'}`);
+    },
+  }),
+  key: 'darkmode'
+};
+
 const options = [
   createRoute('/', 'Mirrors'),
   createRoute('/download', 'Downloads'),
   createRoute('/help', 'Help'),
   createRoute('/about', 'About'),
+  darkmode
 ];
 </script>
 
 <template>
   <n-row style="height: 60px;">
-    <n-col span="12">
+    <n-col span="8">
       <n-text class="logo-container">
         <img src="../assets/logo.png" />
         <span>NJU Mirror</span>
       </n-text>
     </n-col>
-    <n-col span="12">
+    <n-col span="16">
       <n-menu
         :value="route.path"
         :options="options"

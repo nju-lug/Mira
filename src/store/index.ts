@@ -21,8 +21,9 @@ export const store = createStore<State>({
     setWidth(state, width: number) {
       state.isMobile = width < 750;
     },
-    setDarkMode(state, darkmode: boolean) {
+    setDarkmode(state, darkmode: boolean) {
       state.darkmode = darkmode;
+      sessionStorage.setItem('darkmode', darkmode.toString());
     }
   }
 });

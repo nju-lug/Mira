@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { darkTheme, NConfigProvider } from 'naive-ui';
+import { onMounted, computed } from 'vue';
+import { darkTheme, NConfigProvider, NMessageProvider } from 'naive-ui';
+import { lightTheme } from 'naive-ui/lib/themes/light';
 import { useStore } from './store';
 
 import MainPage from './views/MainPage.vue';
 
 const store = useStore();
-const theme = store.state.darkmode ? darkTheme : undefined;
+const theme = computed(() => store.state.darkmode ? darkTheme : lightTheme);
 
 onMounted(() => {
   window.onresize = () => {
@@ -17,6 +18,8 @@ onMounted(() => {
 
 <template>
   <n-config-provider :theme="theme">
-    <MainPage />
+    <n-message-provider>
+      <MainPage />
+    </n-message-provider>
   </n-config-provider>
 </template>
