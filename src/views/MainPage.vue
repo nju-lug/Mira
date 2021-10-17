@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { RouterView, useRoute } from 'vue-router';
 import {
   NLayout,
@@ -8,7 +9,7 @@ import {
 
 import { useStore } from '../store';
 import Navi from '../components/Navi.vue';
-import { computed } from '@vue/reactivity';
+import Sider from '../components/Sider.vue';
 
 const store = useStore();
 const route = useRoute();
@@ -31,11 +32,11 @@ const isMobile = computed(() => store.state.isMobile);
     >
       <n-layout
         :native-scrollbar="false"
-        content-style="min-height: calc(100vh - var(--header-height)); display: flex; flex-direction: column; padding: 0 24px 24px 24px"
+        content-style="min-height: calc(100vh - var(--header-height)); display: flex; flex-direction: column; padding: 0 24px"
       >
         <router-view />
         <div>
-          <h1>Footer</h1>
+          <h2>Footer</h2>
         </div>
       </n-layout>
       <n-layout-sider
@@ -49,7 +50,7 @@ const isMobile = computed(() => store.state.isMobile);
         show-trigger="arrow-circle"
         v-if="showSider && !isMobile"
       >
-        <h2>Sider</h2>
+        <Sider />
       </n-layout-sider>
     </n-layout>
   </n-layout>
