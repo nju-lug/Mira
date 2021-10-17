@@ -34,6 +34,11 @@ const routes: RouteRecordRaw[] = [
       title: 'About',
       useSider: true
     }
+  },
+  {
+    name: 'NotFound',
+    path: '/:pathMatch(.*)*',
+    component: () => import('../views/About.vue'),
   }
 ];
 
