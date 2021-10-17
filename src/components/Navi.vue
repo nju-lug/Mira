@@ -28,6 +28,10 @@ const createRoute = (to: string, name: string): MenuOption => ({
 
 const darkmode: MenuOption = {
   label: () => <NSwitch
+    v-slots={{
+      checked: () => 'Conflict',
+      unchecked: () => 'Light'
+    }}
     defaultValue={store.state.darkmode}
     onUpdateValue={(value) => {
       store.commit('setDarkmode', value);
