@@ -31,10 +31,12 @@ const isMobile = computed(() => store.state.isMobile);
     >
       <n-layout
         :native-scrollbar="false"
-        position="static"
         content-style="min-height: calc(100vh - var(--header-height)); display: flex; flex-direction: column; padding: 0 24px 24px 24px"
       >
         <router-view />
+        <div>
+          <h1>Footer</h1>
+        </div>
       </n-layout>
       <n-layout-sider
         :native-scrollbar="false"
