@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { onMounted, ref } from '@vue/runtime-core';
+import { onMounted, ref, reactive } from '@vue/runtime-core';
 import { fetchEntries, SyncEntry } from '../models/mirrors';
 import {
   NDataTable,
@@ -7,9 +7,13 @@ import {
   NButton,
   NTag,
   PaginationProps,
-  useMessage
+  useMessage,
+  NIcon,
+  NInput,
+  NSpace
 } from 'naive-ui';
 import { useRouter } from 'vue-router';
+import { SearchOutline } from '@vicons/ionicons5';
 
 const router = useRouter();
 const message = useMessage();
@@ -39,14 +43,20 @@ function StatusTag(data: SyncEntry) {
   return <NTag type={status}>{data.status}</NTag>;
 }
 
-const columns: DataTableColumn<SyncEntry>[] = [
+const filter = ref<string | null>(null);
+
+const columns: DataTableColumn<SyncEntry>[] = reactive([
   {
     title: 'Mirror Name',
     key: 'name',
     align: 'left',
     render: (data) => RouteButton(data),
-    defaultSortOrder: 'descend',
-    sorter: (row1, row2) => row2.name.localeCompare(row1.name)
+    filter: 'default',
+    filterOptionValue: filter,
+    renderFilterIcon: () => <NIcon><SearchOutline /></NIcon>,
+    renderFilterMenu: () => <NSpace style="padding: 12px" vertical>
+      <NInput placeholder="Search mirrors..." v-model:value={filter.value}/>
+    </NSpace>
   },
   {
     title: 'Status',
@@ -69,14 +79,14 @@ const columns: DataTableColumn<SyncEntry>[] = [
     key: 'nextUpdate',
     align: 'center'
   }
-];
+]);
 
 const pagination: PaginationProps = {
   pageSize: 20,
 };
 
 onMounted(() => fetchEntries().then(
-  res => entries.value = res,
+  res => entries.value = res.sort((a, b) => a.name.localeCompare(b.name)),
   err => message.error(err.message),
 ));
 
