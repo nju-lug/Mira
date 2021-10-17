@@ -27,13 +27,13 @@ const createRoute = (to: string, name: string): MenuOption => ({
 });
 
 const darkmode: MenuOption = {
-  label: () => h(NSwitch, {
-    defaultValue: store.state.darkmode,
-    onUpdateValue: (value) => {
+  label: () => <NSwitch
+    defaultValue={store.state.darkmode}
+    onUpdateValue={(value) => {
       store.commit('setDarkmode', value);
       message.info(`Side of ${value ? 'Tairitsu' : 'Hikari'}`);
-    },
-  }),
+    }}
+  />,
   key: 'darkmode'
 };
 
@@ -47,7 +47,7 @@ const options = [
 </script>
 
 <template>
-  <n-row style="height: 60px;">
+  <n-row class="navi-bar" style="height: 60px;">
     <n-col span="8">
       <n-text class="logo-container">
         <img src="../assets/logo.png" />
@@ -73,6 +73,9 @@ const options = [
 </template>
 
 <style scoped lang="less">
+.navi-bar {
+  background-color: rgba(216, 216, 216, 0.13);
+}
 .n-menu {
   text-align: center;
   float: right;

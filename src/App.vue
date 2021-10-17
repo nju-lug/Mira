@@ -23,3 +23,10 @@ onMounted(() => {
     </n-message-provider>
   </n-config-provider>
 </template>
+
+<style lang="less">
+body {
+  overflow: hidden;
+  --header-height: 60px;
+}
+</style>
