@@ -6,7 +6,8 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     component: () => import('../views/Mirrors.vue'),
     meta: {
-      title: 'Mirrors'
+      title: 'Mirrors',
+      useSider: true
     }
   },
   {
@@ -30,7 +31,8 @@ const routes: RouteRecordRaw[] = [
     path: '/about',
     component: () => import('../views/About.vue'),
     meta: {
-      title: 'About'
+      title: 'About',
+      useSider: true
     }
   }
 ];
