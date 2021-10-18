@@ -26,15 +26,15 @@ const createRoute = (to: string, name: string): MenuOption => ({
   key: to
 });
 
-const darkmode: MenuOption = {
+const darkMode: MenuOption = {
   label: () => <NSwitch
     v-slots={{
       checked: () => 'Conflict',
       unchecked: () => 'Light'
     }}
-    defaultValue={store.state.darkmode}
-    onUpdateValue={(value) => {
-      store.commit('setDarkmode', value);
+    defaultValue={store.state.darkMode}
+    onUpdateValue={value => {
+      store.commit('setDarkMode', value);
       message.info(`Side of ${value ? 'Tairitsu' : 'Hikari'}`);
     }}
   />,
@@ -46,7 +46,7 @@ const options = [
   createRoute('/download', 'Downloads'),
   createRoute('/help', 'Help'),
   createRoute('/about', 'About'),
-  darkmode
+  darkMode
 ];
 </script>
 
@@ -84,7 +84,7 @@ const options = [
   text-align: center;
   float: right;
   padding-right: 24px;
-  --item-height: 60px !important;
+  --item-height: var(--header-height) !important;
 }
 
 .collapse-button {

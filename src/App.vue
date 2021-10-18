@@ -7,7 +7,7 @@ import { useStore } from './store';
 import MainPage from './views/MainPage.vue';
 
 const store = useStore();
-const theme = computed(() => store.state.darkmode ? darkTheme : lightTheme);
+const theme = computed(() => store.state.darkMode ? darkTheme : lightTheme);
 
 onMounted(() => {
   window.onresize = () => {
