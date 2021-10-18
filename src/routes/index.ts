@@ -1,4 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import {LoadingBarApi} from 'naive-ui';
+
+export const loadRef: { value?: LoadingBarApi} = {};
 
 const routes: RouteRecordRaw[] = [
   {
@@ -48,6 +51,11 @@ export const router = createRouter({
 });
 
 router.beforeEach((to, _, next) => {
-  document.title = to.meta?.title as string || 'NJU Mirror';
+  loadRef.value?.start();
   next();
+});
+
+router.afterEach(to => {
+  document.title = to.meta?.title as string || 'NJU Mirror';
+  loadRef.value?.finish();
 });

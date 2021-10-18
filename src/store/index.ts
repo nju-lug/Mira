@@ -15,7 +15,7 @@ export const key: InjectionKey<Store<State>> = Symbol();
 export const store = createStore<State>({
   state: {
     isMobile: document.body.clientWidth < 750,
-    darkMode: sessionStorage.getItem('darkmode') == 'true'
+    darkMode: sessionStorage.getItem('darkMode') == 'true'
   },
   mutations: {
     setWidth(state, width: number) {

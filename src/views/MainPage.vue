@@ -1,21 +1,26 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { RouterView, useRoute } from 'vue-router';
 import {
   NLayout,
   NLayoutHeader,
-  NLayoutSider
+  NLayoutSider,
+  NBackTop,
+  useLoadingBar
 } from 'naive-ui';
 
 import { useStore } from '../store';
 import Navi from '../components/Navi.vue';
 import Sider from '../components/Sider.vue';
+import { loadRef } from '../routes';
 
 const store = useStore();
 const route = useRoute();
-
+const loadingBar = useLoadingBar();
 const showSider = computed(() => route.meta?.useSider as boolean);
 const isMobile = computed(() => store.state.isMobile);
+
+onMounted(() => loadRef.value = loadingBar);
 </script>
 
 <template>
@@ -28,13 +33,14 @@ const isMobile = computed(() => store.state.isMobile);
       position="absolute"
       :has-sider="true"
       sider-placement="right"
-      style="top: 60px;"
+      style="top: 60px; padding: 16px 0;"
     >
       <n-layout
         :native-scrollbar="false"
-        content-style="min-height: calc(100vh - var(--header-height)); display: flex; flex-direction: column; padding: 0 24px"
+        content-style="display: flex; flex-direction: column; padding: 0 24px"
       >
         <router-view />
+        <n-back-top :right="100" style="z-index: 500;" />
         <div>
           <h2>Footer</h2>
         </div>
@@ -55,6 +61,3 @@ const isMobile = computed(() => store.state.isMobile);
     </n-layout>
   </n-layout>
 </template>
-
-<style scoped lang="less">
-</style>

@@ -1,13 +1,26 @@
 <script setup lang="ts">
 import { onMounted, computed } from 'vue';
-import { darkTheme, NConfigProvider, NMessageProvider } from 'naive-ui';
-import { lightTheme } from 'naive-ui/lib/themes/light';
-import { useStore } from './store';
+import {
+  GlobalThemeOverrides,
+  NConfigProvider,
+  NLoadingBarProvider,
+  NMessageProvider,
+  darkTheme
+} from 'naive-ui';
 
+import { useStore } from './store';
 import MainPage from './views/MainPage.vue';
 
 const store = useStore();
-const theme = computed(() => store.state.darkMode ? darkTheme : lightTheme);
+const theme = computed(() => store.state.darkMode ? darkTheme : null);
+const override = computed<GlobalThemeOverrides>(() => ({
+  common: {
+    primaryColor: store.state.darkMode ? '#ffffff' : '#6f106e',
+    primaryColorHover: store.state.darkMode ? '#fcfcfc' : '#6f106e',
+    primaryColorPressed: store.state.darkMode ? 'd4d4d4' : '#560c56',
+    primaryColorSuppl: '#6f106e',
+  }
+}));
 
 onMounted(() => {
   window.onresize = () => {
@@ -17,10 +30,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <n-config-provider :theme="theme">
-    <n-message-provider>
-      <MainPage />
-    </n-message-provider>
+  <n-config-provider :theme="theme" :theme-overrides="override">
+    <n-loading-bar-provider>
+      <n-message-provider>
+        <MainPage />
+      </n-message-provider>
+    </n-loading-bar-provider>
   </n-config-provider>
 </template>
 
