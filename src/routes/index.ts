@@ -39,9 +39,18 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
+    name: 'Error',
+    path: '/error',
+    component: () => import('../views/Error.vue'),
+    meta: {
+      title: 'Error',
+      useSider: true
+    }
+  },
+  {
     name: 'NotFound',
     path: '/:pathMatch(.*)*',
-    component: () => import('../views/About.vue'),
+    redirect: '/error'
   }
 ];
 
@@ -58,4 +67,8 @@ router.beforeEach((to, _, next) => {
 router.afterEach(to => {
   document.title = to.meta?.title as string || 'NJU Mirror';
   loadRef.value?.finish();
+});
+
+router.onError(() => {
+  loadRef.value?.error();
 });
