@@ -43,8 +43,10 @@ onMounted(() => loadRef.value = loadingBar);
       >
         <router-view />
         <n-back-top :right="50" style="z-index: 500;" />
-        <n-divider/>
-        <Footer />
+        <n-divider />
+        <div>
+          <Footer />
+        </div>
       </n-layout>
       <n-layout-sider
         :native-scrollbar="false"
