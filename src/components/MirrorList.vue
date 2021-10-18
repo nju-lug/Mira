@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { onMounted, ref, reactive, computed } from 'vue';
+import { onMounted, ref, reactive } from 'vue';
 import {
   NDataTable,
   DataTableColumn,
@@ -53,7 +53,6 @@ function StatusTag(data: SyncEntry) {
 }
 
 const filter = ref('');
-
 const columns: DataTableColumn<SyncEntry>[] = reactive([
   {
     title: 'Mirror Name',
@@ -64,7 +63,7 @@ const columns: DataTableColumn<SyncEntry>[] = reactive([
     filterOptionValue: filter,
     renderFilterIcon: () => <NIcon><SearchOutline /></NIcon>,
     renderFilterMenu: () => <NSpace style="padding: 12px" vertical>
-      <NInput placeholder="Search mirrors..." v-model={filter.value} />
+      <NInput placeholder="Search mirrors..." v-model:value={filter.value} />
     </NSpace>
   },
   {
@@ -105,6 +104,3 @@ onMounted(() => fetchEntries().then(
 <template>
   <n-data-table size="small" :columns="columns" :data="entries" :pagination="pagination" />
 </template>
-
-<style scoped lang="less">
-</style>
