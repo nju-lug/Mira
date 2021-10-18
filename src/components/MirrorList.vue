@@ -18,23 +18,31 @@ import {
 } from '@vicons/ionicons5';
 
 import { fetchEntries, SyncEntry } from '../models/mirrors';
+import { fetchDocs } from '../models/documents';
+import { useStore } from '../store';
 
 const router = useRouter();
 const message = useMessage();
+const store = useStore();
 let entries = ref([] as SyncEntry[]);
 
 function RouteButton(data: SyncEntry) {
+  const doc = store.state.docItems.find(value => value.name == data.name);
   return <>
-    <NButton text onClick={
-      () => {
-        if (data.route) {
-          router.push(data.route);
-        } else {
-          window.location.href = data.path || '/' + data.name;
-        }
+    <NButton text onClick={() => {
+      if (data.route) {
+        router.push(data.route);
+      } else {
+        window.location.href = data.path || '/' + data.name;
       }
-    }>{data.name}</NButton>
-    <NButton text>
+    }}>
+      {data.name}
+    </NButton>
+    <NButton
+      text
+      v-show={doc != undefined}
+      onClick={() => router.push(doc?.route || '')}
+    >
       <NIcon><HelpCircleOutline /></NIcon>
     </NButton>
   </>;
@@ -60,7 +68,7 @@ const columns: DataTableColumn<SyncEntry>[] = reactive([
     align: 'left',
     render: data => RouteButton(data),
     filter: 'default',
-    filterOptionValue: filter,
+    filterOptionValue: filter as any,
     renderFilterIcon: () => <NIcon><SearchOutline /></NIcon>,
     renderFilterMenu: () => <NSpace style="padding: 12px" vertical>
       <NInput placeholder="Search mirrors..." v-model:value={filter.value} />
@@ -94,10 +102,16 @@ const pagination: PaginationProps = {
   pageSize: 20,
 };
 
-onMounted(() => fetchEntries().then(
-  res => entries.value = res.sort((a, b) => a.name.localeCompare(b.name)),
-  err => message.error(err.message),
-));
+onMounted(() => {
+  fetchEntries().then(
+    res => entries.value = res.sort((a, b) => a.name.localeCompare(b.name)),
+    err => message.error(err.message)
+  );
+  fetchDocs().then(
+    res => store.commit('setDocs', res),
+    err => message.error(err.message)
+  );
+});
 
 </script>
 

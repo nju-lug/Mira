@@ -4,10 +4,12 @@ import {
   useStore as baseUseStore,
   Store
 } from 'vuex';
+import { DocItem } from '../models/documents';
 
 export interface State {
   isMobile: boolean,
-  darkMode: boolean
+  darkMode: boolean,
+  docItems: DocItem[]
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();
@@ -15,7 +17,8 @@ export const key: InjectionKey<Store<State>> = Symbol();
 export const store = createStore<State>({
   state: {
     isMobile: document.body.clientWidth < 750,
-    darkMode: sessionStorage.getItem('darkMode') == 'true'
+    darkMode: sessionStorage.getItem('darkMode') == 'true',
+    docItems: []
   },
   mutations: {
     setWidth(state, width: number) {
@@ -24,6 +27,9 @@ export const store = createStore<State>({
     setDarkMode(state, darkMode: boolean) {
       state.darkMode = darkMode;
       sessionStorage.setItem('darkMode', darkMode.toString());
+    },
+    setDocs(state, items: DocItem[]) {
+      state.docItems = items;
     }
   }
 });
