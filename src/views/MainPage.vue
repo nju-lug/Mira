@@ -6,13 +6,15 @@ import {
   NLayoutHeader,
   NLayoutSider,
   NBackTop,
+  NDivider,
   useLoadingBar
 } from 'naive-ui';
 
 import { useStore } from '../store';
+import { loadRef } from '../routes';
 import Navi from '../components/Navi.vue';
 import Sider from '../components/Sider.vue';
-import { loadRef } from '../routes';
+import Footer from '../components/Footer.vue';
 
 const store = useStore();
 const route = useRoute();
@@ -25,7 +27,7 @@ onMounted(() => loadRef.value = loadingBar);
 
 <template>
   <n-layout position="absolute">
-    <n-layout-header>
+    <n-layout-header style="height: var(--header-height);">
       <Navi />
     </n-layout-header>
     <n-layout
@@ -33,17 +35,16 @@ onMounted(() => loadRef.value = loadingBar);
       position="absolute"
       :has-sider="true"
       sider-placement="right"
-      style="top: 60px; padding: 16px 0;"
+      style="top: var(--header-height);"
     >
       <n-layout
         :native-scrollbar="false"
-        content-style="display: flex; flex-direction: column; padding: 0 24px"
+        content-style="display: flex; flex-direction: column; padding: 24px"
       >
         <router-view />
-        <n-back-top :right="100" style="z-index: 500;" />
-        <div>
-          <h2>Footer</h2>
-        </div>
+        <n-back-top :right="50" style="z-index: 500;" />
+        <n-divider/>
+        <Footer />
       </n-layout>
       <n-layout-sider
         :native-scrollbar="false"
