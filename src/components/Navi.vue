@@ -117,13 +117,13 @@ const options = [
   align-items: center;
 
   span {
-    padding: 0 15px;
+    padding: 0 10px;
     font-size: large;
   }
 
   img {
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
   }
 }
 </style>

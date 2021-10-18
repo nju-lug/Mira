@@ -13,7 +13,7 @@ const issue = () => window.open('https://github.com/iori2333/NJU-Mirror-Frontend
   <n-result size="huge" status="404" title="404 Not Found" description="Where...am I?">
     <template #footer>
       <n-button-group>
-        <n-button @click="router.back()">
+        <n-button type="primary" @click="router.back()">
           <template #icon>
             <n-icon size="16px">
               <arrow-back-outline />
