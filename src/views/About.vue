@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { NH2 } from 'naive-ui';
 </script>
 
 <template>
-  <h1>About</h1>
+  <n-h2 prefix="bar">About</n-h2>
 </template>
