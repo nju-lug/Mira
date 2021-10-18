@@ -105,13 +105,12 @@ const options = [
 
 .collapse-button {
   font-size: 24px;
-  height: 100%;
+  height: var(--header-height);
   padding-right: 16px;
 }
 
 .logo-container {
-  height: 100%;
-  width: 100%;
+  height: var(--header-height);
   display: flex;
   justify-content: left;
   padding-left: 16px;

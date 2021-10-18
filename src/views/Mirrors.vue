@@ -7,5 +7,4 @@ import MirrorList from '../components/MirrorList.vue';
 <template>
   <n-h2 prefix="bar">Mirrors</n-h2>
   <MirrorList />
-
 </template>
