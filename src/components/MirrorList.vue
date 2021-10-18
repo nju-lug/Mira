@@ -1,6 +1,5 @@
 <script setup lang="tsx">
-import { onMounted, ref, reactive } from '@vue/runtime-core';
-import { fetchEntries, SyncEntry } from '../models/mirrors';
+import { onMounted, ref, reactive, computed } from 'vue';
 import {
   NDataTable,
   DataTableColumn,
@@ -13,22 +12,32 @@ import {
   NSpace
 } from 'naive-ui';
 import { useRouter } from 'vue-router';
-import { SearchOutline } from '@vicons/ionicons5';
+import {
+  SearchOutline,
+  HelpCircleOutline
+} from '@vicons/ionicons5';
+
+import { fetchEntries, SyncEntry } from '../models/mirrors';
 
 const router = useRouter();
 const message = useMessage();
 let entries = ref([] as SyncEntry[]);
 
 function RouteButton(data: SyncEntry) {
-  return <NButton text onClick={
-    () => {
-      if (data.route) {
-        router.push(data.route);
-      } else {
-        window.location.href = data.path || '/' + data.name;
+  return <>
+    <NButton text onClick={
+      () => {
+        if (data.route) {
+          router.push(data.route);
+        } else {
+          window.location.href = data.path || '/' + data.name;
+        }
       }
-    }
-  }>{data.name}</NButton>;
+    }>{data.name}</NButton>
+    <NButton text>
+      <NIcon><HelpCircleOutline /></NIcon>
+    </NButton>
+  </>;
 }
 
 function StatusTag(data: SyncEntry) {
@@ -43,26 +52,26 @@ function StatusTag(data: SyncEntry) {
   return <NTag type={status}>{data.status}</NTag>;
 }
 
-const filter = ref<string | null>(null);
+const filter = ref('');
 
 const columns: DataTableColumn<SyncEntry>[] = reactive([
   {
     title: 'Mirror Name',
     key: 'name',
     align: 'left',
-    render: (data) => RouteButton(data),
+    render: data => RouteButton(data),
     filter: 'default',
     filterOptionValue: filter,
     renderFilterIcon: () => <NIcon><SearchOutline /></NIcon>,
     renderFilterMenu: () => <NSpace style="padding: 12px" vertical>
-      <NInput placeholder="Search mirrors..." v-model:value={filter.value}/>
+      <NInput placeholder="Search mirrors..." v-model={filter.value} />
     </NSpace>
   },
   {
     title: 'Status',
     key: 'status',
     align: 'center',
-    render: (data) => StatusTag(data)
+    render: data => StatusTag(data)
   },
   {
     title: 'Size',
@@ -82,6 +91,7 @@ const columns: DataTableColumn<SyncEntry>[] = reactive([
 ]);
 
 const pagination: PaginationProps = {
+  pageSlot: 7,
   pageSize: 20,
 };
 

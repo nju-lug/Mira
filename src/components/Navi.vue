@@ -2,30 +2,34 @@
 import {
   MenuOption,
   NMenu,
-  NRow,
-  NCol,
   NText,
   NDropdown,
   NButton,
   NIcon,
   NSwitch,
+  NSpace,
+  NDrawer,
+  NButtonGroup,
   useMessage
 } from 'naive-ui';
-import { h } from 'vue';
+import { ref } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
-import { CashOutline as CashIcon } from '@vicons/ionicons5';
+import { NewspaperOutline, MenuOutline } from '@vicons/ionicons5';
 
 import { useStore } from '../store';
+import Sider from './Sider.vue';
 
 const store = useStore();
 const route = useRoute();
 const message = useMessage();
 
 const createRoute = (to: string, name: string): MenuOption => ({
-  label: () => h(RouterLink, { to }, { default: () => name }),
+  label: () => <RouterLink to={to}>{name}</RouterLink>,
   key: to
 });
 
+const active = ref(false);
+const activate = () => { active.value = true; };
 const darkMode: MenuOption = {
   label: () => <NSwitch
     v-slots={{
@@ -51,29 +55,42 @@ const options = [
 </script>
 
 <template>
-  <n-row class="navi-bar" style="height: 60px;">
-    <n-col span="8">
-      <n-text class="logo-container">
-        <img src="../assets/logo.png" />
-        <span>NJU Mirror</span>
-      </n-text>
-    </n-col>
-    <n-col span="16">
+  <n-space class="navi-bar" justify="space-between" style="height: var(--header-height);">
+    <n-text class="logo-container">
+      <img src="../assets/logo.png" alt="Mirror Logo" />
+      <span>NJU Mirror</span>
+    </n-text>
+
+    <n-button-group style="height: 100%;">
+      <n-button text class="collapse-button" @click="activate" v-if="store.state.isMobile">
+        <n-icon>
+          <newspaper-outline />
+        </n-icon>
+      </n-button>
       <n-menu
         :value="route.path"
         :options="options"
         mode="horizontal"
         v-if="!store.state.isMobile"
       />
-      <n-dropdown :options="options" placement="bottom-end" v-else>
+      <n-dropdown :options="options" placement="bottom-end" trigger="click" v-else>
         <n-button text class="collapse-button">
           <n-icon>
-            <cash-icon />
+            <menu-outline />
           </n-icon>
         </n-button>
       </n-dropdown>
-    </n-col>
-  </n-row>
+    </n-button-group>
+  </n-space>
+  <n-drawer
+    placement="right"
+    v-model:show="active"
+    width="360"
+    :native-scrollbar="false"
+    v-if="store.state.isMobile"
+  >
+    <Sider />
+  </n-drawer>
 </template>
 
 <style scoped lang="less">
@@ -82,7 +99,6 @@ const options = [
 }
 .n-menu {
   text-align: center;
-  float: right;
   padding-right: 24px;
   --item-height: var(--header-height) !important;
 }
@@ -90,8 +106,7 @@ const options = [
 .collapse-button {
   font-size: 24px;
   height: 100%;
-  float: right;
-  padding-right: 24px;
+  padding-right: 16px;
 }
 
 .logo-container {
@@ -99,7 +114,7 @@ const options = [
   width: 100%;
   display: flex;
   justify-content: left;
-  padding-left: 24px;
+  padding-left: 16px;
   align-items: center;
 
   span {

@@ -5,42 +5,43 @@
     {
       "title": "云盘",
       "url": "https://box.nju.edu.cn",
-      "icon": "el-icon-upload"
+      "icon": "upload"
     },
     {
       "title": "协同表格",
       "url": "https://table.nju.edu.cn",
-      "icon": "el-icon-pie-chart"
+      "icon": "chart"
     },
     {
       "title": "超级计算",
       "url": "https://hpc.nju.edu.cn/zh/",
-      "icon": "el-icon-s-data"
+      "icon": "server"
     },
     {
       "title": "私服仓库",
       "url": "https://repo.nju.edu.cn/",
-      "icon": "el-icon-coin"
+      "icon": "repo"
     },
     {
       "title": "代码托管",
-      "url": "https://git.nju.edu.cn"
+      "url": "https://git.nju.edu.cn",
+      "icon": "gitlab"
     },
     {
       "title": "在线LaTeX",
       "url": "https://tex.nju.edu.cn",
-      "icon": "el-icon-notebook-2"
+      "icon": "doc"
     },
     
     {
       "title": "网络测速",
       "url": "http://test.nju.edu.cn/",
-      "icon": "el-icon-sort"
+      "icon": "speedometer"
     },
     {
       "title": "远程控制",
       "url": "https://entry.nju.edu.cn/shterm/login",
-      "icon": "el-icon-monitor"
+      "icon": "monitor"
     }
   ]
 }

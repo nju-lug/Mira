@@ -4,11 +4,12 @@
     {
       "title": "IT Xia",
       "url": "https://nju.itxia.cn/",
-      "icon": "el-icon-male"
+      "icon": "male"
     },
     {
       "title": "e-Science",
-      "url": "https://sci.nju.edu.cn/"
+      "url": "https://sci.nju.edu.cn/",
+      "icon": "school"
     }
   ]
 }
