@@ -107,10 +107,6 @@ onMounted(() => {
     res => entries.value = res.sort((a, b) => a.name.localeCompare(b.name)),
     err => message.error(err.message)
   );
-  fetchDocs().then(
-    res => store.commit('setDocs', res),
-    err => message.error(err.message)
-  );
 });
 
 </script>

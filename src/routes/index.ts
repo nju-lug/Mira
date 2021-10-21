@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import {LoadingBarApi} from 'naive-ui';
+import { LoadingBarApi } from 'naive-ui';
+import fetchDocRoutes from './docs';
+import fetchDownloadRoutes from './downloads';
 
-export const loadRef: { value?: LoadingBarApi} = {};
+export const loadRef: { value?: LoadingBarApi } = {};
 
 const routes: RouteRecordRaw[] = [
   {
@@ -9,8 +11,7 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     component: () => import('../views/Mirrors.vue'),
     meta: {
-      title: 'Mirrors',
-      useSider: true
+      title: 'Mirrors'
     }
   },
   {
@@ -18,7 +19,8 @@ const routes: RouteRecordRaw[] = [
     path: '/help',
     component: () => import('../views/Help.vue'),
     meta: {
-      title: 'Help'
+      title: 'Help',
+      sider: fetchDocRoutes
     }
   },
   {
@@ -26,7 +28,8 @@ const routes: RouteRecordRaw[] = [
     path: '/download',
     component: () => import('../views/Downloads.vue'),
     meta: {
-      title: 'Downloads'
+      title: 'Downloads',
+      sider: fetchDownloadRoutes
     }
   },
   {
@@ -34,8 +37,7 @@ const routes: RouteRecordRaw[] = [
     path: '/about',
     component: () => import('../views/About.vue'),
     meta: {
-      title: 'About',
-      useSider: true
+      title: 'About'
     }
   },
   {
@@ -44,7 +46,6 @@ const routes: RouteRecordRaw[] = [
     component: () => import('../views/Error.vue'),
     meta: {
       title: 'Error',
-      useSider: true
     }
   },
   {

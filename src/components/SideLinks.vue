@@ -10,7 +10,6 @@ const entries = reactive([] as CardItem[]);
 onBeforeMount(() => {
   cards.forEach(fetch => fetch().then(item => entries.push(item)));
 });
-
 </script>
 
 <template>

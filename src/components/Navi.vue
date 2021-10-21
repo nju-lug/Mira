@@ -17,7 +17,7 @@ import { RouterLink, useRoute } from 'vue-router';
 import { NewspaperOutline, MenuOutline } from '@vicons/ionicons5';
 
 import { useStore } from '../store';
-import Sider from './Sider.vue';
+import Sider from '../views/Sider.vue';
 
 const store = useStore();
 const route = useRoute();
