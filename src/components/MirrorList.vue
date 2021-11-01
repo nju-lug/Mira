@@ -18,7 +18,6 @@ import {
 } from '@vicons/ionicons5';
 
 import { fetchEntries, SyncEntry } from '../models/mirrors';
-import { fetchDocs } from '../models/documents';
 import { useStore } from '../store';
 
 const router = useRouter();
@@ -53,9 +52,15 @@ function StatusTag(data: SyncEntry) {
   switch (data.status) {
   case 'cache':
   case 'proxy':
-  case 'success': status = 'success'; break;
-  case 'failed': status = 'error'; break;
-  case 'syncing': status = 'info'; break;
+  case 'success':
+    status = 'success';
+    break;
+  case 'failed':
+    status = 'error';
+    break;
+  case 'syncing':
+    status = 'info';
+    break;
   }
   return <NTag type={status}>{data.status}</NTag>;
 }

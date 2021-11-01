@@ -18,6 +18,12 @@ const routes: RouteRecordRaw[] = [
     name: 'Help',
     path: '/help',
     component: () => import('../views/Help.vue'),
+    children: [
+      {
+        path: ':distro',
+        component: () => import('../components/Doc.vue'),
+      }
+    ],
     meta: {
       title: 'Help',
       sider: fetchDocRoutes
