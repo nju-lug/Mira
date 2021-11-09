@@ -13,19 +13,17 @@ import MainPage from './views/MainPage.vue';
 
 const store = useStore();
 const theme = computed(() => store.state.darkMode ? darkTheme : null);
-const override = computed<GlobalThemeOverrides>(() => ({
+const override = computed(() => ({
   common: {
     primaryColor: store.state.darkMode ? '#ffffff' : '#6f106e',
     primaryColorHover: store.state.darkMode ? '#fcfcfc' : '#6f106e',
     primaryColorPressed: store.state.darkMode ? 'd4d4d4' : '#560c56',
     primaryColorSuppl: '#6f106e',
   }
-}));
+} as GlobalThemeOverrides));
 
 onMounted(() => {
-  window.onresize = () => {
-    store.commit('setWidth', document.body.clientWidth);
-  };
+  window.onresize = () => store.commit('setWidth', document.body.clientWidth);
 });
 </script>
 
