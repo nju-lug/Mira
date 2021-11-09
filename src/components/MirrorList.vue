@@ -1,5 +1,11 @@
 <script setup lang="tsx">
-import { onMounted, ref, reactive } from 'vue';
+import { 
+  onMounted, 
+  computed,
+  ref, 
+  reactive
+} from 'vue';
+import { useRouter } from 'vue-router';
 import {
   NDataTable,
   DataTableColumn,
@@ -11,7 +17,6 @@ import {
   NInput,
   NSpace
 } from 'naive-ui';
-import { useRouter } from 'vue-router';
 import {
   SearchOutline,
   HelpCircleOutline
@@ -23,7 +28,7 @@ import { useStore } from '../store';
 const router = useRouter();
 const message = useMessage();
 const store = useStore();
-let entries = ref([] as SyncEntry[]);
+const entries = ref([] as SyncEntry[]);
 
 function RouteButton(data: SyncEntry) {
   const doc = store.state.docItems.find(value => value.name == data.name);
@@ -40,7 +45,7 @@ function RouteButton(data: SyncEntry) {
     <NButton
       text
       v-show={doc != undefined}
-      onClick={() => router.push(doc?.route || '')}
+      onClick={() => router.push('/help/' + doc?.route || '')}
     >
       <NIcon><HelpCircleOutline /></NIcon>
     </NButton>
@@ -66,7 +71,25 @@ function StatusTag(data: SyncEntry) {
 }
 
 const filter = ref('');
-const columns: DataTableColumn<SyncEntry>[] = reactive([
+const extraColumns = computed(() => store.state.isMobile ? [] : [
+  {
+    title: 'Size',
+    key: 'size',
+    align: 'center'
+  },
+  {
+    title: 'Last Update',
+    key: 'lastUpdate',
+    align: 'center'
+  },
+  {
+    title: 'Next Update',
+    key: 'nextUpdate',
+    align: 'center'
+  }
+] as DataTableColumn<SyncEntry>[]);
+
+const columns = reactive([
   {
     title: 'Mirror Name',
     key: 'name',
@@ -85,22 +108,7 @@ const columns: DataTableColumn<SyncEntry>[] = reactive([
     align: 'center',
     render: data => StatusTag(data)
   },
-  {
-    title: 'Size',
-    key: 'size',
-    align: 'center'
-  },
-  {
-    title: 'Last Update',
-    key: 'lastUpdate',
-    align: 'center'
-  },
-  {
-    title: 'Next Update',
-    key: 'nextUpdate',
-    align: 'center'
-  }
-]);
+] as DataTableColumn<SyncEntry>[]);
 
 const pagination: PaginationProps = {
   pageSlot: 7,
@@ -113,9 +121,13 @@ onMounted(() => {
     err => message.error(err.message)
   );
 });
-
 </script>
 
 <template>
-  <n-data-table size="small" :columns="columns" :data="entries" :pagination="pagination" />
+  <n-data-table
+    size="small"
+    :columns="columns.concat(extraColumns)"
+    :data="entries"
+    :pagination="pagination"
+  />
 </template>
