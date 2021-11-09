@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { computed, ref } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import {
   MenuOption,
   NMenu,
@@ -27,20 +27,19 @@ function changeText(value: string) {
   filter.value = value;
 }
 
-fetchDocs().then(
+onMounted(() => fetchDocs().then(
   res => store.commit('setDocs', res),
   err => message.error(err.message)
-);
+));
 </script>
 
 <template>
   <SideLinks v-if="!options" />
-
   <n-space style="overflow-x: hidden; padding: 0" vertical v-else>
     <n-divider title-placement="left">ENTRIES</n-divider>
     <n-space vertical style="padding: 0 12px">
       <n-input placeholder="Search entries..." @input="changeText" />
     </n-space>
-    <n-menu :options="options" />
+    <n-menu :options="options" :value="route.path" />
   </n-space>
 </template>
