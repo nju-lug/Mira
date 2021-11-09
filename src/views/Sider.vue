@@ -1,36 +1,26 @@
 <script setup lang="tsx">
-import { computed, ref, onMounted } from 'vue';
+import { computed, ref } from 'vue';
+import { useRoute } from 'vue-router';
 import {
-  MenuOption,
   NMenu,
   NSpace,
   NDivider,
-  NInput, useMessage
+  NInput
 } from 'naive-ui';
-import { useRoute } from 'vue-router';
 
-import { useStore, State } from '../store';
-import { fetchDocs } from '../models/documents';
+import { useStore } from '../store';
+import { MenuCaller } from '../routes';
+
 import SideLinks from '../components/SideLinks.vue';
 
 const route = useRoute();
 const store = useStore();
-const message = useMessage();
 
 const filter = ref('');
 const options = computed(() => {
-  const sider = route.meta?.sider as ((state: State, filter: string) => MenuOption[]) | undefined;
+  const sider = route.meta?.sider as MenuCaller | undefined;
   return sider == undefined ? undefined : sider(store.state, filter.value);
 });
-
-function changeText(value: string) {
-  filter.value = value;
-}
-
-onMounted(() => fetchDocs().then(
-  res => store.commit('setDocs', res),
-  err => message.error(err.message)
-));
 </script>
 
 <template>
@@ -38,7 +28,7 @@ onMounted(() => fetchDocs().then(
   <n-space style="overflow-x: hidden; padding: 0" vertical v-else>
     <n-divider title-placement="left">ENTRIES</n-divider>
     <n-space vertical style="padding: 0 12px">
-      <n-input placeholder="Search entries..." @input="changeText" />
+      <n-input placeholder="Search entries..." v-model="filter" />
     </n-space>
     <n-menu :options="options" :value="route.path" />
   </n-space>

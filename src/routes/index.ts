@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import { LoadingBarApi } from 'naive-ui';
+import { LoadingBarApi, MenuOption } from 'naive-ui';
 import fetchDocRoutes from './docs';
 import fetchDownloadRoutes from './downloads';
+import { State } from '../store';
 
 export const loadRef: { value?: LoadingBarApi } = {};
 
@@ -33,6 +34,12 @@ const routes: RouteRecordRaw[] = [
     name: 'Downloads',
     path: '/download',
     component: () => import('../views/Downloads.vue'),
+    children: [
+      {
+        path: ':distro',
+        component: () => import('../components/Doc.vue'),
+      }
+    ],
     meta: {
       title: 'Downloads',
       sider: fetchDownloadRoutes
@@ -65,6 +72,8 @@ export const router = createRouter({
   history: createWebHistory(),
   routes
 });
+
+export type MenuCaller = (state: State, filter: string) => MenuOption[];
 
 router.beforeEach((to, _, next) => {
   loadRef.value?.start();
