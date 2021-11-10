@@ -1,4 +1,4 @@
-<script setup lang="tsx">
+<script setup lang="ts">
 import { NH2, NResult, NButton, NIcon, NButtonGroup } from 'naive-ui';
 import { ArrowBackOutline, HomeOutline, LogoGithub } from '@vicons/ionicons5';
 import { useRouter } from 'vue-router';

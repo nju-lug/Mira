@@ -30,7 +30,7 @@ const message = useMessage();
 const store = useStore();
 const entries = ref([] as SyncEntry[]);
 
-function RouteButton(data: SyncEntry) {
+function RouteButton({data}: {data: SyncEntry}) {
   const doc = store.state.docItems.find(value => value.name == data.name);
   return <>
     <NButton text onClick={() => {
@@ -52,7 +52,7 @@ function RouteButton(data: SyncEntry) {
   </>;
 }
 
-function StatusTag(data: SyncEntry) {
+function StatusTag({data}: {data: SyncEntry}) {
   let status: 'info' | 'success' | 'error' = 'info';
   switch (data.status) {
   case 'cache':
@@ -94,9 +94,9 @@ const columns = reactive([
     title: 'Mirror Name',
     key: 'name',
     align: 'left',
-    render: data => RouteButton(data),
+    render: data => <RouteButton data={data} />,
     filter: 'default',
-    filterOptionValue: filter as any,
+    filterOptionValue: filter,
     renderFilterIcon: () => <NIcon><SearchOutline /></NIcon>,
     renderFilterMenu: () => <NSpace style="padding: 12px" vertical>
       <NInput placeholder="Search mirrors..." v-model:value={filter.value} />
@@ -106,7 +106,7 @@ const columns = reactive([
     title: 'Status',
     key: 'status',
     align: 'center',
-    render: data => StatusTag(data)
+    render: data => <StatusTag data={data} />
   },
 ] as DataTableColumn<SyncEntry>[]);
 

@@ -1,4 +1,4 @@
-<script setup lang="tsx">
+<script setup lang="ts">
 import {
   NH2,
   NP,
@@ -30,9 +30,9 @@ const reports = [
   }
 ] as MenuOption[];
 
-const handleSelect = (key: string) => {
+function handleSelect(key: string) {
   window.open(key);
-};
+}
 </script>
 
 <template>

@@ -1,5 +1,5 @@
-<script setup lang="tsx">
-import { onBeforeMount, reactive } from 'vue';
+<script setup lang="ts">
+import { onMounted, reactive } from 'vue';
 import { NSpace, NDivider } from 'naive-ui';
 import cards, { CardItem } from '../models/cards';
 import Card from './Card.vue';
@@ -7,7 +7,7 @@ import Panel from './Panel.vue';
 
 const entries = reactive([] as CardItem[]);
 
-onBeforeMount(() => {
+onMounted(() => {
   cards.forEach(fetch => fetch().then(item => entries.push(item)));
 });
 </script>
