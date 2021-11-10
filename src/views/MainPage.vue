@@ -8,19 +8,28 @@ import {
   NBackTop,
   NDivider,
   useLoadingBar,
+  useMessage,
 } from 'naive-ui';
 
 import { useStore } from '../store';
 import { loadRef } from '../routes';
+import { fetchDocs } from '../models/documents';
+
 import Navi from '../components/Navi.vue';
 import Sider from './Sider.vue';
 import Footer from '../components/Footer.vue';
 
 const store = useStore();
 const loadingBar = useLoadingBar();
+const message = useMessage();
 const isMobile = computed(() => store.state.isMobile);
 
 onMounted(() => loadRef.value = loadingBar);
+
+onMounted(() => fetchDocs().then(
+  res => store.commit('setDocs', res),
+  err => message.error(err.message)
+));
 </script>
 
 <template>
