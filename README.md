@@ -1,11 +1,41 @@
-# Vue 3 + Typescript + Vite
+# NJU Mirror Frontend
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+> A **Refreshed** Vue3 frontend for [NJU Open Source Software Mirror](https://mirrors.nju.edu.cn/).
 
-## Recommended IDE Setup
+## How to Build the Project
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+Run `npm install` to install all dependencies for development.
 
-## Type Support For `.vue` Imports in TS
+Run `npm run build` to compile for production.
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+Run `npm run prebuild` to compile for GitHub Pages.
+
+Run `npm run serve` to start the development server.
+
+## How to Contribute
+
+### Mirror Documentations
+
+1. Fork this repository.
+2. Place your new mirror documentation by putting your `*.md` file in `public/configs/documentations/`. A sample file is
+   as follows:
+   > Filename: `2021-13-37-flatter.md`  
+   > Content:
+   > ```markdown
+   > ## Flatter 镜像安装帮助
+   > 
+   > 阿巴阿巴
+   > 
+   > ### 歪比巴卜
+   > 
+   > ...
+   > ```
+3. Run `public/configs/scripts/gendoc/genjson.py`, this should generate a new `index.json`. Replace old `index.json`
+   with it.
+4. Create a merge/pull request to let us know.
+
+### Report Bugs
+
+Please go to [Issues](https://git.nju.edu.cn/iori2333/NJU-Mirror-Frontend/-/issues) and report your environment (system,
+browser version, etc.) as well as how to trigger the bug. Note that different types of bugs should be reported in
+different issues.
