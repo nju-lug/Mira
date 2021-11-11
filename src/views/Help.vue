@@ -5,6 +5,7 @@ import { NH2, NResult, useMessage } from 'naive-ui';
 
 import { useStore } from '../store';
 import { fetchDoc } from '../models/documents';
+import Markdown from '../components/Markdown.vue';
 
 const route = useRoute();
 const store = useStore();
@@ -18,7 +19,6 @@ const distro = computed(() => {
   }
   return store.state.docItems.find(value => value.name == name);
 });
-const theme = computed(() => store.state.darkMode ? 'dark' : 'light');
 
 watchEffect(async () => {
   if (distro.value) {
@@ -32,6 +32,6 @@ watchEffect(async () => {
 
 <template>
   <n-h2 prefix="bar">{{ distro?.name || 'Help' }}</n-h2>
-  <div :class="`markdown-body ${theme}-scheme`" v-html="doc" v-if="distro" />
+  <Markdown :content="doc" v-if="distro" />
   <n-result size="huge" status="info" title="RTFM" description="Select menu to view help" v-else />
 </template>
