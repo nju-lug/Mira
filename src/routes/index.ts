@@ -75,7 +75,7 @@ export const router = createRouter({
 
 export type MenuCaller = (state: State, filter: string) => MenuOption[];
 
-router.beforeEach((to, _, next) => {
+router.beforeEach((_to, _from, next) => {
   loadRef.value?.start();
   next();
 });
