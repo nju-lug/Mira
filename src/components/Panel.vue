@@ -1,19 +1,69 @@
 <script setup lang="ts">
-import { NCard, NTabs, NTabPane, NDivider } from 'naive-ui';
+import { ref, onMounted } from 'vue';
+import { NCard, NTabs, NTabPane, NDivider, NRow, NButton, NModal } from 'naive-ui';
+import { fetchNewsList, fetchJokes, JokeEntry, NewsEntry, fetchNews } from '../models/news';
+import moment from 'moment';
+import Markdown from './Markdown.vue';
 
+const news = ref([] as NewsEntry[]);
+const jokes = ref([] as JokeEntry[]);
+const selected = ref(undefined as NewsEntry | undefined);
+const show = ref(false);
+const content = ref('');
+
+onMounted(() => fetchNewsList().then(
+  res => news.value = res
+));
+
+onMounted(() => fetchJokes().then(
+  res => jokes.value = res
+));
+
+function convertTime(ts: number) {
+  return moment.unix(ts).format('YYYY.M.D');
+}
+
+async function handleClick(link: NewsEntry) {
+  content.value = await fetchNews(link);
+  selected.value = link;
+  show.value = true;
+}
 </script>
 
 <template>
-  <div class="panel-container">
-    <n-card content-style="padding: 0;" :bordered="false">
-      <n-divider title-placement="left">NEWS</n-divider>
-      <n-tabs type="line" size="small" :tabs-padding="20" pane-style="padding: 20px;">
-        <n-tab-pane name="Mirror">Something</n-tab-pane>
-        <n-tab-pane name="LUG Jokes">LUG Jokes</n-tab-pane>
-      </n-tabs>
-    </n-card>
-  </div>
+  <n-card content-style="padding: 0;" :bordered="false">
+    <n-divider title-placement="left">NEWS</n-divider>
+    <n-tabs type="line" size="small" :tabs-padding="20" pane-style="padding: 20px;">
+      <n-tab-pane name="Mirror">
+        <n-row v-for="link in news" :key="link.content">
+          <n-button
+            text
+            tag="a"
+            @click="handleClick(link)"
+          >{{ convertTime(link.time) + ' - ' + link.name }}</n-button>
+        </n-row>
+      </n-tab-pane>
+      <n-tab-pane name="LUG Jokes">
+        <n-row v-for="link in jokes" :key="link.title">
+          <n-button text tag="a" :href="link.web_url" target="_blank">{{ link.title }}</n-button>
+        </n-row>
+      </n-tab-pane>
+    </n-tabs>
+  </n-card>
+  <n-modal
+    style="width: 600px;"
+    preset="card"
+    size="huge"
+    :bordered="true"
+    :title="selected?.name || 'Null'"
+    v-model:show="show"
+  >
+    <Markdown :content="content" />
+  </n-modal>
 </template>
 
 <style scoped lang="less">
+.n-row {
+  padding: 8px 0;
+}
 </style>
