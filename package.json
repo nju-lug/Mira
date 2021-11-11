@@ -8,12 +8,14 @@
   },
   "dependencies": {
     "axios": "^0.23.0",
+    "marked": "^4.0.0",
     "moment": "^2.29.1",
     "vue": "^3.2.16",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
+    "@types/marked": "^4.0.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "@vicons/ionicons5": "^0.11.0",

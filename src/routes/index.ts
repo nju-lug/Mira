@@ -22,7 +22,7 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: ':distro',
-        component: () => import('../components/Doc.vue'),
+        component: () => import('../views/Help.vue'),
       }
     ],
     meta: {
@@ -37,7 +37,7 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: ':distro',
-        component: () => import('../components/Doc.vue'),
+        component: () => import('../views/Downloads.vue'),
       }
     ],
     meta: {

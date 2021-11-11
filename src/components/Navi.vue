@@ -29,7 +29,7 @@ const createRoute = (to: string, name: string): MenuOption => ({
 });
 
 const active = ref(false);
-const activate = () => { active.value = true; };
+
 const darkMode: MenuOption = {
   label: () => <NSwitch
     v-slots={{
@@ -62,7 +62,7 @@ const options = [
     </n-text>
 
     <n-button-group style="height: 100%;">
-      <n-button text class="collapse-button" @click="activate" v-if="store.state.isMobile">
+      <n-button text class="collapse-button" v-if="store.state.isMobile" @click="active = true">
         <n-icon>
           <newspaper-outline />
         </n-icon>
