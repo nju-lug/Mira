@@ -1,8 +1,17 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { NCard, NTabs, NTabPane, NDivider, NRow, NButton, NModal } from 'naive-ui';
-import { fetchNewsList, fetchJokes, JokeEntry, NewsEntry, fetchNews } from '../models/news';
-import moment from 'moment';
+
+import dayjs from 'dayjs';
+
+import {
+  fetchNewsList,
+  fetchJokes,
+  JokeEntry,
+  NewsEntry,
+  fetchNews
+} from '../models/news';
+
 import Markdown from './Markdown.vue';
 
 const news = ref([] as NewsEntry[]);
@@ -20,9 +29,9 @@ onMounted(() => fetchJokes().then(
 ));
 
 function convertTime(ts: number) {
-  return moment.unix(ts).format('YYYY.M.D');
-}
+  return dayjs.unix(ts).format('YYYY.M.D');
 
+}
 async function handleClick(link: NewsEntry) {
   content.value = await fetchNews(link);
   selected.value = link;
