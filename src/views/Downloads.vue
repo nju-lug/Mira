@@ -25,7 +25,7 @@ const distro = computed(() => {
 
 const urls = computed(() => distro.value?.urls.map(
   item => {
-    const match = item.name.match(/(.*) \((.*)\)/);
+    const match = item.name.match(/(.*?) \((.*)\)/);
     return {
       title: match ? match[1] : 'null',
       description: match ? match[2] : 'null',

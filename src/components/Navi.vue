@@ -85,7 +85,7 @@ const options = [
   <n-drawer
     placement="right"
     v-model:show="active"
-    width="360"
+    width="min(360px, 80%)"
     :native-scrollbar="false"
     v-if="store.state.isMobile"
   >
