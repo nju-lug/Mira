@@ -7,7 +7,7 @@
 			"group": "build",
 			"problemMatcher": [],
 			"label": "npm: dev",
-			"detail": "vite"
+			"detail": "Start development server"
 		},
 		{
 			"type": "npm",
@@ -15,7 +15,23 @@
 			"group": "build",
 			"problemMatcher": [],
 			"label": "npm: build",
-			"detail": "vue-tsc --noEmit && vite build"
+			"detail": "Build for production"
+		},
+		{
+			"type": "npm",
+			"script": "prebuild",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "npm: prebuild",
+			"detail": "Build for Github Pages"
+		},
+		{
+			"type": "npm",
+			"script": "serve",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "npm: serve",
+			"detail": "Preview"
 		}
 	]
 }
