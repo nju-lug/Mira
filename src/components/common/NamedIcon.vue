@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { defineProps, Component } from 'vue';
+import { defineProps, VNode } from 'vue';
 import {
   MaleOutline,
   SchoolOutline,
@@ -15,7 +15,7 @@ import {
 } from '@vicons/ionicons5';
 import { NIcon } from 'naive-ui';
 
-const icons: Record<string, Component> = {
+const icons: Record<string, VNode> = {
   'male': <MaleOutline />,
   'school': <SchoolOutline />,
   'upload': <CloudUploadOutline />,
