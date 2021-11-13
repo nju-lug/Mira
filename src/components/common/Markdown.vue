@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineProps, computed } from 'vue';
-import { useStore } from '../store';
+import { useStore } from '../../store';
 
 const { content } = defineProps<{ content: string }>();
 

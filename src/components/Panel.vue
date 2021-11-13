@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { NCard, NTabs, NTabPane, NDivider, NRow, NButton, NModal } from 'naive-ui';
-
-import dayjs from 'dayjs';
+import {
+  NCard,
+  NTabs,
+  NTabPane,
+  NDivider,
+  NRow,
+  NButton,
+  NModal
+} from 'naive-ui';
 
 import {
   fetchNewsList,
@@ -11,8 +17,9 @@ import {
   NewsEntry,
   fetchNews
 } from '../models/news';
+import { convertTimestamp } from '../utils/time';
 
-import Markdown from './Markdown.vue';
+import Markdown from './common/Markdown.vue';
 
 const news = ref([] as NewsEntry[]);
 const jokes = ref([] as JokeEntry[]);
@@ -28,10 +35,6 @@ onMounted(() => fetchJokes().then(
   res => jokes.value = res
 ));
 
-function convertTime(ts: number) {
-  return dayjs.unix(ts).format('YYYY.M.D');
-
-}
 async function handleClick(link: NewsEntry) {
   content.value = await fetchNews(link);
   selected.value = link;
@@ -49,7 +52,7 @@ async function handleClick(link: NewsEntry) {
             text
             tag="a"
             @click="handleClick(link)"
-          >{{ convertTime(link.time) + ' - ' + link.name }}</n-button>
+          >{{ convertTimestamp(link.time) + ' - ' + link.name }}</n-button>
         </n-row>
       </n-tab-pane>
       <n-tab-pane name="LUG Jokes">

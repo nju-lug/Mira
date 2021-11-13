@@ -1,10 +1,6 @@
-import axios from 'axios';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-
 import { ServerPrefix } from '../configs';
-
-dayjs.extend(relativeTime);
+import { get } from '../utils/network';
+import { timeFromNow } from '../utils/time';
 
 export interface SyncEntry {
   name: string,
@@ -37,20 +33,22 @@ interface AdditionEntry extends SyncEntry {
 }
 
 export async function fetchEntries(): Promise<SyncEntry[]> {
-  const res1 = await axios.get(ServerPrefix + 'tunasync.json');
-  const res2 = await axios.get(ServerPrefix + 'addition.json');
-  const data = res1.data as RawEntry[];
+  const [data, addition] = await Promise.all([
+    get<RawEntry[]>(ServerPrefix + 'tunasync.json'),
+    get<AdditionEntry[]>(ServerPrefix + 'addition.json')
+  ]);
 
   const entries = data.map(value => ({
     name: value.name,
     status: value.status,
     path: '/' + value.name,
-    lastUpdate: value.last_update_ts > 0 ? dayjs.unix(value.last_update_ts).fromNow() : '-',
-    nextUpdate: value.next_schedule_ts > 0 ? dayjs.unix(value.next_schedule_ts).fromNow() : '-',
+    lastUpdate: value.last_update_ts > 0 ?
+      timeFromNow(value.last_update_ts) : '-',
+    nextUpdate: value.next_schedule_ts > 0 ?
+      timeFromNow(value.next_schedule_ts) : '-',
     size: value.size == 'unknown' ? '-' : value.size,
   }) as SyncEntry);
 
-  const addition = res2.data as AdditionEntry[];
   const addEntries = [];
   for (const entry of addition) {
     const o = entries.findIndex(value => value.name == entry.name);

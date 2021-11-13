@@ -5,7 +5,8 @@ import { NH2, NResult, useMessage } from 'naive-ui';
 
 import { useStore } from '../store';
 import { fetchDoc } from '../models/documents';
-import Markdown from '../components/Markdown.vue';
+
+import Markdown from '../components/common/Markdown.vue';
 
 const route = useRoute();
 const store = useStore();
@@ -20,7 +21,7 @@ const distro = computed(() => {
   return store.state.docItems.find(value => value.name == name);
 });
 
-watchEffect(async () => {
+watchEffect(() => {
   if (distro.value) {
     fetchDoc(distro.value).then(
       res => doc.value = res,

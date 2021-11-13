@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { marked } from 'marked';
 import { ServerPrefix } from '../configs';
+import { get } from '../utils/network';
 
 export interface NewsEntry {
   name: string,
@@ -14,20 +14,21 @@ export interface JokeEntry {
 }
 
 export async function fetchJokes() {
-  const res = await axios.get('https://git.nju.edu.cn/api/v4/projects/2412/issues');
-  const links = res.data as JokeEntry[];
+  const links: JokeEntry[] =
+    await get('https://git.nju.edu.cn/api/v4/projects/2412/issues');
   return links.map(link => ({
     ...link,
     title: link.title.replace(/\d+$/g, '')
   })).slice(0, 6);
 }
 
-export async function fetchNewsList() {
-  const res = await axios.get(ServerPrefix + 'news/index.json');
-  return res.data as NewsEntry[];
+export async function fetchNewsList(): Promise<NewsEntry[]> {
+  return await get(ServerPrefix + 'news/index.json');
 }
 
-export async function fetchNews(item: NewsEntry) {
-  const res = await axios.get(ServerPrefix + `news/${item.content}`);
-  return marked(res.data as string);
+export async function fetchNews(item: NewsEntry): Promise<string> {
+  return await get(
+    ServerPrefix + `news/${item.content}`,
+    (data: string) => marked(data)
+  );
 }

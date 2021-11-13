@@ -1,8 +1,8 @@
 <script setup lang="tsx">
-import { 
-  onMounted, 
+import {
+  onMounted,
   computed,
-  ref, 
+  ref,
   reactive
 } from 'vue';
 import { useRouter } from 'vue-router';
@@ -30,7 +30,7 @@ const message = useMessage();
 const store = useStore();
 const entries = ref([] as SyncEntry[]);
 
-function RouteButton({data}: {data: SyncEntry}) {
+function RouteButton({ data }: { data: SyncEntry }) {
   const doc = store.state.docItems.find(value => value.name == data.name);
   return <>
     <NButton text onClick={() => {
@@ -52,7 +52,7 @@ function RouteButton({data}: {data: SyncEntry}) {
   </>;
 }
 
-function StatusTag({data}: {data: SyncEntry}) {
+function StatusTag({ data }: { data: SyncEntry }) {
   let status: 'info' | 'success' | 'error' = 'info';
   switch (data.status) {
   case 'cache':
@@ -115,12 +115,12 @@ const pagination: PaginationProps = {
   pageSize: 20,
 };
 
-onMounted(() => {
-  fetchEntries().then(
-    res => entries.value = res.sort((a, b) => a.name.localeCompare(b.name)),
-    err => message.error(err.message)
-  );
-});
+onMounted(() => fetchEntries().then(
+  res => entries.value = res.sort(
+    (a, b) => a.name.localeCompare(b.name)
+  ),
+  err => message.error(err.message)
+));
 </script>
 
 <template>

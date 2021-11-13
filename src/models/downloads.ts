@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { ServerPrefix } from '../configs';
+import { get } from '../utils/network';
 
 export interface DownloadLink {
   name: string,
@@ -12,7 +12,6 @@ export interface DownloadContent {
   urls: DownloadLink[]
 }
 
-export async function fetchDownloads() {
-  const res = await axios.get(ServerPrefix + 'iso.json');
-  return res.data as DownloadContent[];
+export async function fetchDownloads(): Promise<DownloadContent[]> {
+  return await get(ServerPrefix + 'iso.json');
 }
