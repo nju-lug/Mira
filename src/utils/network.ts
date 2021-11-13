@@ -1,8 +1,16 @@
-export function get(url: string, config?: RequestInit) {
-  return fetch(url, {
+export async function get(url: string, config?: RequestInit) {
+  const res = await fetch(url, {
     ...config,
     method: 'GET',
   });
+
+  if (!res.ok) {
+    return Promise.reject({
+      status: res.status,
+      message: `Request failed with status ${res.status}: ${res.statusText}`
+    });
+  }
+  return res;
 }
 
 export async function json<T, U = unknown>(
@@ -10,7 +18,7 @@ export async function json<T, U = unknown>(
   callback?: (elem: U) => T,
   config?: RequestInit
 ): Promise<T> {
-  const res = await fetch(url, config);
+  const res = await get(url, config);
   const data = await res.json();
   if (callback) {
     return callback(data as U);
@@ -23,7 +31,7 @@ export async function text(
   callback?: (text: string) => string,
   config?: RequestInit
 ): Promise<string> {
-  const res = await fetch(url, config);
+  const res = await get(url, config);
   const data = await res.text();
   if (callback) {
     return callback(data);
