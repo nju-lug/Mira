@@ -1,6 +1,6 @@
 import { marked } from 'marked';
 import { ServerPrefix } from '../configs';
-import { get } from '../utils/network';
+import { json, text } from '../utils/network';
 
 export interface NewsEntry {
   name: string,
@@ -15,7 +15,7 @@ export interface JokeEntry {
 
 export async function fetchJokes() {
   const links: JokeEntry[] =
-    await get('https://git.nju.edu.cn/api/v4/projects/2412/issues');
+    await json('https://git.nju.edu.cn/api/v4/projects/2412/issues');
   return links.map(link => ({
     ...link,
     title: link.title.replace(/\d+$/g, '')
@@ -23,12 +23,12 @@ export async function fetchJokes() {
 }
 
 export async function fetchNewsList(): Promise<NewsEntry[]> {
-  return await get(ServerPrefix + 'news/index.json');
+  return await json(ServerPrefix + 'news/index.json');
 }
 
 export async function fetchNews(item: NewsEntry): Promise<string> {
-  return await get(
+  return await text(
     ServerPrefix + `news/${item.content}`,
-    (data: string) => marked(data)
+    data => marked(data)
   );
 }

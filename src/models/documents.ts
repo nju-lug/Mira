@@ -1,6 +1,6 @@
 import { marked } from 'marked';
 import { ServerPrefix } from '../configs';
-import { get } from '../utils/network';
+import { json, text } from '../utils/network';
 
 export interface DocItem {
   name: string,
@@ -9,12 +9,12 @@ export interface DocItem {
 }
 
 export async function fetchDocs(): Promise<DocItem[]> {
-  return await get(ServerPrefix + 'documentations/index.json');
+  return await json(ServerPrefix + 'documentations/index.json');
 }
 
 export async function fetchDoc(item: DocItem): Promise<string> {
-  return await get(
+  return await text(
     ServerPrefix + `documentations/${item.path}`,
-    (data: string) => marked(data)
+    data => marked(data)
   );
 }

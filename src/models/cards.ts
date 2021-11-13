@@ -1,5 +1,5 @@
 import { ServerPrefix } from '../configs';
-import { get } from '../utils/network';
+import { json } from '../utils/network';
 
 export interface CardLink {
   title: string,
@@ -14,11 +14,11 @@ export interface CardItem {
 }
 
 async function getESciCard(): Promise<CardItem> {
-  return await get(ServerPrefix + 'cards/esci.json');
+  return await json(ServerPrefix + 'cards/esci.json');
 }
 
 async function getFriendsCard(): Promise<CardItem> {
-  return await get(ServerPrefix + 'cards/friends.json');
+  return await json(ServerPrefix + 'cards/friends.json');
 }
 
 export default [

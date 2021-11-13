@@ -1,5 +1,5 @@
 import { ServerPrefix } from '../configs';
-import { get } from '../utils/network';
+import { json } from '../utils/network';
 import { timeFromNow } from '../utils/time';
 
 export interface SyncEntry {
@@ -34,8 +34,8 @@ interface AdditionEntry extends SyncEntry {
 
 export async function fetchEntries(): Promise<SyncEntry[]> {
   const [data, addition] = await Promise.all([
-    get<RawEntry[]>(ServerPrefix + 'tunasync.json'),
-    get<AdditionEntry[]>(ServerPrefix + 'addition.json')
+    json<RawEntry[]>(ServerPrefix + 'tunasync.json'),
+    json<AdditionEntry[]>(ServerPrefix + 'addition.json')
   ]);
 
   const entries = data.map(value => ({

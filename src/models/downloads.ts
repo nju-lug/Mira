@@ -1,5 +1,5 @@
 import { ServerPrefix } from '../configs';
-import { get } from '../utils/network';
+import { json } from '../utils/network';
 
 export interface DownloadLink {
   name: string,
@@ -13,5 +13,5 @@ export interface DownloadContent {
 }
 
 export async function fetchDownloads(): Promise<DownloadContent[]> {
-  return await get(ServerPrefix + 'iso.json');
+  return await json(ServerPrefix + 'iso.json');
 }
