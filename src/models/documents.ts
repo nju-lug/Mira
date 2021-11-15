@@ -4,8 +4,7 @@ import { json, text } from '../utils/network';
 
 export interface DocItem {
   name: string,
-  path: string,
-  route: string
+  path: string
 }
 
 export async function fetchDocs(): Promise<DocItem[]> {

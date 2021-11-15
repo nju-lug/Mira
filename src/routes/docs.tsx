@@ -7,7 +7,7 @@ export default function fetchDocRoutes(state: State, filter = '') {
   return state.docItems
     .filter(item => item.name.includes(filter))
     .map(item => ({
-      key: '/help/' + item.route,
-      label: () => <RouterLink to={'/help/' + item.route}>{item.name}</RouterLink>
+      key: '/help/' + item.name,
+      label: () => <RouterLink to={'/help/' + item.name}>{item.name}</RouterLink>
     } as MenuOption));
 }
