@@ -27,7 +27,7 @@ const { entry } = defineProps<{ entry: CardItem }>();
         <n-button text tag="a" :href="link.url" target="_blank">
           {{ link.title }}
           <template #icon>
-            <NamedIcon :name="link.icon || 'un'" :size="16" />
+            <NamedIcon :name="link.icon || 'unknown'" :size="16" />
           </template>
         </n-button>
       </n-row>

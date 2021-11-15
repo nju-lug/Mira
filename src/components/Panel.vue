@@ -63,7 +63,7 @@ async function handleClick(link: NewsEntry) {
     </n-tabs>
   </n-card>
   <n-modal
-    style="width: 600px;"
+    style="width: min(600px, 90%);"
     preset="card"
     size="huge"
     :bordered="true"
