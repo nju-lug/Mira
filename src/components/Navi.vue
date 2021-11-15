@@ -12,7 +12,7 @@ import {
   NButtonGroup,
   useMessage
 } from 'naive-ui';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import { NewspaperOutline, MenuOutline } from '@vicons/ionicons5';
 
@@ -52,6 +52,8 @@ const options = [
   createRoute('/about', 'About'),
   darkMode
 ];
+
+watch(() => route.path, () => { active.value = false; });
 </script>
 
 <template>
