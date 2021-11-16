@@ -41,6 +41,7 @@ const darkMode: MenuOption = {
       store.commit('setDarkMode', value);
       message.info(`Side of ${value ? 'Tairitsu' : 'Hikari'}`);
     }}
+    style="margin: 6px;"
   />,
   key: 'darkmode'
 };
@@ -99,6 +100,7 @@ watch(() => route.path, () => { active.value = false; });
 .navi-bar {
   background-color: rgba(216, 216, 216, 0.13);
 }
+
 .n-menu {
   text-align: center;
   padding-right: 24px;
