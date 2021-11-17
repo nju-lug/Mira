@@ -63,10 +63,8 @@ onMounted(() => fetchDocs().then(
       >
         <router-view />
         <n-back-top :right="50" style="z-index: 500;" />
-        <n-divider />
-        <div>
-          <Footer />
-        </div>
+        <n-divider style="margin-bottom: 0;" />
+        <Footer />
       </n-layout>
     </n-layout>
   </n-layout>

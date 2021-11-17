@@ -22,7 +22,7 @@ const download = (url: string) => window.open(url);
 </script>
 
 <template>
-  <n-list bordered>
+  <n-list bordered style="margin: auto 0;">
     <template #header>Versions</template>
     <n-list-item v-for="(item, index) in urls" :key="index">
       <template #suffix>
