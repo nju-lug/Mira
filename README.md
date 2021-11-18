@@ -1,4 +1,4 @@
-# NJU Mirror Frontend
+# Mira
 
 > A **Refreshed** Vue3 frontend for [NJU Open Source Software Mirror](https://mirrors.nju.edu.cn/).
 
@@ -34,10 +34,10 @@ Run `npm run serve` to start the development server.
    with it.
 4. Create a merge/pull request to let us know.
 
-You can preview this project on [https://iori2333.github.io/NJU-Mirror-Frontend](https://iori2333.github.io/NJU-Mirror-Frontend/).
+You can preview this project on [https://iori2333.github.io/Mira](https://iori2333.github.io/Mira/).
 
 ### Report Bugs
 
-Please go to [Issues](https://github.com/iori2333/NJU-Mirror-Frontend/issues) and report your environment (system,
+Please go to [Issues](https://github.com/iori2333/Mira/issues) and report your environment (system,
 browser version, etc.) as well as how to trigger the bug. Note that different types of bugs should be reported in
 different issues.

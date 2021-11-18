@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "prebuild": "vue-tsc --noEmit && vite build --base=/NJU-Mirror-Frontend/",
+    "prebuild": "vue-tsc --noEmit && vite build --base=/Mira/",
     "serve": "vite preview"
   },
   "dependencies": {
