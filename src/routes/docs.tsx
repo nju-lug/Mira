@@ -8,6 +8,8 @@ export default function fetchDocRoutes(state: State, filter = '') {
     .filter(item => item.name.includes(filter))
     .map(item => ({
       key: '/help/' + item.name,
-      label: () => <RouterLink to={'/help/' + item.name}>{item.name}</RouterLink>
+      label: () => {
+        return item.redirect ? <a href={item.redirect}>{item.name}</a> : <RouterLink to={'/help/' + item.name}>{item.name}</RouterLink>
+      }
     } as MenuOption));
 }

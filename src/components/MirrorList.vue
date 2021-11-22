@@ -45,7 +45,10 @@ function RouteButton({ data }: { data: SyncEntry }) {
     <NButton
       text
       v-show={doc}
-      onClick={() => router.push('/help/' + doc?.name || '')}
+      onClick={() => doc?.redirect ?
+        window.location.href = doc.redirect :
+        router.push('/help/' + doc?.name || '')
+      }
     >
       <NIcon><HelpCircleOutline /></NIcon>
     </NButton>
