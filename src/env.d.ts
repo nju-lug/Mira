@@ -6,3 +6,10 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>;
   export default component;
 }
+
+interface ImportMetaEnv {
+  /**
+   * Google Analytics User-Id
+   */
+  readonly VITE_GA: string
+}
