@@ -6,11 +6,9 @@ import { NH1, NH2, NP, NLayout } from 'naive-ui';
   <n-h2 prefix="bar">About</n-h2>
   <n-layout>
     <div class="about-content">
-      <img class="about-logo" src="../assets/index-logo.jpg" alt="Mirror Logo" />
+      <img class="about-logo" src="../assets/logo.png" alt="Mirror Logo" />
       <n-h1 class="title">NJU Mirror</n-h1>
-      <n-p class="about-text">A refreshed version of Nanjing University Mirror frontend</n-p>
-      <n-p class="about-text">Based on Vue3 + NaiveUI</n-p>
-      <n-p class="about-text">Created by Iori</n-p>
+      <n-p class="about-text">Created by NJU LUG</n-p>
     </div>
   </n-layout>
 </template>
@@ -34,8 +32,6 @@ import { NH1, NH2, NP, NLayout } from 'naive-ui';
     width: 240px;
     margin: 24px;
     align-self: center;
-    box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.2);
-    -webkit-box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.2);
   }
 
   .title {
