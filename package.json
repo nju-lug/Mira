@@ -4,14 +4,14 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "prebuild": "vue-tsc --noEmit && vite build --base=/NJU-Mirror-Frontend/",
+    "prebuild": "vue-tsc --noEmit && vite build --base=/Mira/",
     "serve": "vite preview"
   },
   "dependencies": {
-    "axios": "^0.23.0",
     "dayjs": "^1.10.7",
     "marked": "^4.0.0",
     "vue": "^3.2.16",
+    "vue-gtag": "^2.0.1",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
   },
@@ -26,6 +26,7 @@
     "eslint-plugin-vue": "^7.19.1",
     "less": "^4.1.2",
     "naive-ui": "^2.19.8",
+    "rollup-plugin-visualizer": "^5.5.2",
     "typescript": "^4.4.3",
     "vfonts": "^0.1.0",
     "vite": "^2.6.4",

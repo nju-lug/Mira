@@ -12,7 +12,7 @@ import {
   NButtonGroup,
   useMessage
 } from 'naive-ui';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import { NewspaperOutline, MenuOutline } from '@vicons/ionicons5';
 
@@ -41,6 +41,7 @@ const darkMode: MenuOption = {
       store.commit('setDarkMode', value);
       message.info(`Side of ${value ? 'Tairitsu' : 'Hikari'}`);
     }}
+    style="margin: 6px;"
   />,
   key: 'darkmode'
 };
@@ -52,6 +53,8 @@ const options = [
   createRoute('/about', 'About'),
   darkMode
 ];
+
+watch(() => route.path, () => { active.value = false; });
 </script>
 
 <template>
@@ -85,7 +88,7 @@ const options = [
   <n-drawer
     placement="right"
     v-model:show="active"
-    width="360"
+    width="min(360px, 80%)"
     :native-scrollbar="false"
     v-if="store.state.isMobile"
   >
@@ -97,6 +100,7 @@ const options = [
 .navi-bar {
   background-color: rgba(216, 216, 216, 0.13);
 }
+
 .n-menu {
   text-align: center;
   padding-right: 24px;

@@ -1,8 +1,8 @@
 <script setup lang="tsx">
-import { 
-  onMounted, 
+import {
+  onMounted,
   computed,
-  ref, 
+  ref,
   reactive
 } from 'vue';
 import { useRouter } from 'vue-router';
@@ -11,7 +11,6 @@ import {
   DataTableColumn,
   NButton,
   NTag,
-  PaginationProps,
   useMessage,
   NIcon,
   NInput,
@@ -30,7 +29,7 @@ const message = useMessage();
 const store = useStore();
 const entries = ref([] as SyncEntry[]);
 
-function RouteButton({data}: {data: SyncEntry}) {
+function RouteButton({ data }: { data: SyncEntry }) {
   const doc = store.state.docItems.find(value => value.name == data.name);
   return <>
     <NButton text onClick={() => {
@@ -44,15 +43,18 @@ function RouteButton({data}: {data: SyncEntry}) {
     </NButton>
     <NButton
       text
-      v-show={doc != undefined}
-      onClick={() => router.push('/help/' + doc?.route || '')}
+      v-show={doc}
+      onClick={() => doc?.redirect ?
+        window.location.href = doc.redirect :
+        router.push('/help/' + doc?.name || '')
+      }
     >
       <NIcon><HelpCircleOutline /></NIcon>
     </NButton>
   </>;
 }
 
-function StatusTag({data}: {data: SyncEntry}) {
+function StatusTag({ data }: { data: SyncEntry }) {
   let status: 'info' | 'success' | 'error' = 'info';
   switch (data.status) {
   case 'cache':
@@ -110,17 +112,12 @@ const columns = reactive([
   },
 ] as DataTableColumn<SyncEntry>[]);
 
-const pagination: PaginationProps = {
-  pageSlot: 7,
-  pageSize: 20,
-};
-
-onMounted(() => {
-  fetchEntries().then(
-    res => entries.value = res.sort((a, b) => a.name.localeCompare(b.name)),
-    err => message.error(err.message)
-  );
-});
+onMounted(() => fetchEntries().then(
+  res => entries.value = res.sort(
+    (a, b) => a.name.localeCompare(b.name)
+  ),
+  err => message.error(err.message)
+));
 </script>
 
 <template>
@@ -128,6 +125,5 @@ onMounted(() => {
     size="small"
     :columns="columns.concat(extraColumns)"
     :data="entries"
-    :pagination="pagination"
   />
 </template>
