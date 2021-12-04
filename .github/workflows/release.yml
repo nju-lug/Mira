@@ -25,6 +25,6 @@ jobs:
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          repo_token: "${{ secret.RELEASE_PKG_TOKEN }}"
+          repo_token: "${{ secrets.RELEASE_PKG_TOKEN }}"
           prerelease: false
           files: mira-$VERSION.zip
