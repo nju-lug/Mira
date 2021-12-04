@@ -27,4 +27,4 @@ jobs:
         with:
           repo_token: "${{ secrets.RELEASE_PKG_TOKEN }}"
           prerelease: false
-          files: mira-$VERSION.zip
+          files: mira-v*.zip
