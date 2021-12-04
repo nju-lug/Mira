@@ -11,7 +11,6 @@ import {
   DataTableColumn,
   NButton,
   NTag,
-  PaginationProps,
   useMessage,
   NIcon,
   NInput,
@@ -113,11 +112,6 @@ const columns = reactive([
   },
 ] as DataTableColumn<SyncEntry>[]);
 
-const pagination: PaginationProps = {
-  pageSlot: 7,
-  pageSize: 20,
-};
-
 onMounted(() => fetchEntries().then(
   res => entries.value = res.sort(
     (a, b) => a.name.localeCompare(b.name)
@@ -131,6 +125,5 @@ onMounted(() => fetchEntries().then(
     size="small"
     :columns="columns.concat(extraColumns)"
     :data="entries"
-    :pagination="pagination"
   />
 </template>
