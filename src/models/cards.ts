@@ -1,22 +1,26 @@
-import axios from 'axios';
 import { ServerPrefix } from '../configs';
+import { json } from '../utils/network';
+
+export interface CardLink {
+  title: string,
+  url: string,
+  icon?: string
+}
 
 export interface CardItem {
   title: string,
   url?: string,
-  links: {
-    title: string,
-    url: string,
-    icon?: string
-  }[]
+  links: CardLink[]
 }
 
-const esci = () => axios.get(ServerPrefix + 'cards/esci.json')
-  .then(res => res.data as CardItem);
+async function getESciCard(): Promise<CardItem> {
+  return await json(ServerPrefix + 'cards/esci.json');
+}
 
-const friends = () => axios.get(ServerPrefix + 'cards/friends.json')
-  .then(res => res.data as CardItem);
+async function getFriendsCard(): Promise<CardItem> {
+  return await json(ServerPrefix + 'cards/friends.json');
+}
 
 export default [
-  esci, friends
+  getESciCard, getFriendsCard
 ];

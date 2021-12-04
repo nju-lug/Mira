@@ -1,19 +1,23 @@
-import axios from 'axios';
 import { marked } from 'marked';
 import { ServerPrefix } from '../configs';
+import { json, text } from '../utils/network';
 
 export interface DocItem {
   name: string,
-  path: string,
-  route: string,
+  path?: string,
+  redirect?: string
 }
 
-export async function fetchDocs() {
-  const res = await axios.get(ServerPrefix + 'documentations/index.json');
-  return res.data as DocItem[];
+export async function fetchDocs(): Promise<DocItem[]> {
+  return await json(ServerPrefix + 'documentations/index.json');
 }
 
-export async function fetchDoc(item: DocItem) {
-  const res = await axios.get(ServerPrefix + `documentations/${item.path}`);
-  return marked(res.data as string);
+export async function fetchDoc(item: DocItem): Promise<string> {
+  if (item.path == undefined) {
+    return Promise.resolve('No document available.');
+  }
+  return await text(
+    ServerPrefix + `documentations/${item.path}`,
+    data => marked(data)
+  );
 }

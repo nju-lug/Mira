@@ -30,8 +30,8 @@ function change(value: string) {
 <template>
   <SideLinks v-if="!options" />
   <n-space style="overflow-x: hidden; padding: 0" vertical v-else>
-    <n-divider title-placement="left">ENTRIES</n-divider>
-    <n-space vertical style="padding: 0 12px">
+    <n-divider title-placement="left" style="margin-bottom: 12px;">ENTRIES</n-divider>
+    <n-space vertical style="padding: 0 12px;">
       <n-input placeholder="Search entries..." @input="change" />
     </n-space>
     <n-menu :options="options" :value="route.path" />
