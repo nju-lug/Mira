@@ -73,6 +73,7 @@ function StatusTag({ data }: { data: SyncEntry }) {
 }
 
 const filter = ref('');
+const loading = ref(true);
 const extraColumns = computed(() => store.state.isMobile ? [] : [
   {
     title: 'Size',
@@ -114,9 +115,12 @@ const columns = reactive([
 ] as DataTableColumn<SyncEntry>[]);
 
 onMounted(() => fetchEntries().then(
-  res => entries.value = res.sort(
-    (a, b) => a.name.localeCompare(b.name)
-  ),
+  res => {
+    entries.value = res.sort(
+      (a, b) => a.name.localeCompare(b.name)
+    );
+    loading.value = false;
+  },
   err => message.error(err.message)
 ));
 </script>
@@ -124,6 +128,7 @@ onMounted(() => fetchEntries().then(
 <template>
   <n-data-table
     size="small"
+    :loading="loading"
     :columns="columns.concat(extraColumns)"
     :data="entries"
     max-height="calc(100vh - 12.125rem)"
