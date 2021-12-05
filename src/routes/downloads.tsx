@@ -26,7 +26,7 @@ export default function fetchDownloadRoutes(state: State, filter = '') {
   const fonts = contents.filter(value => value.category == 'font');
   return [
     {
-      label: `OS ${apps.length}`,
+      label: `OS ${os.length}`,
       key: 'OS',
       icon: () => <NIcon><DesktopOutline /></NIcon>,
       children: toOptions(os)
