@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, nextTick, ref, onBeforeUnmount } from 'vue';
 import { RouterView } from 'vue-router';
 import {
   NLayout,
@@ -24,12 +24,32 @@ const loadingBar = useLoadingBar();
 const message = useMessage();
 const isMobile = computed(() => store.state.isMobile);
 
+const containerRef = ref<{ $el: HTMLDivElement } | null>(null);
+let observer: ResizeObserver | undefined;
+
 onMounted(() => loadRef.value = loadingBar);
 
 onMounted(() => fetchDocs().then(
   res => store.commit('setDocs', res),
   err => message.error(err.message)
 ));
+
+nextTick(() => {
+  window.onresize = () => store.commit('setWidth', document.body.clientWidth);
+  if (containerRef.value?.$el) {
+    observer = new ResizeObserver(width => {
+      const newWidth = width[0].contentBoxSize[0].inlineSize;
+      if (!store.state.isMobile)
+        store.commit('setWidth', newWidth);
+    });
+    observer.observe(containerRef.value.$el, { box: 'content-box' });
+  }
+});
+
+onBeforeUnmount(() => {
+  observer?.disconnect();
+  window.onresize = null;
+});
 </script>
 
 <template>
@@ -58,6 +78,7 @@ onMounted(() => fetchDocs().then(
         <Sider />
       </n-layout-sider>
       <n-layout
+        ref="containerRef"
         :native-scrollbar="false"
         content-style="display: flex; flex-direction: column; padding: 24px"
       >
