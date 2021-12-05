@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { defineProps, computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { NIcon, NButton, NList, NListItem, NThing } from 'naive-ui';
 import { DownloadOutline } from '@vicons/ionicons5';
 
 import { DownloadContent } from '../models/downloads';
 
+const { t } = useI18n();
 const props = defineProps<{ distro: DownloadContent }>();
 
 const urls = computed(() => props.distro.urls.map(
@@ -23,7 +25,7 @@ const download = (url: string) => window.open(url);
 
 <template>
   <n-list bordered style="margin: auto 0;">
-    <template #header>Versions</template>
+    <template #header>{{ t('downloads.versions') }}</template>
     <n-list-item v-for="(item, index) in urls" :key="index">
       <template #suffix>
         <n-button @click="download(item.url)">
@@ -32,7 +34,7 @@ const download = (url: string) => window.open(url);
               <download-outline />
             </n-icon>
           </template>
-          Download
+          {{ t('downloads.download') }}
         </n-button>
       </template>
       <n-thing :title="item.title" :description="item.description" />

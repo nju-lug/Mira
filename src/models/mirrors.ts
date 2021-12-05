@@ -1,14 +1,13 @@
 import { ServerPrefix } from '../configs';
 import { json } from '../utils/network';
-import { timeFromNow } from '../utils/time';
 
 export interface SyncEntry {
   name: string,
   status?: string,
   path?: string,
   route?: string,
-  lastUpdate?: string,
-  nextUpdate?: string,
+  lastUpdate?: number,
+  nextUpdate?: number,
   size?: string,
 }
 
@@ -42,10 +41,8 @@ export async function fetchEntries(): Promise<SyncEntry[]> {
     name: value.name,
     status: value.status,
     path: '/' + value.name,
-    lastUpdate: value.last_update_ts > 0 ?
-      timeFromNow(value.last_update_ts) : '-',
-    nextUpdate: value.next_schedule_ts > 0 ?
-      timeFromNow(value.next_schedule_ts) : '-',
+    lastUpdate: value.last_update_ts,
+    nextUpdate: value.next_schedule_ts, 
     size: value.size == 'unknown' ? '-' : value.size,
   }) as SyncEntry);
 
@@ -62,8 +59,8 @@ export async function fetchEntries(): Promise<SyncEntry[]> {
       status: entry.status || parent?.status || 'unknown',
       path: entry.path,
       route: entry.route,
-      lastUpdate: entry.lastUpdate || parent?.lastUpdate || '-',
-      nextUpdate: entry.nextUpdate || parent?.nextUpdate || '-',
+      lastUpdate: entry.lastUpdate || parent?.lastUpdate || -1,
+      nextUpdate: entry.nextUpdate || parent?.nextUpdate || -1,
       size: entry.size || '-',
     }) as SyncEntry);
   }

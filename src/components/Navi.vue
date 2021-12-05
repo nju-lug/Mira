@@ -14,17 +14,19 @@ import {
 } from 'naive-ui';
 import { ref, watch } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import { NewspaperOutline, MenuOutline } from '@vicons/ionicons5';
 
 import { useStore } from '../store';
 import Sider from '../views/Sider.vue';
 
+const { t, locale } = useI18n();
 const store = useStore();
 const route = useRoute();
 const message = useMessage();
 
 const createRoute = (to: string, name: string): MenuOption => ({
-  label: () => <RouterLink to={to}>{name}</RouterLink>,
+  label: () => <RouterLink to={to}>{t(`header.${name}`)}</RouterLink>,
   key: to
 });
 
@@ -46,11 +48,19 @@ const darkMode: MenuOption = {
   key: 'darkmode'
 };
 
+const localeButton: MenuOption = {
+  label: () => <NButton text onClick={
+    () => locale.value = locale.value == 'zh' ? 'en' : 'zh'
+  }>{t('locale')}</NButton>,
+  key: 'locale'
+};
+
 const options = [
-  createRoute('/', 'Mirrors'),
-  createRoute('/download', 'Downloads'),
-  createRoute('/help', 'Help'),
-  createRoute('/about', 'About'),
+  createRoute('/', 'mirrors'),
+  createRoute('/download', 'downloads'),
+  createRoute('/help', 'help'),
+  createRoute('/about', 'about'),
+  localeButton,
   darkMode
 ];
 

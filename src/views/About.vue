@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n';
 import { NH1, NH2, NP, NLayout } from 'naive-ui';
+
+const { t } = useI18n();
 </script>
 
 <template>
-  <n-h2 prefix="bar">About</n-h2>
+  <n-h2 prefix="bar">{{ t('header.about') }}</n-h2>
   <n-layout>
     <div class="about-content">
       <img class="about-logo" src="../assets/index-logo.jpg" alt="Mirror Logo" />

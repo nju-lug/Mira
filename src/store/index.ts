@@ -11,6 +11,7 @@ import { DownloadContent } from '../models/downloads';
 export interface State {
   isMobile: boolean,
   darkMode: boolean,
+  locale: 'zh' | 'en',
   docItems: DocItem[],
   downloadContents: DownloadContent[]
 }
@@ -21,6 +22,7 @@ export const store = createStore<State>({
   state: {
     isMobile: document.body.clientWidth < MobileWidth,
     darkMode: sessionStorage.getItem('darkMode') == 'true',
+    locale: 'zh',
     docItems: [],
     downloadContents: []
   },
@@ -37,6 +39,9 @@ export const store = createStore<State>({
     },
     setDownloads(state, items: DownloadContent[]) {
       state.downloadContents = items;
+    },
+    setLocale(state, locale: 'zh' | 'en') {
+      state.locale = locale;
     }
   }
 });
