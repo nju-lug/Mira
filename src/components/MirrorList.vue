@@ -73,6 +73,7 @@ function StatusTag({ data }: { data: SyncEntry }) {
 }
 
 const filter = ref('');
+const loading = ref(true);
 const extraColumns = computed(() => store.state.isMobile ? [] : [
   {
     title: 'Size',
@@ -93,11 +94,12 @@ const extraColumns = computed(() => store.state.isMobile ? [] : [
 
 const columns = reactive([
   {
-    title: 'Mirror Name',
+    title: 'Name',
     key: 'name',
     align: 'left',
     render: data => <RouteButton data={data} />,
-    filter: 'default',
+    filter: (value, row) => row.name.toLocaleLowerCase()
+      .includes((value as string).toLocaleLowerCase()),
     filterOptionValue: filter,
     renderFilterIcon: () => <NIcon><SearchOutline /></NIcon>,
     renderFilterMenu: () => <NSpace style="padding: 12px" vertical>
@@ -113,9 +115,12 @@ const columns = reactive([
 ] as DataTableColumn<SyncEntry>[]);
 
 onMounted(() => fetchEntries().then(
-  res => entries.value = res.sort(
-    (a, b) => a.name.localeCompare(b.name)
-  ),
+  res => {
+    entries.value = res.sort(
+      (a, b) => a.name.localeCompare(b.name)
+    );
+    loading.value = false;
+  },
   err => message.error(err.message)
 ));
 </script>
@@ -123,7 +128,10 @@ onMounted(() => fetchEntries().then(
 <template>
   <n-data-table
     size="small"
+    :loading="loading"
     :columns="columns.concat(extraColumns)"
     :data="entries"
+    max-height="calc(100vh - 12.125rem)"
+    virtual-scroll
   />
 </template>

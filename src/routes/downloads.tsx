@@ -20,25 +20,28 @@ function toOptions(items: DownloadContent[]) {
 
 export default function fetchDownloadRoutes(state: State, filter = '') {
   const contents = state.downloadContents
-    .filter(value => value.distro.includes(filter));
+    .filter(value => value.distro.toLocaleLowerCase().includes(filter.toLocaleLowerCase()));
+  const os = contents.filter(value => value.category == 'os');
+  const apps = contents.filter(value => value.category == 'app');
+  const fonts = contents.filter(value => value.category == 'font');
   return [
     {
-      label: 'OS',
+      label: `OS ${apps.length}`,
       key: 'OS',
       icon: () => <NIcon><DesktopOutline /></NIcon>,
-      children: toOptions(contents.filter(value => value.category == 'os'))
+      children: toOptions(os)
     },
     {
-      label: 'Apps',
+      label: `Apps ${apps.length}`,
       key: 'Apps',
       icon: () => <NIcon><AppsOutline /></NIcon>,
-      children: toOptions(contents.filter(value => value.category == 'app'))
+      children: toOptions(apps)
     },
     {
-      label: 'Fonts',
+      label: `Fonts ${fonts.length}`,
       key: 'Fonts',
       icon: () => <NIcon><ColorPaletteOutline /></NIcon>,
-      children: toOptions(contents.filter(value => value.category == 'font'))
+      children: toOptions(fonts)
     }
   ] as MenuOption[];
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, computed } from 'vue';
+import { computed } from 'vue';
 import {
   GlobalThemeOverrides,
   NConfigProvider,
@@ -21,10 +21,6 @@ const override = computed(() => ({
     primaryColorSuppl: '#6f106e',
   }
 } as GlobalThemeOverrides));
-
-onMounted(() => {
-  window.onresize = () => store.commit('setWidth', document.body.clientWidth);
-});
 </script>
 
 <template>

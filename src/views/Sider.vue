@@ -34,6 +34,6 @@ function change(value: string) {
     <n-space vertical style="padding: 0 12px;">
       <n-input placeholder="Search entries..." @input="change" />
     </n-space>
-    <n-menu :options="options" :value="route.path" />
+    <n-menu :options="options" :value="route.path" default-expand-all />
   </n-space>
 </template>
