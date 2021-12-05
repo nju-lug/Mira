@@ -21,10 +21,13 @@ jobs:
           npm run build
 
       - name: Packaging
-        run: zip -r mira-$VERSION.zip dist/*
+        run: |
+          cd dist
+          zip -r ../mira-release.zip *
+          cd ..
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.RELEASE_PKG_TOKEN }}"
           prerelease: false
-          files: mira-v*.zip
+          files: mira-release.zip
