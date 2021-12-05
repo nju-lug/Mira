@@ -93,11 +93,12 @@ const extraColumns = computed(() => store.state.isMobile ? [] : [
 
 const columns = reactive([
   {
-    title: 'Mirror Name',
+    title: 'Name',
     key: 'name',
     align: 'left',
     render: data => <RouteButton data={data} />,
-    filter: 'default',
+    filter: (value, row) => row.name.toLocaleLowerCase()
+      .includes((value as string).toLocaleLowerCase()),
     filterOptionValue: filter,
     renderFilterIcon: () => <NIcon><SearchOutline /></NIcon>,
     renderFilterMenu: () => <NSpace style="padding: 12px" vertical>
@@ -125,5 +126,7 @@ onMounted(() => fetchEntries().then(
     size="small"
     :columns="columns.concat(extraColumns)"
     :data="entries"
+    max-height="calc(100vh - 12.125rem)"
+    virtual-scroll
   />
 </template>
