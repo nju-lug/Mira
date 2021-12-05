@@ -5,7 +5,7 @@ import {
   ColorPaletteOutline
 } from '@vicons/ionicons5';
 import { RouterLink } from 'vue-router';
-
+import { useI18n } from 'vue-i18n';
 import { State } from '../store';
 import { DownloadContent } from '../models/downloads';
 
@@ -19,6 +19,10 @@ function toOptions(items: DownloadContent[]) {
 }
 
 export default function fetchDownloadRoutes(state: State, filter = '') {
+  const { t } = useI18n();
+  const osText = t('sider.os');
+  const appsText = t('sider.apps');
+  const fontsText = t('sider.fonts');
   const contents = state.downloadContents
     .filter(value => value.distro.toLocaleLowerCase().includes(filter.toLocaleLowerCase()));
   const os = contents.filter(value => value.category == 'os');
@@ -26,19 +30,19 @@ export default function fetchDownloadRoutes(state: State, filter = '') {
   const fonts = contents.filter(value => value.category == 'font');
   return [
     {
-      label: `OS ${os.length}`,
+      label: `${osText} ${os.length}`,
       key: 'OS',
       icon: () => <NIcon><DesktopOutline /></NIcon>,
       children: toOptions(os)
     },
     {
-      label: `Apps ${apps.length}`,
+      label: `${appsText} ${apps.length}`,
       key: 'Apps',
       icon: () => <NIcon><AppsOutline /></NIcon>,
       children: toOptions(apps)
     },
     {
-      label: `Fonts ${fonts.length}`,
+      label: `${fontsText} ${fonts.length}`,
       key: 'Fonts',
       icon: () => <NIcon><ColorPaletteOutline /></NIcon>,
       children: toOptions(fonts)

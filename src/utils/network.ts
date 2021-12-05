@@ -1,7 +1,7 @@
 export async function get(url: string, config?: RequestInit) {
   const res = await fetch(url, {
     ...config,
-    method: 'GET',
+    method: 'GET'
   });
 
   if (!res.ok) {

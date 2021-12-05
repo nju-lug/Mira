@@ -6,7 +6,5 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": true
   },
-  "[vue]": {
-    "editor.defaultFormatter": "johnsoncodehk.volar"
-  },
+  "eslint.format.enable": true
 }

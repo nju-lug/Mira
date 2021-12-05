@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n';
 import {
   NH2,
   NP,
@@ -9,12 +10,9 @@ import {
   NIcon,
   MenuOption
 } from 'naive-ui';
-import {
-  BugOutline,
-  CodeOutline,
-  MaleOutline
-} from '@vicons/ionicons5';
+import { BugOutline, CodeOutline, MaleOutline } from '@vicons/ionicons5';
 
+const { t } = useI18n();
 const reports = [
   {
     label: 'Via Mail',
@@ -36,31 +34,40 @@ function handleSelect(key: string) {
 </script>
 
 <template>
-  <n-h2 prefix="bar">NJU Open Source Mirror</n-h2>
+  <n-h2 prefix="bar">{{ t('mirror') }}</n-h2>
   <n-space justify="space-between">
     <div>
-      <n-p class="footer-text">This mirror site is maintained by @yaoge123</n-p>
-      <n-p class="footer-text">Frontend by Iori@LinuxUserGroup</n-p>
-      <n-p class="footer-text">Special thanks to tuna for their documentations</n-p>
+      <n-p class="footer-text">{{
+        t('footer.maintainer', { name: '@yaoge123' })
+      }}</n-p>
+      <n-p class="footer-text">{{
+        t('footer.developer', { name: 'Iori@LinuxUserGroup' })
+      }}</n-p>
+      <n-p class="footer-text">{{ t('footer.special') }}</n-p>
     </div>
     <n-button-group vertical>
-      <n-dropdown trigger="click" @select="handleSelect" placement="left-start" :options="reports">
+      <n-dropdown
+        trigger="click"
+        @select="handleSelect"
+        placement="left-start"
+        :options="reports"
+      >
         <n-button text>
           <template #icon>
             <n-icon size="16">
               <bug-outline />
             </n-icon>
           </template>
-          Report Bugs
+          {{ t('footer.bug') }}
         </n-button>
       </n-dropdown>
-      <n-button text @click="handleSelect('https://github.com/iori2333/NJU-Mirror-Frontend')">
+      <n-button text @click="handleSelect('https://github.com/iori2333/Mira')">
         <template #icon>
           <n-icon size="16">
             <code-outline />
           </n-icon>
         </template>
-        Source Code
+        {{ t('footer.source') }}
       </n-button>
       <n-button text @click="handleSelect('https://git.nju.edu.cn/nju-lug')">
         <template #icon>
@@ -68,7 +75,7 @@ function handleSelect(key: string) {
             <male-outline />
           </n-icon>
         </template>
-        Join NJU LUG
+        {{ t('footer.lug') }}
       </n-button>
     </n-button-group>
   </n-space>

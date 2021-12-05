@@ -14,58 +14,89 @@ import {
 } from 'naive-ui';
 import { ref, watch } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import { NewspaperOutline, MenuOutline } from '@vicons/ionicons5';
 
 import { useStore } from '../store';
 import Sider from '../views/Sider.vue';
 
+const { t, locale } = useI18n();
 const store = useStore();
 const route = useRoute();
 const message = useMessage();
 
 const createRoute = (to: string, name: string): MenuOption => ({
-  label: () => <RouterLink to={to}>{name}</RouterLink>,
+  label: () => <RouterLink to={to}>{t(`header.${name}`)}</RouterLink>,
   key: to
 });
 
 const active = ref(false);
 
 const darkMode: MenuOption = {
-  label: () => <NSwitch
-    v-slots={{
-      checked: () => 'Conflict',
-      unchecked: () => 'Light'
-    }}
-    defaultValue={store.state.darkMode}
-    onUpdateValue={value => {
-      store.commit('setDarkMode', value);
-      message.info(`Side of ${value ? 'Tairitsu' : 'Hikari'}`);
-    }}
-    style="margin: 6px;"
-  />,
+  label: () => (
+    <NSwitch
+      v-slots={{
+        checked: () => 'Conflict',
+        unchecked: () => 'Light'
+      }}
+      defaultValue={store.state.darkMode}
+      onUpdateValue={value => {
+        store.commit('setDarkMode', value);
+        message.info(`Side of ${value ? 'Tairitsu' : 'Hikari'}`);
+      }}
+      style="margin: 6px;"
+    />
+  ),
   key: 'darkmode'
 };
 
+const localeButton: MenuOption = {
+  label: () => (
+    <NButton
+      text
+      onClick={() => (locale.value = locale.value == 'zh' ? 'en' : 'zh')}
+    >
+      {t('locale')}
+    </NButton>
+  ),
+  key: 'locale'
+};
+
 const options = [
-  createRoute('/', 'Mirrors'),
-  createRoute('/download', 'Downloads'),
-  createRoute('/help', 'Help'),
-  createRoute('/about', 'About'),
+  createRoute('/', 'mirrors'),
+  createRoute('/download', 'downloads'),
+  createRoute('/help', 'help'),
+  createRoute('/about', 'about'),
+  localeButton,
   darkMode
 ];
 
-watch(() => route.path, () => { active.value = false; });
+watch(
+  () => route.path,
+  () => {
+    active.value = false;
+  }
+);
 </script>
 
 <template>
-  <n-space class="navi-bar" justify="space-between" style="height: var(--header-height);">
+  <n-space
+    class="navi-bar"
+    justify="space-between"
+    style="height: var(--header-height)"
+  >
     <n-text class="logo-container">
       <img src="../assets/logo.png" alt="Mirror Logo" />
       <span>NJU Mirror</span>
     </n-text>
 
-    <n-button-group style="height: 100%;">
-      <n-button text class="collapse-button" v-if="store.state.isMobile" @click="active = true">
+    <n-button-group style="height: 100%">
+      <n-button
+        text
+        class="collapse-button"
+        v-if="store.state.isMobile"
+        @click="active = true"
+      >
         <n-icon>
           <newspaper-outline />
         </n-icon>
@@ -76,7 +107,12 @@ watch(() => route.path, () => { active.value = false; });
         mode="horizontal"
         v-if="!store.state.isMobile"
       />
-      <n-dropdown :options="options" placement="bottom-end" trigger="click" v-else>
+      <n-dropdown
+        :options="options"
+        placement="bottom-end"
+        trigger="click"
+        v-else
+      >
         <n-button text class="collapse-button">
           <n-icon>
             <menu-outline />
