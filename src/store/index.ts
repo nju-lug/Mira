@@ -1,19 +1,15 @@
 import { InjectionKey } from 'vue';
-import {
-  createStore,
-  useStore as baseUseStore,
-  Store
-} from 'vuex';
+import { createStore, useStore as baseUseStore, Store } from 'vuex';
 import { MobileWidth } from '../configs';
 import { DocItem } from '../models/documents';
 import { DownloadContent } from '../models/downloads';
 
 export interface State {
-  isMobile: boolean,
-  darkMode: boolean,
-  locale: 'zh' | 'en',
-  docItems: DocItem[],
-  downloadContents: DownloadContent[]
+  isMobile: boolean;
+  darkMode: boolean;
+  locale: 'zh' | 'en';
+  docItems: DocItem[];
+  downloadContents: DownloadContent[];
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();

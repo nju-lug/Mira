@@ -5,8 +5,9 @@ import { useStore } from '../../store';
 const { content } = defineProps<{ content: string }>();
 
 const store = useStore();
-const theme = computed(() => store.state.darkMode ?
-  'dark-scheme' : 'light-scheme');
+const theme = computed(() =>
+  store.state.darkMode ? 'dark-scheme' : 'light-scheme'
+);
 </script>
 
 <template>

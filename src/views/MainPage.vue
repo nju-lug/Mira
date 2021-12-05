@@ -8,7 +8,7 @@ import {
   NBackTop,
   NDivider,
   useLoadingBar,
-  useMessage,
+  useMessage
 } from 'naive-ui';
 
 import { useStore } from '../store';
@@ -27,20 +27,21 @@ const isMobile = computed(() => store.state.isMobile);
 const containerRef = ref<{ $el: HTMLDivElement } | null>(null);
 let observer: ResizeObserver | undefined;
 
-onMounted(() => loadRef.value = loadingBar);
+onMounted(() => (loadRef.value = loadingBar));
 
-onMounted(() => fetchDocs().then(
-  res => store.commit('setDocs', res),
-  err => message.error(err.message)
-));
+onMounted(() =>
+  fetchDocs().then(
+    res => store.commit('setDocs', res),
+    err => message.error(err.message)
+  )
+);
 
 nextTick(() => {
   window.onresize = () => store.commit('setWidth', document.body.clientWidth);
   if (containerRef.value?.$el) {
     observer = new ResizeObserver(width => {
       const newWidth = width[0].contentBoxSize[0].inlineSize;
-      if (!store.state.isMobile)
-        store.commit('setWidth', newWidth);
+      if (!store.state.isMobile) store.commit('setWidth', newWidth);
     });
     observer.observe(containerRef.value.$el, { box: 'content-box' });
   }
@@ -54,7 +55,7 @@ onBeforeUnmount(() => {
 
 <template>
   <n-layout position="absolute">
-    <n-layout-header style="height: var(--header-height);">
+    <n-layout-header style="height: var(--header-height)">
       <Navi />
     </n-layout-header>
     <n-layout
@@ -62,7 +63,7 @@ onBeforeUnmount(() => {
       position="absolute"
       :has-sider="true"
       sider-placement="left"
-      style="top: var(--header-height);"
+      style="top: var(--header-height)"
     >
       <n-layout-sider
         :native-scrollbar="false"
@@ -83,8 +84,8 @@ onBeforeUnmount(() => {
         content-style="display: flex; flex-direction: column; padding: 24px"
       >
         <router-view />
-        <n-back-top :right="50" style="z-index: 500;" />
-        <n-divider style="margin-bottom: 0;" />
+        <n-back-top :right="50" style="z-index: 500" />
+        <n-divider style="margin-bottom: 0" />
         <Footer />
       </n-layout>
     </n-layout>

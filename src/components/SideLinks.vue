@@ -15,7 +15,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <n-space style="overflow-x: hidden; padding-bottom: 12px;" vertical>
+  <n-space style="overflow-x: hidden; padding-bottom: 12px" vertical>
     <Panel />
     <n-divider title-placement="left">{{ t('sider.links') }}</n-divider>
     <Card v-for="card in entries" :key="card.title" :entry="card" />

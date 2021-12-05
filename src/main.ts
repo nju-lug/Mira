@@ -15,11 +15,15 @@ const app = createApp(App);
 
 app.use(store, key);
 app.use(router);
-app.use(VueGtag, {
-  config: {
-    id: import.meta.env.VITE_GA,
+app.use(
+  VueGtag,
+  {
+    config: {
+      id: import.meta.env.VITE_GA
+    }
   },
-}, router);
+  router
+);
 app.use(i18n);
 
 app.mount('#app');

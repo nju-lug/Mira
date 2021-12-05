@@ -10,11 +10,7 @@ import {
   NIcon,
   MenuOption
 } from 'naive-ui';
-import {
-  BugOutline,
-  CodeOutline,
-  MaleOutline
-} from '@vicons/ionicons5';
+import { BugOutline, CodeOutline, MaleOutline } from '@vicons/ionicons5';
 
 const { t } = useI18n();
 const reports = [
@@ -41,12 +37,21 @@ function handleSelect(key: string) {
   <n-h2 prefix="bar">{{ t('mirror') }}</n-h2>
   <n-space justify="space-between">
     <div>
-      <n-p class="footer-text">{{ t('footer.maintainer', { name: '@yaoge123' }) }}</n-p>
-      <n-p class="footer-text">{{ t('footer.developer', { name: 'Iori@LinuxUserGroup' }) }}</n-p>
+      <n-p class="footer-text">{{
+        t('footer.maintainer', { name: '@yaoge123' })
+      }}</n-p>
+      <n-p class="footer-text">{{
+        t('footer.developer', { name: 'Iori@LinuxUserGroup' })
+      }}</n-p>
       <n-p class="footer-text">{{ t('footer.special') }}</n-p>
     </div>
     <n-button-group vertical>
-      <n-dropdown trigger="click" @select="handleSelect" placement="left-start" :options="reports">
+      <n-dropdown
+        trigger="click"
+        @select="handleSelect"
+        placement="left-start"
+        :options="reports"
+      >
         <n-button text>
           <template #icon>
             <n-icon size="16">
@@ -56,7 +61,7 @@ function handleSelect(key: string) {
           {{ t('footer.bug') }}
         </n-button>
       </n-dropdown>
-      <n-button text @click="handleSelect('https://github.com/iori2333/NJU-Mirror-Frontend')">
+      <n-button text @click="handleSelect('https://github.com/iori2333/Mira')">
         <template #icon>
           <n-icon size="16">
             <code-outline />

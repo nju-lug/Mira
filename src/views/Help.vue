@@ -26,7 +26,7 @@ const distro = computed(() => {
 watchEffect(() => {
   if (distro.value) {
     fetchDoc(distro.value).then(
-      res => doc.value = res,
+      res => (doc.value = res),
       err => message.error(err.message)
     );
   }

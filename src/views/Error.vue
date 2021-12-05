@@ -7,12 +7,18 @@ import { ArrowBackOutline, HomeOutline, LogoGithub } from '@vicons/ionicons5';
 const { t } = useI18n();
 const router = useRouter();
 
-const issue = () => window.open('https://github.com/iori2333/NJU-Mirror-Frontend/issues');
+const issue = () =>
+  window.open('https://github.com/iori2333/NJU-Mirror-Frontend/issues');
 </script>
 
 <template>
   <n-h2 prefix="bar">{{ t('header.error') }}</n-h2>
-  <n-result size="huge" status="404" title="404 Not Found" :description="t('error.description')">
+  <n-result
+    size="huge"
+    status="404"
+    title="404 Not Found"
+    :description="t('error.description')"
+  >
     <template #footer>
       <n-button-group>
         <n-button type="primary" @click="router.back()">

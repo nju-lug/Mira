@@ -14,13 +14,17 @@ const store = useStore();
 const route = useRoute();
 const message = useMessage();
 
-onMounted(() => fetchDownloads().then(
-  res => store.commit('setDownloads', res),
-  err => message.error(err.message)
-));
+onMounted(() =>
+  fetchDownloads().then(
+    res => store.commit('setDownloads', res),
+    err => message.error(err.message)
+  )
+);
 
-const distro = computed(() => store.state.downloadContents
-  .find(value => value.distro == route.params.distro)
+const distro = computed(() =>
+  store.state.downloadContents.find(
+    value => value.distro == route.params.distro
+  )
 );
 </script>
 
