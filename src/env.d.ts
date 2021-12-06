@@ -11,5 +11,5 @@ interface ImportMetaEnv {
   /**
    * Google Analytics User-Id
    */
-  readonly VITE_GA: string
+  readonly VITE_GA: string;
 }

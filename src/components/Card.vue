@@ -15,7 +15,13 @@ const { entry } = defineProps<{ entry: CardItem }>();
     <n-card content-style="padding: 24px;" hoverable>
       <n-h3>
         {{ entry.title }}
-        <n-button tag="a" text v-if="entry.url" :href="entry.url" target="_black">
+        <n-button
+          tag="a"
+          text
+          v-if="entry.url"
+          :href="entry.url"
+          target="_black"
+        >
           <template #icon>
             <n-icon size="16px">
               <information-circle-outline />

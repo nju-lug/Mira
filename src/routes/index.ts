@@ -22,7 +22,7 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: ':distro',
-        component: () => import('../views/Help.vue'),
+        component: () => import('../views/Help.vue')
       }
     ],
     meta: {
@@ -37,7 +37,7 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: ':distro',
-        component: () => import('../views/Downloads.vue'),
+        component: () => import('../views/Downloads.vue')
       }
     ],
     meta: {
@@ -58,7 +58,7 @@ const routes: RouteRecordRaw[] = [
     path: '/error',
     component: () => import('../views/Error.vue'),
     meta: {
-      title: 'Error',
+      title: 'Error'
     }
   },
   {
@@ -81,7 +81,7 @@ router.beforeEach((_to, _from, next) => {
 });
 
 router.afterEach(to => {
-  document.title = to.meta?.title as string || 'NJU Mirror';
+  document.title = (to.meta?.title as string) || 'NJU Mirror';
   loadRef.value?.finish();
 });
 

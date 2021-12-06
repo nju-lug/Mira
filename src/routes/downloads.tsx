@@ -5,7 +5,7 @@ import {
   ColorPaletteOutline
 } from '@vicons/ionicons5';
 import { RouterLink } from 'vue-router';
-
+import { useI18n } from 'vue-i18n';
 import { State } from '../store';
 import { DownloadContent } from '../models/downloads';
 
@@ -19,26 +19,33 @@ function toOptions(items: DownloadContent[]) {
 }
 
 export default function fetchDownloadRoutes(state: State, filter = '') {
+  const { t } = useI18n();
+  const osText = t('sider.os');
+  const appsText = t('sider.apps');
+  const fontsText = t('sider.fonts');
   const contents = state.downloadContents
-    .filter(value => value.distro.includes(filter));
+    .filter(value => value.distro.toLocaleLowerCase().includes(filter.toLocaleLowerCase()));
+  const os = contents.filter(value => value.category == 'os');
+  const apps = contents.filter(value => value.category == 'app');
+  const fonts = contents.filter(value => value.category == 'font');
   return [
     {
-      label: 'OS',
+      label: `${osText} ${os.length}`,
       key: 'OS',
       icon: () => <NIcon><DesktopOutline /></NIcon>,
-      children: toOptions(contents.filter(value => value.category == 'os'))
+      children: toOptions(os)
     },
     {
-      label: 'Apps',
+      label: `${appsText} ${apps.length}`,
       key: 'Apps',
       icon: () => <NIcon><AppsOutline /></NIcon>,
-      children: toOptions(contents.filter(value => value.category == 'app'))
+      children: toOptions(apps)
     },
     {
-      label: 'Fonts',
+      label: `${fontsText} ${fonts.length}`,
       key: 'Fonts',
       icon: () => <NIcon><ColorPaletteOutline /></NIcon>,
-      children: toOptions(contents.filter(value => value.category == 'font'))
+      children: toOptions(fonts)
     }
   ] as MenuOption[];
 }

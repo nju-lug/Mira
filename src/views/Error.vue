@@ -1,16 +1,24 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import { NH2, NResult, NButton, NIcon, NButtonGroup } from 'naive-ui';
 import { ArrowBackOutline, HomeOutline, LogoGithub } from '@vicons/ionicons5';
-import { useRouter } from 'vue-router';
 
+const { t } = useI18n();
 const router = useRouter();
 
-const issue = () => window.open('https://github.com/iori2333/NJU-Mirror-Frontend/issues');
+const issue = () =>
+  window.open('https://github.com/iori2333/NJU-Mirror-Frontend/issues');
 </script>
 
 <template>
-  <n-h2 prefix="bar">Error</n-h2>
-  <n-result size="huge" status="404" title="404 Not Found" description="Where...am I?">
+  <n-h2 prefix="bar">{{ t('header.error') }}</n-h2>
+  <n-result
+    size="huge"
+    status="404"
+    title="404 Not Found"
+    :description="t('error.description')"
+  >
     <template #footer>
       <n-button-group>
         <n-button type="primary" @click="router.back()">
@@ -19,7 +27,7 @@ const issue = () => window.open('https://github.com/iori2333/NJU-Mirror-Frontend
               <arrow-back-outline />
             </n-icon>
           </template>
-          Go Back
+          {{ t('error.back') }}
         </n-button>
         <n-button @click="router.push('/')">
           <template #icon>
@@ -27,7 +35,7 @@ const issue = () => window.open('https://github.com/iori2333/NJU-Mirror-Frontend
               <home-outline />
             </n-icon>
           </template>
-          Home
+          {{ t('error.home') }}
         </n-button>
         <n-button @click="issue">
           <template #icon>
@@ -35,7 +43,7 @@ const issue = () => window.open('https://github.com/iori2333/NJU-Mirror-Frontend
               <logo-github />
             </n-icon>
           </template>
-          Report Bugs
+          {{ t('error.bug') }}
         </n-button>
       </n-button-group>
     </template>

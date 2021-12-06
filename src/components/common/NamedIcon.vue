@@ -16,20 +16,20 @@ import {
 import { NIcon } from 'naive-ui';
 
 const icons: Record<string, VNode> = {
-  'male': <MaleOutline />,
-  'school': <SchoolOutline />,
-  'upload': <CloudUploadOutline />,
-  'chart': <BarChartOutline />,
-  'server': <ServerOutline />,
-  'repo': <CodeSlashOutline />,
-  'gitlab': <LogoGitlab />,
-  'doc': <DocumentTextOutline />,
-  'speedometer': <SpeedometerOutline />,
-  'monitor': <DesktopOutline />,
-  'unknown': <ArrowForwardCircleOutline />
+  male: <MaleOutline />,
+  school: <SchoolOutline />,
+  upload: <CloudUploadOutline />,
+  chart: <BarChartOutline />,
+  server: <ServerOutline />,
+  repo: <CodeSlashOutline />,
+  gitlab: <LogoGitlab />,
+  doc: <DocumentTextOutline />,
+  speedometer: <SpeedometerOutline />,
+  monitor: <DesktopOutline />,
+  unknown: <ArrowForwardCircleOutline />
 };
 
-const { name, size } = defineProps<{ name: string, size: number }>();
+const { name, size } = defineProps<{ name: string; size: number }>();
 
 const MyIcon = () => icons[name] || <ArrowForwardCircleOutline />;
 </script>
