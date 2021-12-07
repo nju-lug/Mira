@@ -8,7 +8,7 @@ Run `npm install` to install all dependencies for development.
 
 Run `npm run build` to compile for production.
 
-Run `npm run prebuild` to compile for GitHub Pages.
+Run `npm run preview` to compile for GitHub Pages.
 
 Run `npm run serve` to start the development server.
 
@@ -30,8 +30,7 @@ Run `npm run serve` to start the development server.
    > 
    > ...
    > ```
-3. Run `public/configs/scripts/gendoc/genjson.py`, this should generate a new `index.json`. Replace old `index.json`
-   with it.
+3. Add your new documentation and its route to `index.json`.
 4. Create a merge/pull request to let us know.
 
 You can preview this project on [https://iori2333.github.io/Mira](https://iori2333.github.io/Mira/).

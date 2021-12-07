@@ -1,10 +1,10 @@
 {
-  "name": "nju-mirror-vue3",
+  "name": "mira",
   "version": "0.1.0",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "prebuild": "vue-tsc --noEmit && vite build --base=/Mira/",
+    "preview": "vue-tsc --noEmit && vite build --base=/Mira/",
     "serve": "vite preview"
   },
   "dependencies": {
