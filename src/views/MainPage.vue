@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, nextTick, ref, onBeforeUnmount } from 'vue';
 import { RouterView } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import {
   NLayout,
   NLayoutHeader,
@@ -23,7 +24,7 @@ const store = useStore();
 const loadingBar = useLoadingBar();
 const message = useMessage();
 const isMobile = computed(() => store.state.isMobile);
-
+const { locale } = useI18n();
 const containerRef = ref<{ $el: HTMLDivElement } | null>(null);
 let observer: ResizeObserver | undefined;
 
@@ -34,6 +35,10 @@ onMounted(() =>
     res => store.commit('setDocs', res),
     err => message.error(err.message)
   )
+);
+
+onMounted(
+  () => (locale.value = navigator.language.startsWith('zh') ? 'zh' : 'en')
 );
 
 nextTick(() => {
