@@ -1,0 +1,3 @@
+[submodule "public/configs"]
+	path = public/configs
+	url = git@github.com:nju-lug/NJU-Mirror-Configs.git
