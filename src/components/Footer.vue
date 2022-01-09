@@ -16,7 +16,7 @@ const { t } = useI18n();
 const reports = [
   {
     label: 'Via Mail',
-    key: 'mailto:git+nju-lug-nju-mirror-frontend-2901-issue-@yaoge123.cn'
+    key: 'mailto:git+nju-lug-mira-3921-issue-@yaoge123.cn'
   },
   {
     label: 'Via GitHub',
