@@ -2,51 +2,52 @@
   "locale": "English",
   "mirror": "南京大学开源镜像站",
   "header": {
-      "mirrors": "镜像列表",
-      "downloads": "下载",
-      "help": "帮助",
-      "about": "关于",
-      "error": "出错了"
+    "mirrors": "镜像列表",
+    "downloads": "下载",
+    "help": "帮助",
+    "doc": "帮助文档",
+    "about": "关于",
+    "error": "出错了"
   },
   "sider": {
-      "news": "新闻",
-      "links": "链接",
-      "entries": "浏览",
-      "searchText": "搜索...",
-      "os": "操作系统",
-      "apps": "应用程序",
-      "fonts": "字体"
+    "news": "新闻",
+    "links": "链接",
+    "entries": "浏览",
+    "searchText": "搜索...",
+    "os": "操作系统",
+    "apps": "应用程序",
+    "fonts": "字体"
   },
   "downloads": {
-      "title": "下载",
-      "description": "浏览菜单即可选择下载项目",
-      "download": "下载",
-      "versions": "版本"
+    "title": "下载",
+    "description": "浏览菜单即可选择下载项目",
+    "download": "下载",
+    "versions": "版本"
   },
   "help": {
-      "title": "去读手册",
-      "description": "浏览菜单即可打开帮助"
+    "title": "去读手册",
+    "description": "浏览菜单即可打开帮助"
   },
   "footer": {
-      "maintainer": "本镜像站由{name}维护",
-      "developer": "前端由{name}构建",
-      "special": "特别感谢：tuna（文档参考）",
-      "bug": "反馈问题",
-      "source": "源代码",
-      "lug": "NJU.LUG"
+    "maintainer": "本镜像站由{name}维护",
+    "developer": "前端由{name}构建",
+    "special": "特别感谢：tuna（文档参考）",
+    "bug": "反馈问题",
+    "source": "源代码",
+    "lug": "NJU.LUG"
   },
   "table": {
-      "name": "镜像名",
-      "status": "状态",
-      "size": "大小",
-      "lastUpdate": "上次同步",
-      "nextUpdate": "下次同步",
-      "searchText": "搜索镜像..."
+    "name": "镜像名",
+    "status": "状态",
+    "size": "大小",
+    "lastUpdate": "上次同步",
+    "nextUpdate": "下次同步",
+    "searchText": "搜索镜像..."
   },
   "error": {
-      "description": "我...在哪儿？",
-      "back": "返回",
-      "home": "主页",
-      "bug": "反馈问题"
+    "description": "我...在哪儿？",
+    "back": "返回",
+    "home": "主页",
+    "bug": "反馈问题"
   }
 }
