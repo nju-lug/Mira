@@ -16,7 +16,7 @@ Run `npm run serve` to start the development server.
 
 ### Mirror Documentations
 
-Documentations and other configurations have been transferred to repo [NJU Mirror Configs](`https://git.nju.edu.cn/nju-lug/NJU-Mirror-Configs`)
+Documentations and other configurations have been transferred to repo [NJU Mirror Configs](https://git.nju.edu.cn/nju-lug/NJU-Mirror-Configs)
 
 ### Report Bugs
 
