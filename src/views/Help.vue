@@ -34,7 +34,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <n-h2 prefix="bar">{{ distro?.name || t('header.help') }}</n-h2>
+  <n-h2 prefix="bar">{{ (distro?.name || '') + ' ' + t('header.doc') }}</n-h2>
   <Markdown :content="doc" v-if="distro" />
   <n-result
     size="huge"
