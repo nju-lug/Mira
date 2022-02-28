@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { defineProps, computed } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { NIcon, NButton, NList, NListItem, NThing } from 'naive-ui';
-import { DownloadOutline } from '@vicons/ionicons5';
-
+import { useStore } from '../store';
 import { DownloadContent } from '../models/downloads';
+import DownloadTile from './DownloadTile.vue';
 
-const { t } = useI18n();
+const store = useStore();
+
 const props = defineProps<{ distro: DownloadContent }>();
 
 const urls = computed(
@@ -21,24 +20,18 @@ const urls = computed(
     }) || []
 );
 
-const download = (url: string) => window.open(url);
+const columns = computed(() => (store.state.isMobile ? 2 : 4));
 </script>
 
 <template>
-  <n-list bordered style="margin: auto 0">
-    <template #header>{{ t('downloads.versions') }}</template>
-    <n-list-item v-for="(item, index) in urls" :key="index">
-      <template #suffix>
-        <n-button @click="download(item.url)">
-          <template #icon>
-            <n-icon>
-              <download-outline />
-            </n-icon>
-          </template>
-          {{ t('downloads.download') }}
-        </n-button>
-      </template>
-      <n-thing :title="item.title" :description="item.description" />
-    </n-list-item>
-  </n-list>
+  <div :style="{ columnCount: columns }" class="tiles">
+    <download-tile v-for="(item, index) in urls" :key="index" :item="item" />
+  </div>
 </template>
+
+<style scoped lang="less">
+.tiles {
+  min-height: 100%;
+  column-gap: 10px;
+}
+</style>
