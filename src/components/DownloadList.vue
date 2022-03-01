@@ -25,7 +25,7 @@ const columns = computed(() => (store.state.isMobile ? 2 : 4));
 
 <template>
   <div :style="{ columnCount: columns }" class="tiles">
-    <download-tile v-for="(item, index) in urls" :key="index" :item="item" />
+    <download-tile v-for="item in urls" :key="item.url" :item="item" />
   </div>
 </template>
 
