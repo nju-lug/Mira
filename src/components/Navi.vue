@@ -140,7 +140,6 @@ watch(
 .n-menu {
   text-align: center;
   padding-right: 24px;
-  --item-height: var(--header-height) !important;
 }
 
 .collapse-button {
@@ -165,5 +164,11 @@ watch(
     height: 35px;
     width: 35px;
   }
+}
+</style>
+
+<style>
+.n-menu .n-menu-item {
+  height: calc(100% - 1px) !important;
 }
 </style>
