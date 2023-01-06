@@ -7,7 +7,7 @@ import { CardItem } from '../models/cards';
 
 import NamedIcon from './common/NamedIcon.vue';
 
-const { entry } = defineProps<{ entry: CardItem }>();
+defineProps<{ entry: CardItem }>();
 </script>
 
 <template>

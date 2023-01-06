@@ -2,7 +2,7 @@
 import { defineProps, reactive } from 'vue';
 import { NCard } from 'naive-ui';
 
-const { item } = defineProps<{
+const props = defineProps<{
   item: {
     title: string;
     description: string;
@@ -10,7 +10,7 @@ const { item } = defineProps<{
   };
 }>();
 
-const { title, description, url } = reactive(item);
+const { title, description, url } = reactive(props.item);
 
 const download = () => window.open(url);
 </script>

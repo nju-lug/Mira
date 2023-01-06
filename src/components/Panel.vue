@@ -51,12 +51,11 @@ async function handleClick(link: NewsEntry) {
     >
       <n-tab-pane name="Mirror">
         <n-row v-for="link in news" :key="link.content">
-          <n-button
-            text
-            tag="a"
-            @click="handleClick(link)"
-            >{{ convertTimestamp(link.time, locale as 'zh' | 'en') + ' - ' + link.name }}</n-button
-          >
+          <n-button text tag="a" @click="handleClick(link)">{{
+            convertTimestamp(link.time, locale as 'zh' | 'en') +
+            ' - ' +
+            link.name
+          }}</n-button>
         </n-row>
       </n-tab-pane>
       <n-tab-pane name="LUG Jokes">

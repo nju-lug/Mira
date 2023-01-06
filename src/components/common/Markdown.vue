@@ -2,7 +2,7 @@
 import { defineProps, computed } from 'vue';
 import { useStore } from '../../store';
 
-const { content } = defineProps<{ content: string }>();
+defineProps<{ content: string }>();
 
 const store = useStore();
 const theme = computed(() =>
