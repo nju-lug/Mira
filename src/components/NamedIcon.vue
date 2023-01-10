@@ -35,7 +35,7 @@ const MyIcon = () => icons[props.name] || <ArrowForwardCircleOutline />;
 </script>
 
 <template>
-  <n-icon :size="size">
+  <NIcon :size="size">
     <MyIcon />
-  </n-icon>
+  </NIcon>
 </template>

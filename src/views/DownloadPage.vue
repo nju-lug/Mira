@@ -4,10 +4,10 @@ import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { NH2, NResult, useMessage } from 'naive-ui';
 
-import { fetchDownloads } from '../models/downloads';
-import { useStore } from '../store';
+import { fetchDownloads } from '@/models/downloads';
+import { useStore } from '@/store';
 
-import DownloadList from '../components/DownloadList.vue';
+import DownloadList from '@/components/DownloadList.vue';
 
 const { t } = useI18n();
 const store = useStore();
@@ -29,9 +29,9 @@ const distro = computed(() =>
 </script>
 
 <template>
-  <n-h2 prefix="bar">{{ distro?.distro || t('header.downloads') }}</n-h2>
+  <NH2 prefix="bar">{{ distro?.distro || t('header.downloads') }}</NH2>
   <DownloadList v-if="distro" :distro="distro" />
-  <n-result
+  <NResult
     size="huge"
     status="info"
     :title="t('downloads.title')"

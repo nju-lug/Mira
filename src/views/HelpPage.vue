@@ -4,10 +4,10 @@ import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { NH2, NResult, useMessage } from 'naive-ui';
 
-import { useStore } from '../store';
-import { fetchDoc } from '../models/documents';
+import { useStore } from '@/store';
+import { fetchDoc } from '@/models/documents';
 
-import Markdown from '../components/common/Markdown.vue';
+import MarkdownContainer from '@/components/MarkdownContainer.vue';
 
 const { t } = useI18n();
 const route = useRoute();
@@ -34,9 +34,9 @@ watchEffect(() => {
 </script>
 
 <template>
-  <n-h2 prefix="bar">{{ (distro?.name || '') + ' ' + t('header.doc') }}</n-h2>
-  <Markdown :content="doc" v-if="distro" />
-  <n-result
+  <NH2 prefix="bar">{{ (distro?.name || '') + ' ' + t('header.doc') }}</NH2>
+  <MarkdownContainer :content="doc" v-if="distro" />
+  <NResult
     size="huge"
     status="info"
     :title="t('help.title')"

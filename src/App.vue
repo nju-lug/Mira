@@ -8,8 +8,8 @@ import {
   darkTheme
 } from 'naive-ui';
 
-import { useStore } from './store';
-import MainPage from './views/MainPage.vue';
+import { useStore } from '@/store';
+import MainPage from '@/views/MainPage.vue';
 
 const store = useStore();
 const theme = computed(() => (store.state.darkMode ? darkTheme : null));
@@ -27,13 +27,13 @@ const override = computed(
 </script>
 
 <template>
-  <n-config-provider :theme="theme" :theme-overrides="override">
-    <n-loading-bar-provider>
-      <n-message-provider>
+  <NConfigProvider :theme="theme" :theme-overrides="override">
+    <NLoadingBarProvider>
+      <NMessageProvider>
         <MainPage />
-      </n-message-provider>
-    </n-loading-bar-provider>
-  </n-config-provider>
+      </NMessageProvider>
+    </NLoadingBarProvider>
+  </NConfigProvider>
 </template>
 
 <style lang="less">

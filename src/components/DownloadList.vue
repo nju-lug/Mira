@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { defineProps, computed } from 'vue';
-import { useStore } from '../store';
-import { DownloadContent } from '../models/downloads';
-import DownloadTile from './DownloadTile.vue';
+
+import { useStore } from '@/store';
+import { DownloadContent } from '@/models/downloads';
+
+import DownloadTile from '@/components/DownloadTile.vue';
 
 const store = useStore();
 
@@ -25,7 +27,7 @@ const columns = computed(() => (store.state.isMobile ? 2 : 4));
 
 <template>
   <div :style="{ columnCount: columns }" class="tiles">
-    <download-tile v-for="item in urls" :key="item.url" :item="item" />
+    <DownloadTile v-for="item in urls" :key="item.url" :item="item" />
   </div>
 </template>
 

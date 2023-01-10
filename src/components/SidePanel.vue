@@ -17,10 +17,10 @@ import {
   JokeEntry,
   NewsEntry,
   fetchNews
-} from '../models/news';
-import { convertTimestamp } from '../utils/time';
+} from '@/models/news';
+import { convertTimestamp } from '@/utils/time';
 
-import Markdown from './common/Markdown.vue';
+import MarkdownContainer from '@/components/MarkdownContainer.vue';
 
 const { t, locale } = useI18n();
 const news = ref([] as NewsEntry[]);
@@ -41,33 +41,33 @@ async function handleClick(link: NewsEntry) {
 </script>
 
 <template>
-  <n-card content-style="padding: 0;" :bordered="false">
-    <n-divider title-placement="left">{{ t('sider.news') }}</n-divider>
-    <n-tabs
+  <NCard content-style="padding: 0;" :bordered="false">
+    <NDivider title-placement="left">{{ t('sider.news') }}</NDivider>
+    <NTabs
       type="line"
       size="small"
       :tabs-padding="20"
       pane-style="padding: 20px;"
     >
-      <n-tab-pane name="Mirror">
-        <n-row v-for="link in news" :key="link.content">
-          <n-button text tag="a" @click="handleClick(link)">{{
+      <NTabPane name="Mirror">
+        <NRow v-for="link in news" :key="link.content">
+          <NButton text tag="a" @click="handleClick(link)">{{
             convertTimestamp(link.time, locale as 'zh' | 'en') +
             ' - ' +
             link.name
-          }}</n-button>
-        </n-row>
-      </n-tab-pane>
-      <n-tab-pane name="LUG Jokes">
-        <n-row v-for="link in jokes" :key="link.title">
-          <n-button text tag="a" :href="link.web_url" target="_blank">{{
+          }}</NButton>
+        </NRow>
+      </NTabPane>
+      <NTabPane name="LUG Jokes">
+        <NRow v-for="link in jokes" :key="link.title">
+          <NButton text tag="a" :href="link.web_url" target="_blank">{{
             link.title
-          }}</n-button>
-        </n-row>
-      </n-tab-pane>
-    </n-tabs>
-  </n-card>
-  <n-modal
+          }}</NButton>
+        </NRow>
+      </NTabPane>
+    </NTabs>
+  </NCard>
+  <NModal
     style="width: min(600px, 90%)"
     preset="card"
     size="huge"
@@ -75,8 +75,8 @@ async function handleClick(link: NewsEntry) {
     :title="selected?.name || 'Null'"
     v-model:show="show"
   >
-    <Markdown :content="content" />
-  </n-modal>
+    <MarkdownContainer :content="content" />
+  </NModal>
 </template>
 
 <style scoped lang="less">

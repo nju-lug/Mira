@@ -14,9 +14,16 @@ export default defineConfig({
     visualizer()
   ],
   resolve: {
-    alias: {
-      'vue-i18n': 'vue-i18n/dist/vue-i18n.runtime.esm-bundler.js'
-    }
+    alias: [
+      {
+        find: 'vue-i18n',
+        replacement: 'vue-i18n/dist/vue-i18n.runtime.esm-bundler.js'
+      },
+      {
+        find: '@',
+        replacement: path.resolve(__dirname, './src')
+      }
+    ]
   },
   build: {
     rollupOptions: {

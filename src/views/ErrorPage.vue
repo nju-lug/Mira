@@ -12,40 +12,40 @@ const issue = () =>
 </script>
 
 <template>
-  <n-h2 prefix="bar">{{ t('header.error') }}</n-h2>
-  <n-result
+  <NH2 prefix="bar">{{ t('header.error') }}</NH2>
+  <NResult
     size="huge"
     status="404"
     title="404 Not Found"
     :description="t('error.description')"
   >
     <template #footer>
-      <n-button-group>
-        <n-button type="primary" @click="router.back()">
+      <NButtonGroup>
+        <NButton type="primary" @click="router.back()">
           <template #icon>
-            <n-icon size="16px">
-              <arrow-back-outline />
-            </n-icon>
+            <NIcon size="16px">
+              <ArrowBackOutline />
+            </NIcon>
           </template>
           {{ t('error.back') }}
-        </n-button>
-        <n-button @click="router.push('/')">
+        </NButton>
+        <NButton @click="router.push('/')">
           <template #icon>
-            <n-icon size="16px">
-              <home-outline />
-            </n-icon>
+            <NIcon size="16px">
+              <HomeOutline />
+            </NIcon>
           </template>
           {{ t('error.home') }}
-        </n-button>
-        <n-button @click="issue">
+        </NButton>
+        <NButton @click="issue">
           <template #icon>
-            <n-icon size="16px">
-              <logo-github />
-            </n-icon>
+            <NIcon size="16px">
+              <LogoGithub />
+            </NIcon>
           </template>
           {{ t('error.bug') }}
-        </n-button>
-      </n-button-group>
+        </NButton>
+      </NButtonGroup>
     </template>
-  </n-result>
+  </NResult>
 </template>

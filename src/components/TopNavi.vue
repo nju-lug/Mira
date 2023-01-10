@@ -17,8 +17,9 @@ import { RouterLink, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { NewspaperOutline, MenuOutline } from '@vicons/ionicons5';
 
-import { useStore } from '../store';
-import Sider from '../views/Sider.vue';
+import { useStore } from '@/store';
+
+import SiderView from '@/views/SiderView.vue';
 
 const { t, locale } = useI18n();
 const store = useStore();
@@ -80,56 +81,56 @@ watch(
 </script>
 
 <template>
-  <n-space
+  <NSpace
     class="navi-bar"
     justify="space-between"
     style="height: var(--header-height)"
   >
-    <n-text class="logo-container">
-      <img src="../assets/logo.png" alt="Mirror Logo" />
+    <NText class="logo-container">
+      <img src="@/assets/logo.png" alt="Mirror Logo" />
       <span>NJU Mirror</span>
-    </n-text>
+    </NText>
 
-    <n-button-group style="height: 100%">
-      <n-button
+    <NButtonGroup style="height: 100%">
+      <NButton
         text
         class="collapse-button"
         v-if="store.state.isMobile"
         @click="active = true"
       >
-        <n-icon>
-          <newspaper-outline />
-        </n-icon>
-      </n-button>
-      <n-menu
+        <NIcon>
+          <NewspaperOutline />
+        </NIcon>
+      </NButton>
+      <NMenu
         :value="route.path"
         :options="options"
         mode="horizontal"
         v-if="!store.state.isMobile"
       />
-      <n-dropdown
+      <NDropdown
         :options="options"
         placement="bottom-end"
         trigger="click"
         v-else
       >
-        <n-button text class="collapse-button">
-          <n-icon>
-            <menu-outline />
-          </n-icon>
-        </n-button>
-      </n-dropdown>
-    </n-button-group>
-  </n-space>
-  <n-drawer
+        <NButton text class="collapse-button">
+          <NIcon>
+            <MenuOutline />
+          </NIcon>
+        </NButton>
+      </NDropdown>
+    </NButtonGroup>
+  </NSpace>
+  <NDrawer
     placement="right"
     v-model:show="active"
     width="min(360px, 80%)"
     :native-scrollbar="false"
     v-if="store.state.isMobile"
   >
-    <Sider />
-  </n-drawer>
+    <SiderView />
+  </NDrawer>
 </template>
 
 <style scoped lang="less">

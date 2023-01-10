@@ -15,9 +15,9 @@ import {
 } from 'naive-ui';
 import { SearchOutline, HelpCircleOutline } from '@vicons/ionicons5';
 
-import { fetchEntries, SyncEntry } from '../models/mirrors';
-import { useStore } from '../store';
-import { timeFromNow } from '../utils/time';
+import { fetchEntries, SyncEntry } from '@/models/mirrors';
+import { useStore } from '@/store';
+import { timeFromNow } from '@/utils/time';
 
 const { t, locale } = useI18n();
 const router = useRouter();
@@ -142,18 +142,18 @@ onMounted(() =>
 </script>
 
 <template>
-  <n-h2 prefix="bar">
+  <NH2 prefix="bar">
     <span>{{ t('header.mirrors') }}</span>
-    <n-input :placeholder="t('table.searchText')" v-model:value="filter">
+    <NInput :placeholder="t('table.searchText')" v-model:value="filter">
       <template #prefix>
-        <n-icon>
+        <NIcon>
           <SearchOutline />
-        </n-icon>
+        </NIcon>
       </template>
-    </n-input>
-  </n-h2>
-  <n-space vertical>
-    <n-data-table
+    </NInput>
+  </NH2>
+  <NSpace vertical>
+    <NDataTable
       size="small"
       :loading="loading"
       :columns="columns.concat(extraColumns)"
@@ -161,7 +161,7 @@ onMounted(() =>
       max-height="calc(100vh - 12.125rem)"
       virtual-scroll
     />
-  </n-space>
+  </NSpace>
 </template>
 
 <style scoped lang="less">
