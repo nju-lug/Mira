@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, reactive } from 'vue';
+import { reactive } from 'vue';
 import { NCard } from 'naive-ui';
 
 const props = defineProps<{

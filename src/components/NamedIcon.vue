@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { defineProps, VNode } from 'vue';
+import { VNode } from 'vue';
 import {
   MaleOutline,
   SchoolOutline,

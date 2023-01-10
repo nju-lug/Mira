@@ -1,5 +1,4 @@
 <script setup lang="tsx">
-import { defineProps } from 'vue';
 import { NCard, NButton, NRow, NIcon, NH3 } from 'naive-ui';
 import { InformationCircleOutline } from '@vicons/ionicons5';
 
