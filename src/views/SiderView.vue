@@ -1,26 +1,26 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { NMenu, NSpace, NDivider, NInput } from 'naive-ui';
 
 import { useStore } from '@/store';
 import { MenuCaller } from '@/routes';
+import { useDebounce, useMutableRef } from '@/hooks';
 
 import SideLinks from '@/components/SideLinks.vue';
 
 const route = useRoute();
 const store = useStore();
 const { t } = useI18n();
-const filter = ref('');
+const [filter, setFilter] = useMutableRef('');
+
 const options = computed(() => {
   const sider = route.meta?.sider as MenuCaller | undefined;
-  return sider == undefined ? undefined : sider(store.state, filter.value);
+  return sider?.(store.state, filter.value);
 });
 
-function change(value: string) {
-  filter.value = value;
-}
+const onInput = useDebounce(setFilter);
 </script>
 
 <template>
@@ -30,7 +30,7 @@ function change(value: string) {
       t('sider.entries')
     }}</NDivider>
     <NSpace vertical style="padding: 0 12px">
-      <NInput :placeholder="t('sider.searchText')" @input="change" />
+      <NInput :placeholder="t('sider.searchText')" @input="onInput" />
     </NSpace>
     <NMenu :options="options" :value="route.path" default-expand-all />
   </NSpace>

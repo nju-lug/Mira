@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { onMounted, computed, ref, reactive } from 'vue';
+import { onMounted, computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import {
@@ -18,12 +18,15 @@ import { SearchOutline, HelpCircleOutline } from '@vicons/ionicons5';
 import { fetchEntries, SyncEntry } from '@/models/mirrors';
 import { useStore } from '@/store';
 import { timeFromNow } from '@/utils/time';
+import { useMutableRef, useDebounce } from '@/hooks';
 
 const { t, locale } = useI18n();
 const router = useRouter();
 const message = useMessage();
 const store = useStore();
-const entries = ref([] as SyncEntry[]);
+const [entries, setEntries] = useMutableRef([] as SyncEntry[]);
+const [loading, setLoading] = useMutableRef(true);
+const [filter, setFilter] = useMutableRef('');
 
 function RouteButton({ data }: { data: SyncEntry }) {
   const doc = store.state.docItems.find(value => value.name == data.name);
@@ -76,8 +79,6 @@ function StatusTag({ data }: { data: SyncEntry }) {
   return <NTag type={status}>{data.status}</NTag>;
 }
 
-const filter = ref('');
-const loading = ref(true);
 const extraColumns = computed(() =>
   store.state.isMobile
     ? []
@@ -108,33 +109,35 @@ const extraColumns = computed(() =>
       ] as DataTableColumn<SyncEntry>[])
 );
 
-const name = computed(() => t('table.name'));
-const status = computed(() => t('table.status'));
-const columns = reactive([
-  {
-    title: name as unknown,
-    key: 'name',
-    align: 'left',
-    render: data => <RouteButton data={data} />,
-    filter: (value, row) =>
-      row.name
-        .toLocaleLowerCase()
-        .includes((value as string).toLocaleLowerCase()),
-    filterOptionValue: filter
-  },
-  {
-    title: status as unknown,
-    key: 'status',
-    align: 'center',
-    render: data => <StatusTag data={data} />
-  }
-] as DataTableColumn<SyncEntry>[]);
+const columns = computed(() =>
+  reactive([
+    {
+      title: t('table.name'),
+      key: 'name',
+      align: 'left',
+      render: data => <RouteButton data={data} />,
+      filter: (value, row) =>
+        row.name
+          .toLocaleLowerCase()
+          .includes((value as string).toLocaleLowerCase()),
+      filterOptionValue: filter
+    },
+    {
+      title: t('table.status'),
+      key: 'status',
+      align: 'center',
+      render: data => <StatusTag data={data} />
+    }
+  ] as DataTableColumn<SyncEntry>[])
+);
+
+const onInput = useDebounce(setFilter);
 
 onMounted(() =>
   fetchEntries().then(
     res => {
-      entries.value = res.sort((a, b) => a.name.localeCompare(b.name));
-      loading.value = false;
+      setEntries(res.sort((a, b) => a.name.localeCompare(b.name)));
+      setLoading(false);
     },
     err => message.error(err.message)
   )
@@ -144,7 +147,7 @@ onMounted(() =>
 <template>
   <NH2 prefix="bar">
     <span>{{ t('header.mirrors') }}</span>
-    <NInput :placeholder="t('table.searchText')" v-model:value="filter">
+    <NInput :placeholder="t('table.searchText')" @input="onInput">
       <template #prefix>
         <NIcon>
           <SearchOutline />
@@ -170,7 +173,7 @@ onMounted(() =>
   justify-content: space-between;
   align-items: center;
   .n-input {
-    width: 30%;
+    width: max(30%, 200px);
   }
 }
 </style>

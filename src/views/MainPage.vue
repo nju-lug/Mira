@@ -15,6 +15,7 @@ import {
 import { useStore } from '@/store';
 import { loadRef } from '@/routes';
 import { fetchDocs } from '@/models/documents';
+import { useThrottle } from '@/hooks';
 
 import TopNavi from '@/components/TopNavi.vue';
 import PageFooter from '@/components/PageFooter.vue';
@@ -41,12 +42,16 @@ onMounted(
   () => (locale.value = navigator.language.startsWith('zh') ? 'zh' : 'en')
 );
 
+const setWidth = useThrottle((width: number) => {
+  store.commit('setWidth', width);
+}, 100);
+
 nextTick(() => {
-  window.onresize = () => store.commit('setWidth', document.body.clientWidth);
+  window.onresize = () => setWidth(document.body.clientWidth);
   if (containerRef.value?.$el) {
     observer = new ResizeObserver(width => {
       const newWidth = width[0].contentBoxSize[0].inlineSize;
-      if (!store.state.isMobile) store.commit('setWidth', newWidth);
+      if (!store.state.isMobile) setWidth(newWidth);
     });
     observer.observe(containerRef.value.$el, { box: 'content-box' });
   }

@@ -21,17 +21,17 @@ import {
 import { convertTimestamp } from '@/utils/time';
 
 import MarkdownContainer from '@/components/MarkdownContainer.vue';
+import { useMutableRef } from '@/hooks';
 
 const { t, locale } = useI18n();
-const news = ref([] as NewsEntry[]);
-const jokes = ref([] as JokeEntry[]);
+const [news, setNews] = useMutableRef([] as NewsEntry[]);
+const [jokes, setJokes] = useMutableRef([] as JokeEntry[]);
 const selected = ref(undefined as NewsEntry | undefined);
 const show = ref(false);
 const content = ref('');
 
-onMounted(() => fetchNewsList().then(res => (news.value = res)));
-
-onMounted(() => fetchJokes().then(res => (jokes.value = res)));
+onMounted(() => fetchNewsList().then(setNews));
+onMounted(() => fetchJokes().then(setJokes));
 
 async function handleClick(link: NewsEntry) {
   content.value = await fetchNews(link);
@@ -41,14 +41,9 @@ async function handleClick(link: NewsEntry) {
 </script>
 
 <template>
-  <NCard content-style="padding: 0;" :bordered="false">
-    <NDivider title-placement="left">{{ t('sider.news') }}</NDivider>
-    <NTabs
-      type="line"
-      size="small"
-      :tabs-padding="20"
-      pane-style="padding: 20px;"
-    >
+  <NDivider title-placement="left">{{ t('sider.news') }}</NDivider>
+  <NCard content-style="padding: 0 20px;" :bordered="false">
+    <NTabs type="segment" size="small" pane-class="tab-pane">
       <NTabPane name="Mirror">
         <NRow v-for="link in news" :key="link.content">
           <NButton text tag="a" @click="handleClick(link)">{{
@@ -82,5 +77,12 @@ async function handleClick(link: NewsEntry) {
 <style scoped lang="less">
 .n-row {
   padding: 8px 0;
+}
+
+a.n-button {
+  overflow: hidden;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>
