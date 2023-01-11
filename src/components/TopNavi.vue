@@ -6,11 +6,9 @@ import {
   NDropdown,
   NButton,
   NIcon,
-  NSwitch,
   NSpace,
   NDrawer,
-  NButtonGroup,
-  useMessage
+  NButtonGroup
 } from 'naive-ui';
 import { ref, watch } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
@@ -20,11 +18,11 @@ import { NewspaperOutline, MenuOutline } from '@vicons/ionicons5';
 import { useStore } from '@/store';
 
 import SiderView from '@/views/SiderView.vue';
+import ThemeSwitch from '@/components/ThemeSwitch.vue';
 
 const { t, locale } = useI18n();
 const store = useStore();
 const route = useRoute();
-const message = useMessage();
 
 const createRoute = (to: string, name: string): MenuOption => ({
   label: () => <RouterLink to={to}>{t(`header.${name}`)}</RouterLink>,
@@ -34,21 +32,8 @@ const createRoute = (to: string, name: string): MenuOption => ({
 const active = ref(false);
 
 const darkMode: MenuOption = {
-  label: () => (
-    <NSwitch
-      v-slots={{
-        checked: () => 'Conflict',
-        unchecked: () => 'Light'
-      }}
-      defaultValue={store.state.darkMode}
-      onUpdateValue={value => {
-        store.commit('setDarkMode', value);
-        message.info(`Side of ${value ? 'Tairitsu' : 'Hikari'}`);
-      }}
-      style="margin: 6px;"
-    />
-  ),
-  key: 'darkmode'
+  label: () => <ThemeSwitch />,
+  key: 'theme-switch'
 };
 
 const localeButton: MenuOption = {
@@ -155,6 +140,7 @@ watch(
   justify-content: left;
   padding-left: 16px;
   align-items: center;
+  user-select: none;
 
   span {
     padding: 0 10px;
