@@ -11,21 +11,23 @@ const props = defineProps<{
 }>();
 
 const { title, description, url } = reactive(props.item);
-
-const download = () => window.open(url);
 </script>
 
 <template>
-  <div class="download-tile">
-    <NCard @click="download()" size="small" :title="title" embedded hoverable>
+  <a class="download-tile" :href="url" target="_blank">
+    <NCard size="small" :title="title" embedded hoverable>
       {{ description }}
     </NCard>
-  </div>
+  </a>
 </template>
 
 <style scoped lang="less">
 .download-tile {
+  display: block;
   padding-bottom: 10px;
   break-inside: avoid;
+  user-select: none;
+  cursor: default;
+  text-decoration: none;
 }
 </style>
