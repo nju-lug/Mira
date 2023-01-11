@@ -1,20 +1,21 @@
 <script setup lang="ts">
-import { computed, watchEffect, ref } from 'vue';
+import { computed, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { NH2, NResult, useMessage } from 'naive-ui';
 
-import { useStore } from '../store';
-import { fetchDoc } from '../models/documents';
+import { useStore } from '@/store';
+import { fetchDoc } from '@/models/documents';
 
-import Markdown from '../components/common/Markdown.vue';
+import MarkdownContainer from '@/components/MarkdownContainer.vue';
+import { useMutableRef } from '@/hooks';
 
 const { t } = useI18n();
 const route = useRoute();
 const store = useStore();
 const message = useMessage();
+const [doc, setDoc] = useMutableRef('');
 
-const doc = ref('');
 const distro = computed(() => {
   const name = route.params.distro;
   if (name == undefined) {
@@ -26,7 +27,7 @@ const distro = computed(() => {
 watchEffect(() => {
   if (distro.value) {
     fetchDoc(distro.value).then(
-      res => (doc.value = res),
+      res => setDoc(res),
       err => message.error(err.message)
     );
   }
@@ -34,9 +35,9 @@ watchEffect(() => {
 </script>
 
 <template>
-  <n-h2 prefix="bar">{{ (distro?.name || '') + ' ' + t('header.doc') }}</n-h2>
-  <Markdown :content="doc" v-if="distro" />
-  <n-result
+  <NH2 prefix="bar">{{ (distro?.name || '') + ' ' + t('header.doc') }}</NH2>
+  <MarkdownContainer :content="doc" v-if="distro" />
+  <NResult
     size="huge"
     status="info"
     :title="t('help.title')"

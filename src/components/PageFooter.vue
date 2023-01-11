@@ -34,52 +34,52 @@ function handleSelect(key: string) {
 </script>
 
 <template>
-  <n-h2 prefix="bar">{{ t('mirror') }}</n-h2>
-  <n-space justify="space-between">
+  <NH2 prefix="bar">{{ t('mirror') }}</NH2>
+  <NSpace justify="space-between">
     <div>
-      <n-p class="footer-text">{{
+      <NP class="footer-text">{{
         t('footer.maintainer', { name: '@yaoge123' })
-      }}</n-p>
-      <n-p class="footer-text">{{
+      }}</NP>
+      <NP class="footer-text">{{
         t('footer.developer', { name: 'Iori@LinuxUserGroup' })
-      }}</n-p>
-      <n-p class="footer-text">{{ t('footer.special') }}</n-p>
+      }}</NP>
+      <NP class="footer-text">{{ t('footer.special') }}</NP>
     </div>
-    <n-button-group vertical>
-      <n-dropdown
+    <NButtonGroup vertical>
+      <NDropdown
         trigger="click"
         @select="handleSelect"
         placement="left-start"
         :options="reports"
       >
-        <n-button text>
+        <NButton text>
           <template #icon>
-            <n-icon size="16">
-              <bug-outline />
-            </n-icon>
+            <NIcon size="16">
+              <BugOutline />
+            </NIcon>
           </template>
           {{ t('footer.bug') }}
-        </n-button>
-      </n-dropdown>
-      <n-button text @click="handleSelect('https://github.com/iori2333/Mira')">
+        </NButton>
+      </NDropdown>
+      <NButton text @click="handleSelect('https://github.com/iori2333/Mira')">
         <template #icon>
-          <n-icon size="16">
-            <code-outline />
-          </n-icon>
+          <NIcon size="16">
+            <CodeOutline />
+          </NIcon>
         </template>
         {{ t('footer.source') }}
-      </n-button>
-      <n-button text @click="handleSelect('https://git.nju.edu.cn/nju-lug')">
+      </NButton>
+      <NButton text @click="handleSelect('https://git.nju.edu.cn/nju-lug')">
         <template #icon>
-          <n-icon size="16">
-            <male-outline />
-          </n-icon>
+          <NIcon size="16">
+            <MaleOutline />
+          </NIcon>
         </template>
         {{ t('footer.lug') }}
-      </n-button>
-    </n-button-group>
-  </n-space>
-  <n-p>人工微结构科学与技术协同创新中心 苏ICP备10085945-1号 南信备568号</n-p>
+      </NButton>
+    </NButtonGroup>
+  </NSpace>
+  <NP>人工微结构科学与技术协同创新中心 苏ICP备10085945-1号 南信备568号</NP>
 </template>
 
 <style scoped lang="less">

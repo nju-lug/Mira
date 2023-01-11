@@ -12,13 +12,14 @@ import {
   useMessage
 } from 'naive-ui';
 
-import { useStore } from '../store';
-import { loadRef } from '../routes';
-import { fetchDocs } from '../models/documents';
+import { useStore } from '@/store';
+import { loadRef } from '@/routes';
+import { fetchDocs } from '@/models/documents';
+import { useThrottle } from '@/hooks';
 
-import Navi from '../components/Navi.vue';
-import Sider from './Sider.vue';
-import Footer from '../components/Footer.vue';
+import TopNavi from '@/components/TopNavi.vue';
+import PageFooter from '@/components/PageFooter.vue';
+import SiderView from '@/views/SiderView.vue';
 
 const store = useStore();
 const loadingBar = useLoadingBar();
@@ -41,12 +42,16 @@ onMounted(
   () => (locale.value = navigator.language.startsWith('zh') ? 'zh' : 'en')
 );
 
+const setWidth = useThrottle((width: number) => {
+  store.commit('setWidth', width);
+}, 100);
+
 nextTick(() => {
-  window.onresize = () => store.commit('setWidth', document.body.clientWidth);
+  window.onresize = () => setWidth(document.body.clientWidth);
   if (containerRef.value?.$el) {
     observer = new ResizeObserver(width => {
       const newWidth = width[0].contentBoxSize[0].inlineSize;
-      if (!store.state.isMobile) store.commit('setWidth', newWidth);
+      if (!store.state.isMobile) setWidth(newWidth);
     });
     observer.observe(containerRef.value.$el, { box: 'content-box' });
   }
@@ -59,18 +64,18 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <n-layout position="absolute">
-    <n-layout-header style="height: var(--header-height)">
-      <Navi />
-    </n-layout-header>
-    <n-layout
+  <NLayout position="absolute">
+    <NLayoutHeader style="height: var(--header-height)">
+      <TopNavi />
+    </NLayoutHeader>
+    <NLayout
       class="content-layout"
       position="absolute"
       :has-sider="true"
       sider-placement="left"
       style="top: var(--header-height)"
     >
-      <n-layout-sider
+      <NLayoutSider
         :native-scrollbar="false"
         :collapsed-width="0"
         width="320px"
@@ -81,18 +86,18 @@ onBeforeUnmount(() => {
         show-trigger="arrow-circle"
         v-if="!isMobile"
       >
-        <Sider />
-      </n-layout-sider>
-      <n-layout
+        <SiderView />
+      </NLayoutSider>
+      <NLayout
         ref="containerRef"
         :native-scrollbar="false"
         content-style="display: flex; flex-direction: column; padding: 24px"
       >
-        <router-view />
-        <n-back-top :right="50" style="z-index: 500" />
-        <n-divider style="margin-bottom: 0" />
-        <Footer />
-      </n-layout>
-    </n-layout>
-  </n-layout>
+        <RouterView />
+        <NBackTop :right="50" style="z-index: 500" />
+        <NDivider style="margin-bottom: 0" />
+        <PageFooter />
+      </NLayout>
+    </NLayout>
+  </NLayout>
 </template>

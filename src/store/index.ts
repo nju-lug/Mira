@@ -1,8 +1,8 @@
 import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
-import { MobileWidth } from '../configs';
-import { DocItem } from '../models/documents';
-import { DownloadContent } from '../models/downloads';
+import { MobileWidth } from '@/configs';
+import { DocItem } from '@/models/documents';
+import { DownloadContent } from '@/models/downloads';
 
 export interface State {
   isMobile: boolean;
