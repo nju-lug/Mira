@@ -16,6 +16,7 @@ import { useI18n } from 'vue-i18n';
 import { NewspaperOutline, MenuOutline } from '@vicons/ionicons5';
 
 import { useStore } from '@/store';
+import logo from '@/assets/nju.png';
 
 import SiderView from '@/views/SiderView.vue';
 import ThemeSwitch from '@/components/ThemeSwitch.vue';
@@ -72,7 +73,7 @@ watch(
     style="height: var(--header-height)"
   >
     <NText class="logo-container">
-      <img src="@/assets/logo.png" alt="Mirror Logo" />
+      <img :src="logo" alt="Mirror Logo" />
       <span>NJU Mirror</span>
     </NText>
 
