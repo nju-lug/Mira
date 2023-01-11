@@ -3,8 +3,8 @@ import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { NH1, NH2, NP, NLayout, useMessage } from 'naive-ui';
 
-import logo from '@/assets/shamiko.jpg';
-import logoAlt from '@/assets/shamiko-alt.jpg';
+import logo from '@/assets/nju.png';
+import logoAlt from '@/assets/nju-alt.png';
 
 const message = useMessage();
 const { t } = useI18n();
@@ -23,8 +23,8 @@ const logoUrl = computed(() => {
   <NH2 prefix="bar">{{ t('header.about') }}</NH2>
   <NLayout class="about-content">
     <img class="about-logo" :src="logoUrl" alt="Mirror Logo" @click="hit++" />
-    <NH1 class="title">Shamiko</NH1>
-    <NP class="about-text">こっっ…これで勝ったと思うなよ―――！！</NP>
+    <NH1 class="title">NJU Mirror</NH1>
+    <NP class="about-text">Created by NJU LUG</NP>
   </NLayout>
 </template>
 
@@ -39,7 +39,6 @@ const logoUrl = computed(() => {
   }
 
   .about-logo {
-    border-radius: 24px;
     height: 240px;
     width: 240px;
     margin: 24px;
