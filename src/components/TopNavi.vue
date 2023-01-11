@@ -91,6 +91,7 @@ watch(
         :value="route.path"
         :options="options"
         mode="horizontal"
+        class="navi-menu"
         v-if="!store.state.isMobile"
       />
       <NDropdown
@@ -155,7 +156,7 @@ watch(
 </style>
 
 <style>
-.n-menu .n-menu-item {
+.navi-menu .n-menu-item {
   height: calc(100% - 1px) !important;
 }
 </style>

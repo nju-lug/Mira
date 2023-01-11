@@ -46,18 +46,24 @@ async function handleClick(link: NewsEntry) {
     <NTabs type="segment" size="small" pane-class="tab-pane">
       <NTabPane name="Mirror">
         <NRow v-for="link in news" :key="link.content">
-          <NButton text tag="a" @click="handleClick(link)">{{
-            convertTimestamp(link.time, locale as 'zh' | 'en') +
-            ' - ' +
-            link.name
-          }}</NButton>
+          <NButton text tag="a" @click="handleClick(link)">
+            <span class="link-title">
+              {{
+                convertTimestamp(link.time, locale as 'zh' | 'en') +
+                ' - ' +
+                link.name
+              }}
+            </span>
+          </NButton>
         </NRow>
       </NTabPane>
       <NTabPane name="LUG Jokes">
         <NRow v-for="link in jokes" :key="link.title">
-          <NButton text tag="a" :href="link.web_url" target="_blank">{{
-            link.title
-          }}</NButton>
+          <NButton text tag="a" :href="link.web_url" target="_blank">
+            <span class="link-title">
+              {{ link.title }}
+            </span>
+          </NButton>
         </NRow>
       </NTabPane>
     </NTabs>
@@ -67,7 +73,7 @@ async function handleClick(link: NewsEntry) {
     preset="card"
     size="huge"
     :bordered="true"
-    :title="selected?.name || 'Null'"
+    :title="selected?.name"
     v-model:show="show"
   >
     <MarkdownContainer :content="content" />
@@ -80,6 +86,10 @@ async function handleClick(link: NewsEntry) {
 }
 
 a.n-button {
+  max-width: 100%;
+}
+
+span.link-title {
   overflow: hidden;
   max-width: 100%;
   text-overflow: ellipsis;
