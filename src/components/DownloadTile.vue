@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, reactive } from 'vue';
+import { reactive } from 'vue';
 import { NCard } from 'naive-ui';
 
 const props = defineProps<{
@@ -17,9 +17,9 @@ const download = () => window.open(url);
 
 <template>
   <div class="download-tile">
-    <n-card @click="download()" size="small" :title="title" embedded hoverable>
+    <NCard @click="download()" size="small" :title="title" embedded hoverable>
       {{ description }}
-    </n-card>
+    </NCard>
   </div>
 </template>
 

@@ -6,22 +6,18 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <n-h2 prefix="bar">{{ t('header.about') }}</n-h2>
-  <n-layout>
+  <NH2 prefix="bar">{{ t('header.about') }}</NH2>
+  <NLayout>
     <div class="about-content">
-      <img
-        class="about-logo"
-        src="../assets/index-logo.jpg"
-        alt="Mirror Logo"
-      />
-      <n-h1 class="title">NJU Mirror</n-h1>
-      <n-p class="about-text"
-        >A refreshed version of Nanjing University Mirror frontend</n-p
+      <img class="about-logo" src="@/assets/index-logo.jpg" alt="Mirror Logo" />
+      <NH1 class="title">NJU Mirror</NH1>
+      <NP class="about-text"
+        >A refreshed version of Nanjing University Mirror frontend</NP
       >
-      <n-p class="about-text">Based on Vue3 + NaiveUI</n-p>
-      <n-p class="about-text">Created by Iori</n-p>
+      <NP class="about-text">Based on Vue3 + NaiveUI</NP>
+      <NP class="about-text">Created by Iori</NP>
     </div>
-  </n-layout>
+  </NLayout>
 </template>
 
 <style scoped lang="less">

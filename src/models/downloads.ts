@@ -1,5 +1,5 @@
-import { ServerPrefix } from '../configs';
-import { json } from '../utils/network';
+import { ServerPrefix } from '@/configs';
+import { json } from '@/utils/network';
 
 export interface DownloadLink {
   name: string;

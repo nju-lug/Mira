@@ -1,6 +1,6 @@
 import { marked } from 'marked';
-import { ServerPrefix } from '../configs';
-import { json, text } from '../utils/network';
+import { ServerPrefix } from '@/configs';
+import { json, text } from '@/utils/network';
 
 export interface NewsEntry {
   name: string;

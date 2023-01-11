@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { defineProps, VNode } from 'vue';
+import { VNode } from 'vue';
 import {
   MaleOutline,
   SchoolOutline,
@@ -35,7 +35,7 @@ const MyIcon = () => icons[props.name] || <ArrowForwardCircleOutline />;
 </script>
 
 <template>
-  <n-icon :size="size">
+  <NIcon :size="size">
     <MyIcon />
-  </n-icon>
+  </NIcon>
 </template>
