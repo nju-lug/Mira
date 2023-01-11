@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, defineCustomElement } from 'vue';
+
 import { useStore } from '@/store';
+
+import CustomSelectCe from '@/components/CustomSelect.ce.vue';
 
 defineProps<{ content: string }>();
 
@@ -8,6 +11,10 @@ const store = useStore();
 const theme = computed(() =>
   store.state.darkMode ? 'dark-scheme' : 'light-scheme'
 );
+
+const CustomSelect = defineCustomElement(CustomSelectCe);
+
+customElements.define('mira-select', CustomSelect);
 </script>
 
 <template>
