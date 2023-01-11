@@ -49,5 +49,21 @@
     "back": "Go Back",
     "home": "Home",
     "bug": "Report Bug"
+  },
+  "report": {
+    "title": "Send Feedback",
+    "document": "Documentation Issues",
+    "request": "New Mirror Request",
+    "mirror": "Mirror Issues",
+    "frontend": "Frontend Issues",
+    "other": "Other Issues",
+    "gitlab": "NJU GitLab",
+    "github": "GitHub",
+    "mail": "Mail",
+    "prompt": {
+      "type": "Select issue type",
+      "link": "Select feedback method",
+      "done": "Thanks for your feedback"
+    }
   }
 }
