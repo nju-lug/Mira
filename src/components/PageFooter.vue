@@ -1,32 +1,10 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import {
-  NH2,
-  NP,
-  NSpace,
-  NDropdown,
-  NButton,
-  NButtonGroup,
-  NIcon,
-  MenuOption
-} from 'naive-ui';
-import { BugOutline, CodeOutline, MaleOutline } from '@vicons/ionicons5';
+import { NH2, NP, NSpace, NButton, NButtonGroup } from 'naive-ui';
+import FeedbackButton from '@/components/FeedbackButton.vue';
+import NamedIcon from '@/components/NamedIcon.vue';
 
 const { t } = useI18n();
-const reports = [
-  {
-    label: 'Via Mail',
-    key: 'mailto:git+nju-lug-mira-3921-issue-@yaoge123.cn'
-  },
-  {
-    label: 'Via GitHub',
-    key: 'https://github.com/iori2333/NJU-Mirror-Frontend/issues'
-  },
-  {
-    label: 'Via NJU Git',
-    key: 'https://git.nju.edu.cn/nju-lug/'
-  }
-] as MenuOption[];
 
 function handleSelect(key: string) {
   window.open(key);
@@ -46,34 +24,16 @@ function handleSelect(key: string) {
       <NP class="footer-text">{{ t('footer.special') }}</NP>
     </div>
     <NButtonGroup vertical>
-      <NDropdown
-        trigger="click"
-        @select="handleSelect"
-        placement="left-start"
-        :options="reports"
-      >
-        <NButton text>
-          <template #icon>
-            <NIcon size="16">
-              <BugOutline />
-            </NIcon>
-          </template>
-          {{ t('footer.bug') }}
-        </NButton>
-      </NDropdown>
+      <FeedbackButton />
       <NButton text @click="handleSelect('https://github.com/iori2333/Mira')">
         <template #icon>
-          <NIcon size="16">
-            <CodeOutline />
-          </NIcon>
+          <NamedIcon name="code" :size="16" />
         </template>
         {{ t('footer.source') }}
       </NButton>
       <NButton text @click="handleSelect('https://git.nju.edu.cn/nju-lug')">
         <template #icon>
-          <NIcon size="16">
-            <MaleOutline />
-          </NIcon>
+          <NamedIcon name="male" :size="16" />
         </template>
         {{ t('footer.lug') }}
       </NButton>
