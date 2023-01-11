@@ -1,30 +1,35 @@
 <script setup lang="ts">
+import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { NH1, NH2, NP, NLayout } from 'naive-ui';
+import { NH1, NH2, NP, NLayout, useMessage } from 'naive-ui';
 
+import logo from '@/assets/shamiko.jpg';
+import logoAlt from '@/assets/shamiko-alt.jpg';
+
+const message = useMessage();
 const { t } = useI18n();
+const hit = ref(0);
+const logoUrl = computed(() => {
+  if (hit.value >= 10) {
+    message.error('これで勝ったと思うなよ―――！！');
+    return logoAlt;
+  } else {
+    return logo;
+  }
+});
 </script>
 
 <template>
   <NH2 prefix="bar">{{ t('header.about') }}</NH2>
-  <NLayout>
-    <div class="about-content">
-      <img class="about-logo" src="@/assets/index-logo.jpg" alt="Mirror Logo" />
-      <NH1 class="title">NJU Mirror</NH1>
-      <NP class="about-text"
-        >A refreshed version of Nanjing University Mirror frontend</NP
-      >
-      <NP class="about-text">Based on Vue3 + NaiveUI</NP>
-      <NP class="about-text">Created by Iori</NP>
-    </div>
+  <NLayout class="about-content">
+    <img class="about-logo" :src="logoUrl" alt="Mirror Logo" @click="hit++" />
+    <NH1 class="title">Shamiko</NH1>
+    <NP class="about-text">こっっ…これで勝ったと思うなよ―――！！</NP>
   </NLayout>
 </template>
 
 <style scoped lang="less">
 .about-content {
-  display: flex;
-  flex-direction: column;
-  position: relative;
   text-align: center;
   justify-content: center;
 
@@ -39,14 +44,16 @@ const { t } = useI18n();
     width: 240px;
     margin: 24px;
     align-self: center;
-    box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.2);
-    -webkit-box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    &:active {
+      transform: scale(0.9);
+    }
   }
 
   .title {
     line-height: 1;
     font-size: 64px;
-    margin-bottom: 18px !important;
   }
 }
 </style>

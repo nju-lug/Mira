@@ -14,7 +14,9 @@ const theme = computed(() =>
 
 const CustomSelect = defineCustomElement(CustomSelectCe);
 
-customElements.define('mira-select', CustomSelect);
+if (customElements.get('mira-select') == undefined) {
+  customElements.define('mira-select', CustomSelect);
+}
 </script>
 
 <template>
