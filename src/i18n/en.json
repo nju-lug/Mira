@@ -60,6 +60,7 @@
     "gitlab": "NJU GitLab",
     "github": "GitHub",
     "mail": "Mail",
+    "chart": "NJU Table",
     "prompt": {
       "type": "Select issue type",
       "link": "Select feedback method",

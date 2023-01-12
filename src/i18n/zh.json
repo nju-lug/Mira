@@ -60,6 +60,7 @@
     "gitlab": "南大GitLab",
     "github": "GitHub",
     "mail": "邮件",
+    "chart": "南大Table",
     "prompt": {
       "type": "选择问题类型",
       "link": "选择反馈方式",
