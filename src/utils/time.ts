@@ -7,12 +7,12 @@ dayjs.extend(relativeTime);
 
 export function convertTimestamp(
   ts: number,
-  locale: 'zh' | 'en',
+  locale: string,
   format = 'YYYY.M.D'
 ) {
   return dayjs.unix(ts).locale(locale).format(format);
 }
 
-export function timeFromNow(ts: number, locale: 'zh' | 'en') {
+export function timeFromNow(ts: number, locale: string) {
   return ts <= 0 ? '-' : dayjs.unix(ts).locale(locale).fromNow();
 }

@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { defineProps, computed } from 'vue';
-import { useStore } from '../store';
-import { DownloadContent } from '../models/downloads';
+import { computed } from 'vue';
+
+import { useWidth } from '@/hooks';
+import { DownloadContent } from '@/models/downloads';
+
 import DownloadTile from './DownloadTile.vue';
 
-const store = useStore();
-
 const props = defineProps<{ distro: DownloadContent }>();
+
+const { isMobile } = useWidth();
 
 const urls = computed(
   () =>
@@ -19,13 +21,11 @@ const urls = computed(
       };
     }) || []
 );
-
-const columns = computed(() => (store.state.isMobile ? 2 : 4));
 </script>
 
 <template>
-  <div :style="{ columnCount: columns }" class="tiles">
-    <download-tile v-for="item in urls" :key="item.url" :item="item" />
+  <div :style="{ columnCount: isMobile ? 2 : 4 }" class="tiles">
+    <DownloadTile v-for="item in urls" :key="item.url" :item="item" />
   </div>
 </template>
 

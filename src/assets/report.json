@@ -1,0 +1,22 @@
+{
+  "request": {
+    "github": "https://github.com/nju-lug/NJU-Mirror-Issue/issues/new?assignees=yaoge123&labels=enhancement&template=new-mirror-request.md&title=%5BNMR%5D+New+Mirror+Request+for+%5BName%5D",
+    "chart": "https://table.nju.edu.cn/dtable/universal-app/links/8803feff32654c8a9f50"
+  },
+  "mirror": {
+    "github": "https://github.com/nju-lug/NJU-Mirror-Issue/issues/new?assignees=yaoge123&labels=bug&template=mirror-error-report.md&title=%5BMER%5D+Mirror+Error+Report+for+%5BName%5D"
+  },
+  "document": {
+    "github": "https://github.com/nju-lug/NJU-Mirror-Configs/issues/new?assignees=&labels=documentation&template=mirror-doc-error-report.md&title=%5BMDR%5D+Mirror+Doc+Error+Report+for+%5BRepo+Name%5D",
+    "mail": "mailto:git+nju-lug-nju-mirror-configs-4009-yj7mew73nctozbsgnpupb3zn-issue@yaoge123.cn",
+    "gitlab": "https://git.nju.edu.cn/nju-lug/NJU-Mirror-Configs/-/issues"
+  },
+  "frontend": {
+    "github": "https://github.com/nju-lug/Mira/issues/new?assignees=yaoge123&labels=bug&template=mirror-front-error-report.md&title=%5BMFR%5D+Mirror+Front+End+Error+Report",
+    "mail": "mailto:git+nju-lug-mira-3921-yj7mew73nctozbsgnpupb3zn-issue@yaoge123.cn",
+    "gitlab": "https://git.nju.edu.cn/nju-lug/mira/-/issues"
+  },
+  "other": {
+    "github": "https://github.com/nju-lug/NJU-Mirror-Issue/issues/new?assignees=yaoge123&labels=question&template=other-usage-issues.md&title=%5BNOI%5D+New+Mirror+Other+Issue+for+%5BRepo+Name%5D"
+  }
+}

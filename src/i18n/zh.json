@@ -5,6 +5,7 @@
     "mirrors": "镜像列表",
     "downloads": "下载",
     "help": "帮助",
+    "news": "新闻",
     "doc": "帮助文档",
     "about": "关于",
     "error": "出错了"
@@ -28,6 +29,12 @@
     "title": "去读手册",
     "description": "浏览菜单即可打开帮助"
   },
+  "news": {
+    "date": "发布日期",
+    "author": "作者",
+    "title": "镜像站新闻",
+    "description": "浏览菜单即可查看新闻"
+  },
   "footer": {
     "maintainer": "本镜像站由{name}维护",
     "developer": "前端由{name}构建",
@@ -49,5 +56,22 @@
     "back": "返回",
     "home": "主页",
     "bug": "反馈问题"
+  },
+  "report": {
+    "title": "反馈问题",
+    "document": "文档相关问题",
+    "request": "新镜像请求",
+    "mirror": "镜像相关问题",
+    "frontend": "前端相关问题",
+    "other": "其他问题",
+    "gitlab": "南大GitLab",
+    "github": "GitHub",
+    "mail": "邮件",
+    "chart": "南大Table",
+    "prompt": {
+      "type": "选择问题类型",
+      "link": "选择反馈方式",
+      "done": "感谢您的反馈"
+    }
   }
 }

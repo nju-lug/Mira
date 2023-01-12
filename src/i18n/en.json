@@ -5,6 +5,7 @@
     "mirrors": "Mirrors",
     "downloads": "Downloads",
     "help": "Help",
+    "news": "News",
     "doc": "Documentation",
     "about": "About",
     "error": "Error"
@@ -28,6 +29,12 @@
     "title": "RTFM",
     "description": "Select menu to view help"
   },
+  "news": {
+    "date": "Date",
+    "author": "Author",
+    "title": "News",
+    "description": "Select menu to view news"
+  },
   "footer": {
     "maintainer": "This mirror site is maintained by {name}",
     "developer": "Frontend by {name}",
@@ -49,5 +56,22 @@
     "back": "Go Back",
     "home": "Home",
     "bug": "Report Bug"
+  },
+  "report": {
+    "title": "Send Feedback",
+    "document": "Documentation Issues",
+    "request": "New Mirror Request",
+    "mirror": "Mirror Issues",
+    "frontend": "Frontend Issues",
+    "other": "Other Issues",
+    "gitlab": "NJU GitLab",
+    "github": "GitHub",
+    "mail": "Mail",
+    "chart": "NJU Table",
+    "prompt": {
+      "type": "Select issue type",
+      "link": "Select feedback method",
+      "done": "Thanks for your feedback"
+    }
   }
 }

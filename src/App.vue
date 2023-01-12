@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
 import {
   GlobalThemeOverrides,
   NConfigProvider,
@@ -8,10 +9,13 @@ import {
   darkTheme
 } from 'naive-ui';
 
-import { useStore } from './store';
-import MainPage from './views/MainPage.vue';
+import { useStore } from '@/store';
 
+import MainPage from '@/views/MainPage.vue';
+
+const { locale } = useI18n();
 const store = useStore();
+
 const theme = computed(() => (store.state.darkMode ? darkTheme : null));
 const override = computed(
   () =>
@@ -24,16 +28,20 @@ const override = computed(
       }
     } as GlobalThemeOverrides)
 );
+
+onMounted(
+  () => (locale.value = navigator.language.startsWith('zh') ? 'zh' : 'en')
+);
 </script>
 
 <template>
-  <n-config-provider :theme="theme" :theme-overrides="override">
-    <n-loading-bar-provider>
-      <n-message-provider>
+  <NConfigProvider :theme="theme" :theme-overrides="override">
+    <NLoadingBarProvider>
+      <NMessageProvider>
         <MainPage />
-      </n-message-provider>
-    </n-loading-bar-provider>
-  </n-config-provider>
+      </NMessageProvider>
+    </NLoadingBarProvider>
+  </NConfigProvider>
 </template>
 
 <style lang="less">

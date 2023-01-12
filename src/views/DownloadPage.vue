@@ -1,25 +1,20 @@
 <script setup lang="ts">
-import { onMounted, computed } from 'vue';
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import { NH2, NResult, useMessage } from 'naive-ui';
+import { NH2, NResult } from 'naive-ui';
 
-import { fetchDownloads } from '../models/downloads';
-import { useStore } from '../store';
+import { usePromiseEffect } from '@/hooks';
+import { fetchDownloads } from '@/models/downloads';
+import { useStore } from '@/store';
 
-import DownloadList from '../components/DownloadList.vue';
+import DownloadList from '@/components/DownloadList';
 
 const { t } = useI18n();
 const store = useStore();
 const route = useRoute();
-const message = useMessage();
 
-onMounted(() =>
-  fetchDownloads().then(
-    res => store.commit('setDownloads', res),
-    err => message.error(err.message)
-  )
-);
+usePromiseEffect(fetchDownloads, res => store.commit('setDownloads', res));
 
 const distro = computed(() =>
   store.state.downloadContents.find(
@@ -29,9 +24,9 @@ const distro = computed(() =>
 </script>
 
 <template>
-  <n-h2 prefix="bar">{{ distro?.distro || t('header.downloads') }}</n-h2>
+  <NH2 prefix="bar">{{ distro?.distro || t('header.downloads') }}</NH2>
   <DownloadList v-if="distro" :distro="distro" />
-  <n-result
+  <NResult
     size="huge"
     status="info"
     :title="t('downloads.title')"

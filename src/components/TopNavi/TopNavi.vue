@@ -6,48 +6,35 @@ import {
   NDropdown,
   NButton,
   NIcon,
-  NSwitch,
   NSpace,
   NDrawer,
-  NButtonGroup,
-  useMessage
+  NButtonGroup
 } from 'naive-ui';
-import { ref, watch } from 'vue';
+import { watch } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { NewspaperOutline, MenuOutline } from '@vicons/ionicons5';
 
-import { useStore } from '../store';
-import Sider from '../views/Sider.vue';
+import { useMutableRef } from '@/hooks';
+import { useStore } from '@/store';
+import logo from '@/assets/nju.png';
+
+import SideBar from '@/components/SideBar';
+import ThemeSwitch from './ThemeSwitch.vue';
 
 const { t, locale } = useI18n();
 const store = useStore();
 const route = useRoute();
-const message = useMessage();
+const [active, setActive] = useMutableRef(false);
 
 const createRoute = (to: string, name: string): MenuOption => ({
   label: () => <RouterLink to={to}>{t(`header.${name}`)}</RouterLink>,
   key: to
 });
 
-const active = ref(false);
-
 const darkMode: MenuOption = {
-  label: () => (
-    <NSwitch
-      v-slots={{
-        checked: () => 'Conflict',
-        unchecked: () => 'Light'
-      }}
-      defaultValue={store.state.darkMode}
-      onUpdateValue={value => {
-        store.commit('setDarkMode', value);
-        message.info(`Side of ${value ? 'Tairitsu' : 'Hikari'}`);
-      }}
-      style="margin: 6px;"
-    />
-  ),
-  key: 'darkmode'
+  label: () => <ThemeSwitch />,
+  key: 'theme-switch'
 };
 
 const localeButton: MenuOption = {
@@ -66,6 +53,7 @@ const options = [
   createRoute('/', 'mirrors'),
   createRoute('/download', 'downloads'),
   createRoute('/help', 'help'),
+  createRoute('/news', 'news'),
   createRoute('/about', 'about'),
   localeButton,
   darkMode
@@ -73,63 +61,62 @@ const options = [
 
 watch(
   () => route.path,
-  () => {
-    active.value = false;
-  }
+  () => setActive(false)
 );
 </script>
 
 <template>
-  <n-space
+  <NSpace
     class="navi-bar"
     justify="space-between"
     style="height: var(--header-height)"
   >
-    <n-text class="logo-container">
-      <img src="../assets/logo.png" alt="Mirror Logo" />
+    <NText class="logo-container">
+      <img :src="logo" alt="Mirror Logo" />
       <span>NJU Mirror</span>
-    </n-text>
+    </NText>
 
-    <n-button-group style="height: 100%">
-      <n-button
+    <NButtonGroup style="height: 100%">
+      <NButton
         text
         class="collapse-button"
         v-if="store.state.isMobile"
-        @click="active = true"
+        @click="setActive(true)"
       >
-        <n-icon>
-          <newspaper-outline />
-        </n-icon>
-      </n-button>
-      <n-menu
+        <NIcon>
+          <NewspaperOutline />
+        </NIcon>
+      </NButton>
+      <NMenu
         :value="route.path"
         :options="options"
         mode="horizontal"
+        class="navi-menu"
         v-if="!store.state.isMobile"
       />
-      <n-dropdown
+      <NDropdown
         :options="options"
         placement="bottom-end"
         trigger="click"
         v-else
       >
-        <n-button text class="collapse-button">
-          <n-icon>
-            <menu-outline />
-          </n-icon>
-        </n-button>
-      </n-dropdown>
-    </n-button-group>
-  </n-space>
-  <n-drawer
+        <NButton text class="collapse-button">
+          <NIcon>
+            <MenuOutline />
+          </NIcon>
+        </NButton>
+      </NDropdown>
+    </NButtonGroup>
+  </NSpace>
+  <NDrawer
     placement="right"
     v-model:show="active"
     width="min(360px, 80%)"
     :native-scrollbar="false"
     v-if="store.state.isMobile"
   >
-    <Sider />
-  </n-drawer>
+    <SideBar />
+  </NDrawer>
 </template>
 
 <style scoped lang="less">
@@ -154,6 +141,7 @@ watch(
   justify-content: left;
   padding-left: 16px;
   align-items: center;
+  user-select: none;
 
   span {
     padding: 0 10px;
@@ -168,7 +156,7 @@ watch(
 </style>
 
 <style>
-.n-menu .n-menu-item {
+.navi-menu .n-menu-item {
   height: calc(100% - 1px) !important;
 }
 </style>
