@@ -14,7 +14,7 @@ import { useI18n } from 'vue-i18n';
 import reports from '@/assets/report.json';
 
 import { useMutableRef } from '@/hooks';
-import NamedIcon from './NamedIcon.vue';
+import NamedIcon from '@/components/NamedIcon.vue';
 
 type RequestKey = keyof typeof reports;
 

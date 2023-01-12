@@ -8,7 +8,7 @@ import { useStore } from '@/store';
 import { MenuCaller } from '@/routes';
 import { useDebounce, useMutableRef } from '@/hooks';
 
-import SideLinks from '@/components/SideLinks.vue';
+import SideLinks from './SideLinks.vue';
 
 const route = useRoute();
 const store = useStore();

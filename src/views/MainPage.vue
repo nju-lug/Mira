@@ -19,9 +19,9 @@ import {
   usePromiseEffect
 } from '@/hooks';
 
-import TopNavi from '@/components/TopNavi.vue';
-import PageFooter from '@/components/PageFooter.vue';
-import SiderView from '@/views/SiderView.vue';
+import TopNavi from '@/components/TopNavi';
+import PageFooter from '@/components/PageFooter';
+import SideBar from '@/components/SideBar';
 
 const store = useStore();
 const { isMobile } = useWidth();
@@ -54,7 +54,7 @@ usePromiseEffect(fetchDocs, res => store.commit('setDocs', res));
         show-trigger="bar"
         v-if="!isMobile"
       >
-        <SiderView />
+        <SideBar />
       </NLayoutSider>
       <NLayout
         :native-scrollbar="false"

@@ -19,8 +19,9 @@ import {
 } from '@/models/news';
 import { convertTimestamp } from '@/utils/time';
 
-import MarkdownContainer from '@/components/MarkdownContainer.vue';
 import { useMutableRef, usePromiseEffect } from '@/hooks';
+
+import MarkdownContainer from '@/components/MarkdownContainer';
 
 interface NewsEntryWithContent extends NewsEntry {
   content: string;

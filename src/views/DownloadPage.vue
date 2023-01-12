@@ -4,11 +4,11 @@ import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { NH2, NResult } from 'naive-ui';
 
+import { usePromiseEffect } from '@/hooks';
 import { fetchDownloads } from '@/models/downloads';
 import { useStore } from '@/store';
 
-import DownloadList from '@/components/DownloadList.vue';
-import { usePromiseEffect } from '@/hooks';
+import DownloadList from '@/components/DownloadList';
 
 const { t } = useI18n();
 const store = useStore();

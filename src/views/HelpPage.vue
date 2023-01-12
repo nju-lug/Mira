@@ -4,11 +4,11 @@ import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { NH2, NResult } from 'naive-ui';
 
+import { useMutableRef, usePromiseWatch } from '@/hooks';
 import { useStore } from '@/store';
 import { fetchDoc } from '@/models/documents';
 
-import MarkdownContainer from '@/components/MarkdownContainer.vue';
-import { useMutableRef, usePromiseWatch } from '@/hooks';
+import MarkdownContainer from '@/components/MarkdownContainer';
 
 const { t } = useI18n();
 const route = useRoute();

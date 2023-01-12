@@ -3,10 +3,10 @@ import { NSpace, NDivider } from 'naive-ui';
 import { useI18n } from 'vue-i18n';
 
 import cards, { CardItem } from '@/models/cards';
-
-import SideCard from '@/components/SideCard.vue';
-import SidePanel from '@/components/SidePanel.vue';
 import { useMutableRef, usePromiseEffect } from '@/hooks';
+
+import SideCard from './SideCard.vue';
+import SidePanel from './SidePanel.vue';
 
 const { t } = useI18n();
 const [entries, setEntries] = useMutableRef([] as CardItem[]);

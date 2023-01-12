@@ -4,7 +4,7 @@ import { computed } from 'vue';
 import { useWidth } from '@/hooks';
 import { DownloadContent } from '@/models/downloads';
 
-import DownloadTile from '@/components/DownloadTile.vue';
+import DownloadTile from './DownloadTile.vue';
 
 const props = defineProps<{ distro: DownloadContent }>();
 

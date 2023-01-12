@@ -19,8 +19,8 @@ import { useMutableRef } from '@/hooks';
 import { useStore } from '@/store';
 import logo from '@/assets/nju.png';
 
-import SiderView from '@/views/SiderView.vue';
-import ThemeSwitch from '@/components/ThemeSwitch.vue';
+import SideBar from '@/components/SideBar';
+import ThemeSwitch from './ThemeSwitch.vue';
 
 const { t, locale } = useI18n();
 const store = useStore();
@@ -114,7 +114,7 @@ watch(
     :native-scrollbar="false"
     v-if="store.state.isMobile"
   >
-    <SiderView />
+    <SideBar />
   </NDrawer>
 </template>
 
