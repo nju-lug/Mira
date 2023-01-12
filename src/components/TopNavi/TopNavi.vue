@@ -10,27 +10,27 @@ import {
   NDrawer,
   NButtonGroup
 } from 'naive-ui';
-import { ref, watch } from 'vue';
+import { watch } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { NewspaperOutline, MenuOutline } from '@vicons/ionicons5';
 
+import { useMutableRef } from '@/hooks';
 import { useStore } from '@/store';
 import logo from '@/assets/nju.png';
 
-import SiderView from '@/views/SiderView.vue';
-import ThemeSwitch from '@/components/ThemeSwitch.vue';
+import SideBar from '@/components/SideBar';
+import ThemeSwitch from './ThemeSwitch.vue';
 
 const { t, locale } = useI18n();
 const store = useStore();
 const route = useRoute();
+const [active, setActive] = useMutableRef(false);
 
 const createRoute = (to: string, name: string): MenuOption => ({
   label: () => <RouterLink to={to}>{t(`header.${name}`)}</RouterLink>,
   key: to
 });
-
-const active = ref(false);
 
 const darkMode: MenuOption = {
   label: () => <ThemeSwitch />,
@@ -53,6 +53,7 @@ const options = [
   createRoute('/', 'mirrors'),
   createRoute('/download', 'downloads'),
   createRoute('/help', 'help'),
+  createRoute('/news', 'news'),
   createRoute('/about', 'about'),
   localeButton,
   darkMode
@@ -60,9 +61,7 @@ const options = [
 
 watch(
   () => route.path,
-  () => {
-    active.value = false;
-  }
+  () => setActive(false)
 );
 </script>
 
@@ -82,7 +81,7 @@ watch(
         text
         class="collapse-button"
         v-if="store.state.isMobile"
-        @click="active = true"
+        @click="setActive(true)"
       >
         <NIcon>
           <NewspaperOutline />
@@ -116,7 +115,7 @@ watch(
     :native-scrollbar="false"
     v-if="store.state.isMobile"
   >
-    <SiderView />
+    <SideBar />
   </NDrawer>
 </template>
 

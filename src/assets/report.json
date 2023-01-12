@@ -1,6 +1,7 @@
 {
   "request": {
-    "github": "https://github.com/nju-lug/NJU-Mirror-Issue/issues/new?assignees=yaoge123&labels=enhancement&template=new-mirror-request.md&title=%5BNMR%5D+New+Mirror+Request+for+%5BName%5D"
+    "github": "https://github.com/nju-lug/NJU-Mirror-Issue/issues/new?assignees=yaoge123&labels=enhancement&template=new-mirror-request.md&title=%5BNMR%5D+New+Mirror+Request+for+%5BName%5D",
+    "chart": "https://table.nju.edu.cn/dtable/universal-app/links/8803feff32654c8a9f50"
   },
   "mirror": {
     "github": "https://github.com/nju-lug/NJU-Mirror-Issue/issues/new?assignees=yaoge123&labels=bug&template=mirror-error-report.md&title=%5BMER%5D+Mirror+Error+Report+for+%5BName%5D"

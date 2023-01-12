@@ -3,7 +3,7 @@ import { computed, defineCustomElement } from 'vue';
 
 import { useStore } from '@/store';
 
-import CustomSelectCe from '@/components/CustomSelect.ce.vue';
+import CustomSelectCe from './CustomSelect.ce.vue';
 
 defineProps<{ content: string }>();
 
