@@ -1,41 +1,47 @@
 <script setup lang="ts">
-import { reactive, ref, onMounted } from 'vue';
+import { reactive, onMounted } from 'vue';
+
+import { useElementRef } from '@/hooks';
 
 const props = defineProps<{
   id: string;
   prompt?: string;
 }>();
 
-type Target = {
+interface SlotTarget {
   name: string | null;
   value: string;
+}
+
+const targets = reactive([] as SlotTarget[]);
+const boxRef = useElementRef<HTMLElement>();
+
+const selectSlot = (slotName: string) => {
+  const slot = boxRef.value?.querySelector('slot');
+  slot?.setAttribute('name', slotName);
 };
 
-const targets = reactive([] as Target[]);
-const boxRef = ref<HTMLDivElement | null>(null);
-const onSelection = (value: string) => {
-  const slot = boxRef.value?.querySelector('slot');
-  slot?.setAttribute('name', value);
+const onSelect = (e: Event) => {
+  const target = e.target as HTMLSelectElement;
+  selectSlot(target.value);
 };
 
 onMounted(() => {
-  const selections = document.querySelectorAll(`#${props.id} > mira-option`);
-  selections.forEach(choice => {
+  document.querySelectorAll(`#${props.id} > mira-option`).forEach(choice => {
     const value = choice.getAttribute('slot');
-    const name = choice.getAttribute('name');
     if (value != null) {
-      targets.push({ name, value });
+      targets.push({ name: choice.getAttribute('name'), value });
     }
   });
-  onSelection(targets[0].value);
+  selectSlot(targets[0].value);
 });
 </script>
 
 <template>
   <div ref="boxRef">
     <p>
-      <label>{{ prompt }}</label>
-      <select @change="e => onSelection((e.target as HTMLSelectElement).value)">
+      <label v-if="prompt">{{ prompt }}</label>
+      <select @change="onSelect">
         <option v-for="{ name, value } in targets" :key="value" :value="value">
           {{ name ?? value }}
         </option>

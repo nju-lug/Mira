@@ -16,22 +16,20 @@ import reports from '@/assets/report.json';
 import { useMutableRef } from '@/hooks';
 import NamedIcon from './NamedIcon.vue';
 
+type RequestKey = keyof typeof reports;
+
 const { t } = useI18n();
 const message = useMessage();
 const [show, setShow] = useMutableRef(false);
 const [selected, setSelected] = useMutableRef<string | null>(null);
 
-type RequestKey = keyof typeof reports;
-
-const options = computed(() => {
+const options = (() => {
   const options = [];
   for (const key in reports) {
-    const value = reports[key as RequestKey];
-    console.log(key, value);
     options.push({ label: t(`report.${key}`), value: key });
   }
   return options;
-});
+})();
 
 const selectedValue = computed(
   () => selected.value && reports[selected.value as RequestKey]
@@ -56,10 +54,10 @@ const onLinkClicked = (url: string) => {
     style="width: min(600px, 90%)"
     preset="card"
     size="huge"
-    :bordered="true"
     :title="t('report.title')"
     v-model:show="show"
     aria-modal
+    bordered
   >
     <NH3 prefix="line">step.1 {{ t('report.prompt.type') }}</NH3>
     <NSelect
