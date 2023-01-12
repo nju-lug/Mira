@@ -53,6 +53,7 @@ const options = [
   createRoute('/', 'mirrors'),
   createRoute('/download', 'downloads'),
   createRoute('/help', 'help'),
+  createRoute('/news', 'news'),
   createRoute('/about', 'about'),
   localeButton,
   darkMode

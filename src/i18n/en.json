@@ -5,6 +5,7 @@
     "mirrors": "Mirrors",
     "downloads": "Downloads",
     "help": "Help",
+    "news": "News",
     "doc": "Documentation",
     "about": "About",
     "error": "Error"
@@ -27,6 +28,12 @@
   "help": {
     "title": "RTFM",
     "description": "Select menu to view help"
+  },
+  "news": {
+    "date": "Date",
+    "author": "Author",
+    "title": "News",
+    "description": "Select menu to view news"
   },
   "footer": {
     "maintainer": "This mirror site is maintained by {name}",

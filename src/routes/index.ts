@@ -3,6 +3,7 @@ import { LoadingBarApi, MenuOption } from 'naive-ui';
 import fetchDocRoutes from '@/routes/docs';
 import fetchDownloadRoutes from '@/routes/downloads';
 import { State } from '@/store';
+import fetchNewsRoutes from './news';
 
 export const loadingRef: { value?: LoadingBarApi } = {};
 export const setLoadingRef = (loadingBar: LoadingBarApi) => {
@@ -46,6 +47,21 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: 'Downloads',
       sider: fetchDownloadRoutes
+    }
+  },
+  {
+    name: 'News',
+    path: '/news',
+    component: () => import('@/views/NewsPage.vue'),
+    children: [
+      {
+        path: ':title',
+        component: () => import('@/views/NewsPage.vue')
+      }
+    ],
+    meta: {
+      title: 'News',
+      sider: fetchNewsRoutes
     }
   },
   {

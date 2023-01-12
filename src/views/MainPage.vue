@@ -11,6 +11,7 @@ import {
 
 import { useStore } from '@/store';
 import { fetchDocs } from '@/models/documents';
+import { fetchNewsList } from '@/models/news';
 import {
   useElementRef,
   useWidth,
@@ -31,6 +32,7 @@ const el = computed(() => boxRef.value?.$el);
 useWidthObserver(el);
 useLoadingBar();
 usePromiseEffect(fetchDocs, res => store.commit('setDocs', res));
+usePromiseEffect(fetchNewsList, res => store.commit('setNews', res));
 </script>
 
 <template>

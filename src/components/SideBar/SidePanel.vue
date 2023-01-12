@@ -1,47 +1,24 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import {
-  NCard,
-  NTabs,
-  NTabPane,
-  NDivider,
-  NRow,
-  NButton,
-  NModal
-} from 'naive-ui';
+import { NCard, NTabs, NTabPane, NDivider, NRow, NButton } from 'naive-ui';
 
-import {
-  fetchNewsList,
-  fetchJokes,
-  JokeEntry,
-  NewsEntry,
-  fetchNews
-} from '@/models/news';
+import { useStore } from '@/store';
+import { useMutableRef, usePromiseEffect } from '@/hooks';
+import { fetchJokes, JokeEntry } from '@/models/news';
 import { convertTimestamp } from '@/utils/time';
 
-import { useMutableRef, usePromiseEffect } from '@/hooks';
-
-import MarkdownContainer from '@/components/MarkdownContainer';
-
-interface NewsEntryWithContent extends NewsEntry {
-  content: string;
-}
-
+const store = useStore();
 const { t, locale } = useI18n();
-const [news, setNews] = useMutableRef([] as NewsEntry[]);
 const [jokes, setJokes] = useMutableRef([] as JokeEntry[]);
-const [selected, setSelected] = useMutableRef<NewsEntryWithContent | null>(
-  null
-);
-const [show, setShow] = useMutableRef(false);
+const router = useRouter();
 
-usePromiseEffect(fetchNewsList, setNews);
-usePromiseEffect(fetchJokes, setJokes);
+const panelLimit = 6;
+const entries = computed(() => store.state.newsEntries.slice(0, panelLimit));
+usePromiseEffect(() => fetchJokes(panelLimit), setJokes);
 
-async function handleClick(link: NewsEntry) {
-  setSelected({ ...link, content: await fetchNews(link) });
-  setShow(true);
-}
+const handleClick = (index: number) => router.push(`/news/${index}`);
 </script>
 
 <template>
@@ -49,14 +26,10 @@ async function handleClick(link: NewsEntry) {
   <NCard content-style="padding: 0 20px;" :bordered="false">
     <NTabs type="segment" size="small" pane-class="tab-pane">
       <NTabPane name="Mirror">
-        <NRow v-for="link in news" :key="link.content">
-          <NButton text tag="a" @click="handleClick(link)">
+        <NRow v-for="(entry, index) in entries" :key="entry.content">
+          <NButton text tag="a" @click="handleClick(index)">
             <span class="link-title">
-              {{
-                convertTimestamp(link.time, locale as 'zh' | 'en') +
-                ' - ' +
-                link.name
-              }}
+              {{ convertTimestamp(entry.time, locale) + ' - ' + entry.name }}
             </span>
           </NButton>
         </NRow>
@@ -72,17 +45,6 @@ async function handleClick(link: NewsEntry) {
       </NTabPane>
     </NTabs>
   </NCard>
-  <NModal
-    style="width: min(600px, 90%)"
-    preset="card"
-    size="huge"
-    :title="selected?.name"
-    v-if="selected"
-    v-model:show="show"
-    bordered
-  >
-    <MarkdownContainer :content="selected.content" />
-  </NModal>
 </template>
 
 <style scoped lang="less">

@@ -5,6 +5,7 @@
     "mirrors": "镜像列表",
     "downloads": "下载",
     "help": "帮助",
+    "news": "新闻",
     "doc": "帮助文档",
     "about": "关于",
     "error": "出错了"
@@ -27,6 +28,12 @@
   "help": {
     "title": "去读手册",
     "description": "浏览菜单即可打开帮助"
+  },
+  "news": {
+    "date": "发布日期",
+    "author": "作者",
+    "title": "镜像站新闻",
+    "description": "浏览菜单即可查看新闻"
   },
   "footer": {
     "maintainer": "本镜像站由{name}维护",

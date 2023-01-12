@@ -32,6 +32,6 @@ const onInput = useDebounce(setFilter);
     <NSpace vertical style="padding: 0 12px">
       <NInput :placeholder="t('sider.searchText')" @input="onInput" />
     </NSpace>
-    <NMenu :options="options" :value="route.path" default-expand-all />
+    <NMenu :options="options" :value="route.path" />
   </NSpace>
 </template>
