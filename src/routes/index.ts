@@ -3,8 +3,12 @@ import { LoadingBarApi, MenuOption } from 'naive-ui';
 import fetchDocRoutes from '@/routes/docs';
 import fetchDownloadRoutes from '@/routes/downloads';
 import { State } from '@/store';
+import fetchNewsRoutes from './news';
 
-export const loadRef: { value?: LoadingBarApi } = {};
+export const loadingRef: { value?: LoadingBarApi } = {};
+export const setLoadingRef = (loadingBar: LoadingBarApi) => {
+  loadingRef.value = loadingBar;
+};
 
 const routes: RouteRecordRaw[] = [
   {
@@ -46,6 +50,21 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
+    name: 'News',
+    path: '/news',
+    component: () => import('@/views/NewsPage.vue'),
+    children: [
+      {
+        path: ':title',
+        component: () => import('@/views/NewsPage.vue')
+      }
+    ],
+    meta: {
+      title: 'News',
+      sider: fetchNewsRoutes
+    }
+  },
+  {
     name: 'About',
     path: '/about',
     component: () => import('@/views/AboutPage.vue'),
@@ -76,15 +95,15 @@ export const router = createRouter({
 export type MenuCaller = (state: State, filter: string) => MenuOption[];
 
 router.beforeEach((_to, _from, next) => {
-  loadRef.value?.start();
+  loadingRef.value?.start();
   next();
 });
 
 router.afterEach(to => {
   document.title = (to.meta?.title as string) || 'NJU Mirror';
-  loadRef.value?.finish();
+  loadingRef.value?.finish();
 });
 
 router.onError(() => {
-  loadRef.value?.error();
+  loadingRef.value?.error();
 });

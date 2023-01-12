@@ -1,19 +1,17 @@
 <script setup lang="ts">
-import { onMounted, reactive } from 'vue';
 import { NSpace, NDivider } from 'naive-ui';
 import { useI18n } from 'vue-i18n';
 
 import cards, { CardItem } from '@/models/cards';
+import { useMutableRef, usePromiseEffect } from '@/hooks';
 
-import SideCard from '@/components/SideCard.vue';
-import SidePanel from '@/components/SidePanel.vue';
+import SideCard from './SideCard.vue';
+import SidePanel from './SidePanel.vue';
 
 const { t } = useI18n();
-const entries = reactive([] as CardItem[]);
+const [entries, setEntries] = useMutableRef([] as CardItem[]);
 
-onMounted(() => {
-  cards.forEach(fetch => fetch().then(item => entries.push(item)));
-});
+usePromiseEffect(() => Promise.all(cards.map(f => f())), setEntries);
 </script>
 
 <template>

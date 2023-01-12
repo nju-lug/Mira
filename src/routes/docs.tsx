@@ -1,7 +1,7 @@
 import { MenuOption } from 'naive-ui';
 import { RouterLink } from 'vue-router';
 
-import { State } from '../store';
+import { State } from '@/store';
 
 export default function fetchDocRoutes(state: State, filter = '') {
   return state.docItems

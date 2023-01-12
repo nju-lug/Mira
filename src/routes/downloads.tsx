@@ -6,8 +6,8 @@ import {
 } from '@vicons/ionicons5';
 import { RouterLink } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import { State } from '../store';
-import { DownloadContent } from '../models/downloads';
+import { State } from '@/store';
+import { DownloadContent } from '@/models/downloads';
 
 function toOptions(items: DownloadContent[]) {
   return items.map(

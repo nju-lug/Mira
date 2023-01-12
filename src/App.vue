@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
 import {
   GlobalThemeOverrides,
   NConfigProvider,
@@ -9,9 +10,12 @@ import {
 } from 'naive-ui';
 
 import { useStore } from '@/store';
+
 import MainPage from '@/views/MainPage.vue';
 
+const { locale } = useI18n();
 const store = useStore();
+
 const theme = computed(() => (store.state.darkMode ? darkTheme : null));
 const override = computed(
   () =>
@@ -23,6 +27,10 @@ const override = computed(
         primaryColorSuppl: '#6f106e'
       }
     } as GlobalThemeOverrides)
+);
+
+onMounted(
+  () => (locale.value = navigator.language.startsWith('zh') ? 'zh' : 'en')
 );
 </script>
 

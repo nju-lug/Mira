@@ -1,4 +1,4 @@
-<script setup lang="tsx">
+<script setup lang="ts">
 import { NCard, NButton, NRow, NIcon, NH3 } from 'naive-ui';
 import { InformationCircleOutline } from '@vicons/ionicons5';
 

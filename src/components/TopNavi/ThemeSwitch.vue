@@ -21,14 +21,14 @@ function railStyle({
 }) {
   const style: CSSProperties = {};
   if (checked) {
-    style.background = '#c0203d';
-    if (focused) {
-      style.boxShadow = '0 0 0 2px #c0203d40';
-    }
-  } else {
     style.background = '#138ff2';
     if (focused) {
       style.boxShadow = '0 0 0 2px #138ff240';
+    }
+  } else {
+    style.background = '#c0203d';
+    if (focused) {
+      style.boxShadow = '0 0 0 2px #c0203d40';
     }
   }
   return style;
