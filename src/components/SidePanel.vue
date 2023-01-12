@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import {
   NCard,
@@ -21,22 +20,26 @@ import {
 import { convertTimestamp } from '@/utils/time';
 
 import MarkdownContainer from '@/components/MarkdownContainer.vue';
-import { useMutableRef } from '@/hooks';
+import { useMutableRef, usePromiseEffect } from '@/hooks';
+
+interface NewsEntryWithContent extends NewsEntry {
+  content: string;
+}
 
 const { t, locale } = useI18n();
 const [news, setNews] = useMutableRef([] as NewsEntry[]);
 const [jokes, setJokes] = useMutableRef([] as JokeEntry[]);
-const selected = ref(undefined as NewsEntry | undefined);
-const show = ref(false);
-const content = ref('');
+const [selected, setSelected] = useMutableRef<NewsEntryWithContent | null>(
+  null
+);
+const [show, setShow] = useMutableRef(false);
 
-onMounted(() => fetchNewsList().then(setNews));
-onMounted(() => fetchJokes().then(setJokes));
+usePromiseEffect(fetchNewsList, setNews);
+usePromiseEffect(fetchJokes, setJokes);
 
 async function handleClick(link: NewsEntry) {
-  content.value = await fetchNews(link);
-  selected.value = link;
-  show.value = true;
+  setSelected({ ...link, content: await fetchNews(link) });
+  setShow(true);
 }
 </script>
 
@@ -72,11 +75,12 @@ async function handleClick(link: NewsEntry) {
     style="width: min(600px, 90%)"
     preset="card"
     size="huge"
-    :bordered="true"
     :title="selected?.name"
+    v-if="selected"
     v-model:show="show"
+    bordered
   >
-    <MarkdownContainer :content="content" />
+    <MarkdownContainer :content="selected.content" />
   </NModal>
 </template>
 

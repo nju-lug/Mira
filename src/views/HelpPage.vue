@@ -1,19 +1,18 @@
 <script setup lang="ts">
-import { computed, watchEffect } from 'vue';
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import { NH2, NResult, useMessage } from 'naive-ui';
+import { NH2, NResult } from 'naive-ui';
 
 import { useStore } from '@/store';
 import { fetchDoc } from '@/models/documents';
 
 import MarkdownContainer from '@/components/MarkdownContainer.vue';
-import { useMutableRef } from '@/hooks';
+import { useMutableRef, usePromiseWatch } from '@/hooks';
 
 const { t } = useI18n();
 const route = useRoute();
 const store = useStore();
-const message = useMessage();
 const [doc, setDoc] = useMutableRef('');
 
 const distro = computed(() => {
@@ -24,14 +23,7 @@ const distro = computed(() => {
   return store.state.docItems.find(value => value.name == name);
 });
 
-watchEffect(() => {
-  if (distro.value) {
-    fetchDoc(distro.value).then(
-      res => setDoc(res),
-      err => message.error(err.message)
-    );
-  }
-});
+usePromiseWatch(() => fetchDoc(distro.value), setDoc);
 </script>
 
 <template>

@@ -1,25 +1,20 @@
 <script setup lang="ts">
-import { onMounted, computed } from 'vue';
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import { NH2, NResult, useMessage } from 'naive-ui';
+import { NH2, NResult } from 'naive-ui';
 
 import { fetchDownloads } from '@/models/downloads';
 import { useStore } from '@/store';
 
 import DownloadList from '@/components/DownloadList.vue';
+import { usePromiseEffect } from '@/hooks';
 
 const { t } = useI18n();
 const store = useStore();
 const route = useRoute();
-const message = useMessage();
 
-onMounted(() =>
-  fetchDownloads().then(
-    res => store.commit('setDownloads', res),
-    err => message.error(err.message)
-  )
-);
+usePromiseEffect(fetchDownloads, res => store.commit('setDownloads', res));
 
 const distro = computed(() =>
   store.state.downloadContents.find(

@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { onMounted, computed, reactive } from 'vue';
+import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import {
@@ -8,7 +8,6 @@ import {
   DataTableColumn,
   NButton,
   NTag,
-  useMessage,
   NIcon,
   NInput,
   NSpace
@@ -18,15 +17,20 @@ import { SearchOutline, HelpCircleOutline } from '@vicons/ionicons5';
 import { fetchEntries, SyncEntry } from '@/models/mirrors';
 import { useStore } from '@/store';
 import { timeFromNow } from '@/utils/time';
-import { useMutableRef, useDebounce } from '@/hooks';
+import { useMutableRef, useDebounce, usePromiseEffect } from '@/hooks';
 
 const { t, locale } = useI18n();
 const router = useRouter();
-const message = useMessage();
 const store = useStore();
 const [entries, setEntries] = useMutableRef([] as SyncEntry[]);
 const [loading, setLoading] = useMutableRef(true);
 const [filter, setFilter] = useMutableRef('');
+const onInput = useDebounce(setFilter);
+
+usePromiseEffect(fetchEntries, res => {
+  setEntries(res.sort((a, b) => a.name.localeCompare(b.name)));
+  setLoading(false);
+});
 
 function RouteButton({ data }: { data: SyncEntry }) {
   const doc = store.state.docItems.find(value => value.name == data.name);
@@ -129,18 +133,6 @@ const columns = computed(() =>
       render: data => <StatusTag data={data} />
     }
   ] as DataTableColumn<SyncEntry>[])
-);
-
-const onInput = useDebounce(setFilter);
-
-onMounted(() =>
-  fetchEntries().then(
-    res => {
-      setEntries(res.sort((a, b) => a.name.localeCompare(b.name)));
-      setLoading(false);
-    },
-    err => message.error(err.message)
-  )
 );
 </script>
 

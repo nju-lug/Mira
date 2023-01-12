@@ -1,4 +1,4 @@
-import { ref, UnwrapRef } from 'vue';
+import { ref, UnwrapRef, ComponentPublicInstance } from 'vue';
 
 export function useMutableRef<T>(value: T) {
   const r = ref(value);
@@ -6,4 +6,11 @@ export function useMutableRef<T>(value: T) {
     r.value = v;
   };
   return [r, change] as const;
+}
+
+export function useElementRef<
+  T extends ComponentPublicInstance | HTMLElement
+>() {
+  const r = ref<T | null>(null);
+  return r;
 }
