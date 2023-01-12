@@ -2,10 +2,10 @@ import { useStore } from '@/store';
 import { computed, nextTick, onBeforeUnmount, Ref } from 'vue';
 
 import { useThrottle } from './useDebounceThrottle';
-import { useMutableRef } from './useRef';
+import { useNullableRef } from './useRef';
 
 export function useWidthObserver<T extends HTMLElement>(el: Ref<T | null>) {
-  const [observer, setObserver] = useMutableRef<ResizeObserver | null>(null);
+  const [observer, setObserver] = useNullableRef<ResizeObserver>();
   const store = useStore();
   const setWidth = useThrottle((width: number) => {
     store.commit('setWidth', width);

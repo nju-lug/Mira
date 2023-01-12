@@ -13,7 +13,7 @@ import { useI18n } from 'vue-i18n';
 
 import reports from '@/assets/report.json';
 
-import { useMutableRef } from '@/hooks';
+import { useMutableRef, useNullableRef } from '@/hooks';
 import NamedIcon from '@/components/NamedIcon.vue';
 
 type RequestKey = keyof typeof reports;
@@ -21,7 +21,7 @@ type RequestKey = keyof typeof reports;
 const { t } = useI18n();
 const message = useMessage();
 const [show, setShow] = useMutableRef(false);
-const [selected, setSelected] = useMutableRef<string | null>(null);
+const [selected, , resetSelected] = useNullableRef<string>();
 
 const options = (() => {
   const options = [];
@@ -38,7 +38,7 @@ const selectedValue = computed(
 const onLinkClicked = (url: string) => {
   window.open(url);
   setShow(false);
-  setSelected(null);
+  resetSelected();
   message.info(`${t('report.prompt.done')} ❤`);
 };
 </script>

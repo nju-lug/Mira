@@ -8,6 +8,12 @@ export function useMutableRef<T>(value: T) {
   return [r, change] as const;
 }
 
+export function useNullableRef<T>(value?: T) {
+  const [r, set] = useMutableRef(value ?? null);
+  const reset = () => set(null);
+  return [r, set, reset] as const;
+}
+
 export function useElementRef<
   T extends ComponentPublicInstance | HTMLElement
 >() {
