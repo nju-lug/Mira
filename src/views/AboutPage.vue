@@ -1,30 +1,37 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { NH1, NH2, NP, NLayout, useMessage } from 'naive-ui';
+import { NH1, NH2, NLayout, NP, useMessage } from 'naive-ui'
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-import logo from '@/assets/shamiko.jpg';
-import logoAlt from '@/assets/shamiko-alt.jpg';
+import logoAlt from '@/assets/shamiko-alt.jpg'
+import logo from '@/assets/shamiko.jpg'
 
-const message = useMessage();
-const { t } = useI18n();
-const hit = ref(0);
+const message = useMessage()
+const { t } = useI18n()
+const hit = ref(0)
 const logoUrl = computed(() => {
   if (hit.value >= 10) {
-    message.error('これで勝ったと思うなよ―――！！');
-    return logoAlt;
-  } else {
-    return logo;
+    message.error('これで勝ったと思うなよ―――！！')
+    return logoAlt
   }
-});
+  else {
+    return logo
+  }
+})
 </script>
 
 <template>
-  <NH2 prefix="bar">{{ t('header.about') }}</NH2>
+  <NH2 prefix="bar">
+    {{ t('header.about') }}
+  </NH2>
   <NLayout class="about-content">
-    <img class="about-logo" :src="logoUrl" alt="Mirror Logo" @click="hit++" />
-    <NH1 class="title">Shamiko</NH1>
-    <NP class="about-text">こっっ…これで勝ったと思うなよ―――！！</NP>
+    <img class="about-logo" :src="logoUrl" alt="Mirror Logo" @click="hit++">
+    <NH1 class="title">
+      Shamiko
+    </NH1>
+    <NP class="about-text">
+      こっっ…これで勝ったと思うなよ―――！！
+    </NP>
   </NLayout>
 </template>
 

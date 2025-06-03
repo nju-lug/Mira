@@ -1,53 +1,57 @@
 <script setup lang="tsx">
-import {
+import type {
   MenuOption,
-  NMenu,
-  NText,
-  NDropdown,
+} from 'naive-ui'
+import { MenuOutline, NewspaperOutline } from '@vicons/ionicons5'
+import {
   NButton,
-  NIcon,
-  NSpace,
+  NButtonGroup,
   NDrawer,
-  NButtonGroup
-} from 'naive-ui';
-import { watch } from 'vue';
-import { RouterLink, useRoute } from 'vue-router';
-import { useI18n } from 'vue-i18n';
-import { NewspaperOutline, MenuOutline } from '@vicons/ionicons5';
+  NDropdown,
+  NIcon,
+  NMenu,
+  NSpace,
+  NText,
+} from 'naive-ui'
+import { watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { RouterLink, useRoute } from 'vue-router'
 
-import { useMutableRef } from '@/hooks';
-import { useStore } from '@/store';
-import logo from '@/assets/nju.png';
+import logo from '@/assets/nju.png'
+import SideBar from '@/components/SideBar'
+import { useMutableRef } from '@/hooks'
 
-import SideBar from '@/components/SideBar';
-import ThemeSwitch from './ThemeSwitch.vue';
+import { useStore } from '@/store'
+import ThemeSwitch from './ThemeSwitch.vue'
 
-const { t, locale } = useI18n();
-const store = useStore();
-const route = useRoute();
-const [active, setActive] = useMutableRef(false);
+const { t, locale } = useI18n()
+const store = useStore()
+const route = useRoute()
+const [active, setActive] = useMutableRef(false)
 
-const createRoute = (to: string, name: string): MenuOption => ({
-  label: () => <RouterLink to={to}>{t(`header.${name}`)}</RouterLink>,
-  key: to
-});
+function createRoute(to: string, name: string): MenuOption {
+  return {
+    label: () => <RouterLink to={to}>{t(`header.${name}`)}</RouterLink>,
+    key: to,
+  }
+}
 
 const darkMode: MenuOption = {
   label: () => <ThemeSwitch />,
-  key: 'theme-switch'
-};
+  key: 'theme-switch',
+}
 
 const localeButton: MenuOption = {
   label: () => (
     <NButton
       text
-      onClick={() => (locale.value = locale.value == 'zh' ? 'en' : 'zh')}
+      onClick={() => (locale.value = locale.value === 'zh' ? 'en' : 'zh')}
     >
       {t('locale')}
     </NButton>
   ),
-  key: 'locale'
-};
+  key: 'locale',
+}
 
 const options = [
   createRoute('/', 'mirrors'),
@@ -56,13 +60,13 @@ const options = [
   createRoute('/news', 'news'),
   createRoute('/about', 'about'),
   localeButton,
-  darkMode
-];
+  darkMode,
+]
 
 watch(
   () => route.path,
-  () => setActive(false)
-);
+  () => setActive(false),
+)
 </script>
 
 <template>
@@ -72,15 +76,15 @@ watch(
     style="height: var(--header-height)"
   >
     <NText class="logo-container">
-      <img :src="logo" alt="Mirror Logo" />
+      <img :src="logo" alt="Mirror Logo">
       <span>NJU Mirror</span>
     </NText>
 
     <NButtonGroup style="height: 100%">
       <NButton
+        v-if="store.state.isMobile"
         text
         class="collapse-button"
-        v-if="store.state.isMobile"
         @click="setActive(true)"
       >
         <NIcon>
@@ -88,17 +92,17 @@ watch(
         </NIcon>
       </NButton>
       <NMenu
+        v-if="!store.state.isMobile"
         :value="route.path"
         :options="options"
         mode="horizontal"
         class="navi-menu"
-        v-if="!store.state.isMobile"
       />
       <NDropdown
+        v-else
         :options="options"
         placement="bottom-end"
         trigger="click"
-        v-else
       >
         <NButton text class="collapse-button">
           <NIcon>
@@ -109,11 +113,11 @@ watch(
     </NButtonGroup>
   </NSpace>
   <NDrawer
-    placement="right"
+    v-if="store.state.isMobile"
     v-model:show="active"
+    placement="right"
     width="min(360px, 80%)"
     :native-scrollbar="false"
-    v-if="store.state.isMobile"
   >
     <SideBar />
   </NDrawer>

@@ -1,3 +1,3 @@
-import MarkdownContainer from './MarkdownContainer.vue';
+import MarkdownContainer from './MarkdownContainer.vue'
 
-export default MarkdownContainer;
+export default MarkdownContainer

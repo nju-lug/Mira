@@ -1,46 +1,46 @@
 <script setup lang="ts">
 import {
   NButton,
-  NSelect,
+  NButtonGroup,
   NDivider,
   NH3,
-  NButtonGroup,
   NModal,
-  useMessage
-} from 'naive-ui';
-import { computed } from 'vue';
-import { useI18n } from 'vue-i18n';
+  NSelect,
+  useMessage,
+} from 'naive-ui'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-import reports from '@/assets/report.json';
+import reports from '@/assets/report.json'
 
-import { useMutableRef, useNullableRef } from '@/hooks';
-import NamedIcon from '@/components/NamedIcon.vue';
+import NamedIcon from '@/components/NamedIcon.vue'
+import { useMutableRef, useNullableRef } from '@/hooks'
 
-type RequestKey = keyof typeof reports;
+type RequestKey = keyof typeof reports
 
-const { t } = useI18n();
-const message = useMessage();
-const [show, setShow] = useMutableRef(false);
-const [selected, , resetSelected] = useNullableRef<string>();
+const { t } = useI18n()
+const message = useMessage()
+const [show, setShow] = useMutableRef(false)
+const [selected, , resetSelected] = useNullableRef<string>()
 
 const options = (() => {
-  const options = [];
+  const options = []
   for (const key in reports) {
-    options.push({ label: t(`report.${key}`), value: key });
+    options.push({ label: t(`report.${key}`), value: key })
   }
-  return options;
-})();
+  return options
+})()
 
 const selectedValue = computed(
-  () => selected.value && reports[selected.value as RequestKey]
-);
+  () => selected.value && reports[selected.value as RequestKey],
+)
 
-const onLinkClicked = (url: string) => {
-  window.open(url);
-  setShow(false);
-  resetSelected();
-  message.info(`${t('report.prompt.done')} ❤`);
-};
+function onLinkClicked(url: string) {
+  window.open(url)
+  setShow(false)
+  resetSelected()
+  message.info(`${t('report.prompt.done')} ❤`)
+}
 </script>
 
 <template>
@@ -51,23 +51,27 @@ const onLinkClicked = (url: string) => {
     {{ t('footer.bug') }}
   </NButton>
   <NModal
+    v-model:show="show"
     style="width: min(600px, 90%)"
     preset="card"
     size="huge"
     :title="t('report.title')"
-    v-model:show="show"
     aria-modal
     bordered
   >
-    <NH3 prefix="line">step.1 {{ t('report.prompt.type') }}</NH3>
+    <NH3 prefix="line">
+      step.1 {{ t('report.prompt.type') }}
+    </NH3>
     <NSelect
-      :options="options"
       v-model:value="selected"
+      :options="options"
       :placeholder="t('report.prompt.type')"
     />
     <div v-if="selectedValue">
       <NDivider />
-      <NH3 prefix="line">step.2 {{ t('report.prompt.link') }}</NH3>
+      <NH3 prefix="line">
+        step.2 {{ t('report.prompt.link') }}
+      </NH3>
       <NButtonGroup>
         <NButton
           v-for="(url, name) in selectedValue"

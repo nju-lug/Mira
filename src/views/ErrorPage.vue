@@ -1,18 +1,21 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
-import { useI18n } from 'vue-i18n';
-import { NH2, NResult, NButton, NIcon, NButtonGroup } from 'naive-ui';
-import { ArrowBackOutline, HomeOutline, LogoGithub } from '@vicons/ionicons5';
+import { ArrowBackOutline, HomeOutline, LogoGithub } from '@vicons/ionicons5'
+import { NButton, NButtonGroup, NH2, NIcon, NResult } from 'naive-ui'
+import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 
-const { t } = useI18n();
-const router = useRouter();
+const { t } = useI18n()
+const router = useRouter()
 
-const issue = () =>
-  window.open('https://github.com/iori2333/NJU-Mirror-Frontend/issues');
+function issue() {
+  return window.open('https://github.com/iori2333/NJU-Mirror-Frontend/issues')
+}
 </script>
 
 <template>
-  <NH2 prefix="bar">{{ t('header.error') }}</NH2>
+  <NH2 prefix="bar">
+    {{ t('header.error') }}
+  </NH2>
   <NResult
     size="huge"
     status="404"

@@ -1,26 +1,26 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import type { DownloadContent } from '@/models/downloads'
 
-import { useWidth } from '@/hooks';
-import { DownloadContent } from '@/models/downloads';
+import { computed } from 'vue'
+import { useWidth } from '@/hooks'
 
-import DownloadTile from './DownloadTile.vue';
+import DownloadTile from './DownloadTile.vue'
 
-const props = defineProps<{ distro: DownloadContent }>();
+const props = defineProps<{ distro: DownloadContent }>()
 
-const { isMobile } = useWidth();
+const { isMobile } = useWidth()
 
 const urls = computed(
   () =>
-    props.distro.urls.map(item => {
-      const match = item.name.match(/(.*?) \((.*)\)/);
+    props.distro.urls.map((item) => {
+      const match = item.name.match(/(.*?) \((.*)\)/)
       return {
         title: match ? match[1] : 'null',
         description: match ? match[2] : 'null',
-        url: item.url
-      };
-    }) || []
-);
+        url: item.url,
+      }
+    }) || [],
+)
 </script>
 
 <template>

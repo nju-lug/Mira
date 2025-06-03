@@ -1,3 +1,3 @@
-import TopNavi from './TopNavi.vue';
+import TopNavi from './TopNavi.vue'
 
-export default TopNavi;
+export default TopNavi
