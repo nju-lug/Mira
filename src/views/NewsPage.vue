@@ -3,12 +3,10 @@ import { NH2, NResult, NSpace, NTag } from 'naive-ui'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
-
 import MarkdownContainer from '@/components/MarkdownContainer'
 import { useMutableRef, usePromiseWatch } from '@/hooks'
 import { fetchNews } from '@/models/news'
 import { useStore } from '@/store'
-
 import { convertTimestamp } from '@/utils/time'
 
 const { t } = useI18n()

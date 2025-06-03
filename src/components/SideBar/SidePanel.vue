@@ -3,7 +3,6 @@ import type { JokeEntry } from '@/models/news'
 import { NButton, NCard, NDivider, NRow, NTabPane, NTabs } from 'naive-ui'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-
 import { useRouter } from 'vue-router'
 import { useMutableRef, usePromiseEffect } from '@/hooks'
 import { fetchJokes } from '@/models/news'

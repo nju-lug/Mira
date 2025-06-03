@@ -3,11 +3,9 @@ import type { MenuCaller } from '@/routes'
 import { NDivider, NInput, NMenu, NSpace } from 'naive-ui'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-
 import { useRoute } from 'vue-router'
 import { useDebounce, useMutableRef } from '@/hooks'
 import { useStore } from '@/store'
-
 import SideLinks from './SideLinks.vue'
 
 const route = useRoute()

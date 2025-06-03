@@ -2,7 +2,6 @@
 import { NH1, NH2, NLayout, NP, useMessage } from 'naive-ui'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-
 import logoAlt from '@/assets/shamiko-alt.jpg'
 import logo from '@/assets/shamiko.jpg'
 

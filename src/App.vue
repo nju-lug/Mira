@@ -1,13 +1,6 @@
 <script setup lang="ts">
-import type {
-  GlobalThemeOverrides,
-} from 'naive-ui'
-import {
-  darkTheme,
-  NConfigProvider,
-  NLoadingBarProvider,
-  NMessageProvider,
-} from 'naive-ui'
+import type { GlobalThemeOverrides } from 'naive-ui'
+import { darkTheme, NConfigProvider, NLoadingBarProvider, NMessageProvider } from 'naive-ui'
 import { computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 

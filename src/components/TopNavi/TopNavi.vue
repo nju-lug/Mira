@@ -1,18 +1,7 @@
 <script setup lang="tsx">
-import type {
-  MenuOption,
-} from 'naive-ui'
+import type { MenuOption } from 'naive-ui'
 import { MenuOutline, NewspaperOutline } from '@vicons/ionicons5'
-import {
-  NButton,
-  NButtonGroup,
-  NDrawer,
-  NDropdown,
-  NIcon,
-  NMenu,
-  NSpace,
-  NText,
-} from 'naive-ui'
+import { NButton, NButtonGroup, NDrawer, NDropdown, NIcon, NMenu, NSpace, NText } from 'naive-ui'
 import { watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { RouterLink, useRoute } from 'vue-router'

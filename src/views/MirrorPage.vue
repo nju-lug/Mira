@@ -1,21 +1,10 @@
 <script setup lang="tsx">
-import type {
-  DataTableColumn,
-} from 'naive-ui'
+import type { DataTableColumn } from 'naive-ui'
 import type { SyncEntry } from '@/models/mirrors'
 import { HelpCircleOutline, SearchOutline } from '@vicons/ionicons5'
-import {
-  NButton,
-  NDataTable,
-  NH2,
-  NIcon,
-  NInput,
-  NSpace,
-  NTag,
-} from 'naive-ui'
+import { NButton, NDataTable, NH2, NIcon, NInput, NSpace, NTag } from 'naive-ui'
 import { computed, reactive } from 'vue'
 import { useI18n } from 'vue-i18n'
-
 import { useRouter } from 'vue-router'
 import { useDebounce, useMutableRef, usePromiseEffect } from '@/hooks'
 import { fetchEntries } from '@/models/mirrors'

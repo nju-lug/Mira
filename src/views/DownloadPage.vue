@@ -3,11 +3,9 @@ import { NH2, NResult } from 'naive-ui'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
-
 import DownloadList from '@/components/DownloadList'
 import { usePromiseEffect } from '@/hooks'
 import { fetchDownloads } from '@/models/downloads'
-
 import { useStore } from '@/store'
 
 const { t } = useI18n()

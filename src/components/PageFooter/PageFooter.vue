@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { NButton, NButtonGroup, NH2, NP, NSpace } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
-
 import NamedIcon from '@/components/NamedIcon.vue'
 import FeedbackButton from './FeedbackButton.vue'
 

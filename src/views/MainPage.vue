@@ -1,25 +1,12 @@
 <script setup lang="ts">
 import type { ComponentPublicInstance } from 'vue'
-import {
-  NBackTop,
-  NDivider,
-  NLayout,
-  NLayoutHeader,
-  NLayoutSider,
-} from 'naive-ui'
+import { NBackTop, NDivider, NLayout, NLayoutHeader, NLayoutSider } from 'naive-ui'
 import { computed } from 'vue'
 import { RouterView } from 'vue-router'
-
 import PageFooter from '@/components/PageFooter'
 import SideBar from '@/components/SideBar'
 import TopNavi from '@/components/TopNavi'
-import {
-  useElementRef,
-  useLoadingBar,
-  usePromiseEffect,
-  useWidth,
-  useWidthObserver,
-} from '@/hooks'
+import { useElementRef, useLoadingBar, usePromiseEffect, useWidth, useWidthObserver } from '@/hooks'
 
 import { fetchDocs } from '@/models/documents'
 import { fetchNewsList } from '@/models/news'

@@ -1,11 +1,7 @@
 import type { MenuOption } from 'naive-ui'
 import type { DownloadContent } from '@/models/downloads'
 import type { State } from '@/store'
-import {
-  AppsOutline,
-  ColorPaletteOutline,
-  DesktopOutline,
-} from '@vicons/ionicons5'
+import { AppsOutline, ColorPaletteOutline, DesktopOutline } from '@vicons/ionicons5'
 import { NIcon } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import { RouterLink } from 'vue-router'

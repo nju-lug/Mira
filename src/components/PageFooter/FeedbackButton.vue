@@ -1,18 +1,8 @@
 <script setup lang="ts">
-import {
-  NButton,
-  NButtonGroup,
-  NDivider,
-  NH3,
-  NModal,
-  NSelect,
-  useMessage,
-} from 'naive-ui'
+import { NButton, NButtonGroup, NDivider, NH3, NModal, NSelect, useMessage } from 'naive-ui'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-
 import reports from '@/assets/report.json'
-
 import NamedIcon from '@/components/NamedIcon.vue'
 import { useMutableRef, useNullableRef } from '@/hooks'
 

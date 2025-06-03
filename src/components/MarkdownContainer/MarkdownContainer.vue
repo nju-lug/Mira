@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { computed, defineCustomElement } from 'vue'
-
 import { useStore } from '@/store'
-
 import CustomSelectCe from './CustomSelect.ce.vue'
 
 defineProps<{ content: string }>()

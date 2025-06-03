@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import type { CardItem } from '@/models/cards'
 import { InformationCircleOutline } from '@vicons/ionicons5'
-
 import { NButton, NCard, NH3, NIcon, NRow } from 'naive-ui'
-
 import NamedIcon from '@/components/NamedIcon.vue'
 
 defineProps<{ entry: CardItem }>()

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted, reactive } from 'vue'
-
 import { useElementRef } from '@/hooks'
 
 const props = defineProps<{

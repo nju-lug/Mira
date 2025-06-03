@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import type { DownloadContent } from '@/models/downloads'
-
 import { computed } from 'vue'
 import { useWidth } from '@/hooks'
-
 import DownloadTile from './DownloadTile.vue'
 
 const props = defineProps<{ distro: DownloadContent }>()

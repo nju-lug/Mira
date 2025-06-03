@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { CardItem } from '@/models/cards'
 import { NDivider, NSpace } from 'naive-ui'
-
 import { useI18n } from 'vue-i18n'
 import { useMutableRef, usePromiseEffect } from '@/hooks'
 import cards from '@/models/cards'

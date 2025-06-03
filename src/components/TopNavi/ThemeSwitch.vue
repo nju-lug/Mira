@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue'
 import { NSwitch, useMessage } from 'naive-ui'
-
 import { useStore } from '@/store'
 
 const store = useStore()
