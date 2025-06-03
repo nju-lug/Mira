@@ -35,9 +35,6 @@ export default antfu({
   extends: [
     '@antfu',
   ],
-  settings: {
-    'import/core-modules': ['uno.css', '~icons/*', 'virtual:svg-icons-register'],
-  },
   rules: {
     'vue/multi-word-component-names': 'off', // 强制组件名称为多个单词
     'no-case-declarations': 'off', // 禁止在 case 或 default 子句中出现词法声明
