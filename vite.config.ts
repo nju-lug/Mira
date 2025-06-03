@@ -38,7 +38,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          vue: ['vue', 'vuex', 'vue-router', 'vue-gtag', 'vue-i18n'],
+          vue: ['vue', 'vue-router', 'vue-gtag', 'vue-i18n'],
           utils: ['dayjs', 'marked', 'lodash-es'],
         },
       },

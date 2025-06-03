@@ -36,7 +36,7 @@ usePromiseEffect(fetchEntries, (res) => {
 })
 
 function RouteButton({ data }: { data: SyncEntry }) {
-  const doc = store.state.docItems.find(value => value.name === data.name)
+  const doc = store.docItems.find(value => value.name === data.name)
   return (
     <>
       <NButton
@@ -87,7 +87,7 @@ function StatusTag({ data }: { data: SyncEntry }) {
 }
 
 const extraColumns = computed(() =>
-  store.state.isMobile
+  store.isMobile
     ? []
     : ([
         {

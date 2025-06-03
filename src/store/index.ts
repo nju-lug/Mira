@@ -1,9 +1,7 @@
-import type { InjectionKey } from 'vue'
-import type { Store } from 'vuex'
 import type { DocItem } from '@/models/documents'
 import type { DownloadContent } from '@/models/downloads'
 import type { NewsEntry } from '@/models/news'
-import { useStore as baseUseStore, createStore } from 'vuex'
+import { defineStore } from 'pinia'
 import { MobileWidth } from '@/configs'
 
 export interface State {
@@ -15,41 +13,34 @@ export interface State {
   downloadContents: DownloadContent[]
 }
 
-// eslint-disable-next-line symbol-description
-export const key: InjectionKey<Store<State>> = Symbol()
-
-export const store = createStore<State>({
-  state: {
+export const useStore = defineStore('main', {
+  state: (): State => ({
     isMobile: document.body.clientWidth < MobileWidth,
     darkMode: sessionStorage.getItem('darkMode') === 'true',
     locale: 'zh',
     newsEntries: [],
     docItems: [],
     downloadContents: [],
-  },
-  mutations: {
-    setWidth(state, width: number) {
-      state.isMobile = width < MobileWidth
+  }),
+  actions: {
+    setWidth(width: number) {
+      this.isMobile = width < MobileWidth
     },
-    setDarkMode(state, darkMode: boolean) {
-      state.darkMode = darkMode
+    setDarkMode(darkMode: boolean) {
+      this.darkMode = darkMode
       sessionStorage.setItem('darkMode', darkMode.toString())
     },
-    setNews(state, entries: NewsEntry[]) {
-      state.newsEntries = entries
+    setNews(entries: NewsEntry[]) {
+      this.newsEntries = entries
     },
-    setDocs(state, items: DocItem[]) {
-      state.docItems = items
+    setDocs(items: DocItem[]) {
+      this.docItems = items
     },
-    setDownloads(state, items: DownloadContent[]) {
-      state.downloadContents = items
+    setDownloads(items: DownloadContent[]) {
+      this.downloadContents = items
     },
-    setLocale(state, locale: 'zh' | 'en') {
-      state.locale = locale
+    setLocale(locale: 'zh' | 'en') {
+      this.locale = locale
     },
   },
 })
-
-export function useStore() {
-  return baseUseStore(key)
-}

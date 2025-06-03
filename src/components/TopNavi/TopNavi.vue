@@ -82,7 +82,7 @@ watch(
 
     <NButtonGroup style="height: 100%">
       <NButton
-        v-if="store.state.isMobile"
+        v-if="store.isMobile"
         text
         class="collapse-button"
         @click="setActive(true)"
@@ -92,7 +92,7 @@ watch(
         </NIcon>
       </NButton>
       <NMenu
-        v-if="!store.state.isMobile"
+        v-if="!store.isMobile"
         :value="route.path"
         :options="options"
         mode="horizontal"
@@ -113,7 +113,7 @@ watch(
     </NButtonGroup>
   </NSpace>
   <NDrawer
-    v-if="store.state.isMobile"
+    v-if="store.isMobile"
     v-model:show="active"
     placement="right"
     width="min(360px, 80%)"

@@ -9,7 +9,7 @@ defineProps<{ content: string }>()
 
 const store = useStore()
 const theme = computed(() =>
-  store.state.darkMode ? 'dark-scheme' : 'light-scheme',
+  store.darkMode ? 'dark-scheme' : 'light-scheme',
 )
 
 const CustomSelect = defineCustomElement(CustomSelectCe)

@@ -17,7 +17,7 @@ const [filter, setFilter] = useMutableRef('')
 
 const options = computed(() => {
   const sider = route.meta?.sider as MenuCaller | undefined
-  return sider?.(store.state, filter.value)
+  return sider?.(store, filter.value)
 })
 
 const onInput = useDebounce(setFilter)

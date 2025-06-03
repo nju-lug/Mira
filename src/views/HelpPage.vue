@@ -20,7 +20,7 @@ const distro = computed(() => {
   if (name === undefined) {
     return undefined
   }
-  return store.state.docItems.find(value => value.name === name)
+  return store.docItems.find(value => value.name === name)
 })
 
 usePromiseWatch(() => fetchDoc(distro.value), setDoc)

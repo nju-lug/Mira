@@ -8,7 +8,7 @@ const store = useStore()
 const message = useMessage()
 
 function onUpdate(value: boolean) {
-  store.commit('setDarkMode', value)
+  store.setDarkMode(value)
   message.info(`Side of ${value ? 'Tairitsu' : 'Hikari'}`)
 }
 
@@ -38,7 +38,7 @@ function railStyle({
 
 <template>
   <NSwitch
-    :default-value="store.state.darkMode"
+    :default-value="store.darkMode"
     :on-update-value="onUpdate"
     :rail-style="railStyle"
     style="margin: 6px"

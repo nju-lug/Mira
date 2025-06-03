@@ -32,8 +32,8 @@ const el = computed(() => boxRef.value?.$el)
 
 useWidthObserver(el)
 useLoadingBar()
-usePromiseEffect(fetchDocs, res => store.commit('setDocs', res))
-usePromiseEffect(fetchNewsList, res => store.commit('setNews', res))
+usePromiseEffect(fetchDocs, res => store.setDocs(res))
+usePromiseEffect(fetchNewsList, res => store.setNews(res))
 </script>
 
 <template>

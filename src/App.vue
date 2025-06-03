@@ -18,14 +18,14 @@ import MainPage from '@/views/MainPage.vue'
 const { locale } = useI18n()
 const store = useStore()
 
-const theme = computed(() => (store.state.darkMode ? darkTheme : null))
+const theme = computed(() => (store.darkMode ? darkTheme : null))
 const override = computed(
   () =>
     ({
       common: {
-        primaryColor: store.state.darkMode ? '#ffffff' : '#6f106e',
-        primaryColorHover: store.state.darkMode ? '#fcfcfc' : '#6f106e',
-        primaryColorPressed: store.state.darkMode ? 'd4d4d4' : '#560c56',
+        primaryColor: store.darkMode ? '#ffffff' : '#6f106e',
+        primaryColorHover: store.darkMode ? '#fcfcfc' : '#6f106e',
+        primaryColorPressed: store.darkMode ? 'd4d4d4' : '#560c56',
         primaryColorSuppl: '#6f106e',
       },
     } as GlobalThemeOverrides),

@@ -21,7 +21,7 @@ const news = computed(() => {
   if (typeof name != 'string') {
     return undefined
   }
-  return store.state.newsEntries[Number.parseInt(name)]
+  return store.newsEntries[Number.parseInt(name)]
 })
 
 usePromiseWatch(() => fetchNews(news.value), setContent)

@@ -14,10 +14,10 @@ const { t } = useI18n()
 const store = useStore()
 const route = useRoute()
 
-usePromiseEffect(fetchDownloads, res => store.commit('setDownloads', res))
+usePromiseEffect(fetchDownloads, res => store.setDownloads(res))
 
 const distro = computed(() =>
-  store.state.downloadContents.find(
+  store.downloadContents.find(
     value => value.distro === route.params.distro,
   ),
 )

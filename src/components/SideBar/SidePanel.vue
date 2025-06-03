@@ -16,7 +16,7 @@ const [jokes, setJokes] = useMutableRef([] as JokeEntry[])
 const router = useRouter()
 
 const panelLimit = 6
-const entries = computed(() => store.state.newsEntries.slice(0, panelLimit))
+const entries = computed(() => store.newsEntries.slice(0, panelLimit))
 usePromiseEffect(() => fetchJokes(panelLimit), setJokes)
 
 const handleClick = (index: number) => router.push(`/news/${index}`)

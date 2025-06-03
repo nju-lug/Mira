@@ -9,7 +9,7 @@ export function useWidthObserver<T extends HTMLElement>(el: Ref<T | null>) {
   const [observer, setObserver] = useNullableRef<ResizeObserver>()
   const store = useStore()
   const setWidth = useThrottle((width: number) => {
-    store.commit('setWidth', width)
+    store.setWidth(width)
   }, 100)
 
   nextTick(() => {
@@ -31,6 +31,6 @@ export function useWidthObserver<T extends HTMLElement>(el: Ref<T | null>) {
 
 export function useWidth() {
   const store = useStore()
-  const isMobile = computed(() => store.state.isMobile)
+  const isMobile = computed(() => store.isMobile)
   return { isMobile } as const
 }
