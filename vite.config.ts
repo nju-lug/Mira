@@ -1,5 +1,6 @@
 import type { PluginOption } from 'vite'
 import path from 'node:path'
+import VueI18nVitePlugin from '@intlify/unplugin-vue-i18n/vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { visualizer } from 'rollup-plugin-visualizer'
@@ -14,6 +15,9 @@ export default defineConfig({
           isCustomElement: tag => tag.startsWith('mira-'),
         },
       },
+    }),
+    VueI18nVitePlugin({
+      include: path.resolve(__dirname, './src/i18n/lang/**'),
     }),
     vueJsx({}),
     visualizer() as PluginOption,
