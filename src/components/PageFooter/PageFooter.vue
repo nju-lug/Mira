@@ -54,10 +54,10 @@ function handleSelect(key: string) {
     </NButtonGroup>
   </NSpace>
   <NP>
-    <NSpace justify="space-evenly">
+    <NSpace class="beian" justify="space-evenly">
       <span><a href="https://cicam.nju.edu.cn" target="_blank">{{ t('footer.center') }}</a></span>
-      <span><a href="https://beian.miit.gov.cn" target="_blank">苏ICP备10085945-1号.</a></span>
-      <span>南信备568号</span>
+      <span><a href="https://beian.miit.gov.cn" target="_blank">苏ICP备10085945-1号</a></span>
+      <span><a href="https://itsc.nju.edu.cn" target="_blank">南信备568号</a></span>
     </NSpace>
   </NP>
 </template>
@@ -66,5 +66,15 @@ function handleSelect(key: string) {
 .footer-text {
   font-size: 16px;
   margin: 4px 0;
+}
+
+.footer-text a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.beian span a{
+  text-decoration: none;
+  color: inherit;
 }
 </style>
