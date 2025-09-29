@@ -1,52 +1,28 @@
 <script setup lang="ts">
-import type { CSSProperties } from 'vue'
-import { NSwitch, useMessage } from 'naive-ui'
+import { MoonOutline, SunnyOutline } from '@vicons/ionicons5'
+import { NButton, NIcon } from 'naive-ui'
 import { useStore } from '@/store'
 
 const store = useStore()
-const message = useMessage()
 
-function onUpdate(value: boolean) {
-  store.setDarkMode(value)
-  message.info(`Side of ${value ? 'Tairitsu' : 'Hikari'}`)
-}
-
-function railStyle({
-  focused,
-  checked,
-}: {
-  focused: boolean
-  checked: boolean
-}) {
-  const style: CSSProperties = {}
-  if (checked) {
-    style.background = '#138ff2'
-    if (focused) {
-      style.boxShadow = '0 0 0 2px #138ff240'
-    }
-  }
-  else {
-    style.background = '#c0203d'
-    if (focused) {
-      style.boxShadow = '0 0 0 2px #c0203d40'
-    }
-  }
-  return style
+function onUpdate() {
+  store.setDarkMode(!store.darkMode)
 }
 </script>
 
 <template>
-  <NSwitch
-    :default-value="store.darkMode"
-    :on-update-value="onUpdate"
-    :rail-style="railStyle"
-    style="margin: 6px"
+  <NButton
+    quaternary
+    size="small"
+    :focusable="false"
+    style="padding: 0 6px"
+    @click="onUpdate"
   >
-    <template #checked>
-      Conflict
+    <template #icon>
+      <NIcon>
+        <SunnyOutline v-if="store.darkMode" />
+        <MoonOutline v-else />
+      </NIcon>
     </template>
-    <template #unchecked>
-      Light
-    </template>
-  </NSwitch>
+  </NButton>
 </template>

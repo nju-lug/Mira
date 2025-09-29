@@ -48,7 +48,10 @@ usePromiseEffect(fetchNewsList, res => store.setNews(res))
       </NLayoutSider>
       <NLayout
         :native-scrollbar="false"
-        content-style="display: flex; flex-direction: column; padding: 24px"
+        :content-style="{
+          display: 'flex',
+          flexDirection: 'column',
+          padding: !store.isMobile ? '24px' : '10px' }"
       >
         <RouterView />
         <NBackTop :right="50" style="z-index: 500" />

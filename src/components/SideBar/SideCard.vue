@@ -27,7 +27,7 @@ defineProps<{ entry: CardItem }>()
         </NButton>
       </NH3>
       <NRow v-for="(link, index) in entry.links" :key="index">
-        <NButton text tag="a" :href="link.url" target="_blank">
+        <NButton quaternary :focusable="false" tag="a" :href="link.url" target="_blank" style="width: 218px; justify-content: left">
           {{ link.title }}
           <template #icon>
             <NamedIcon :name="link.icon || 'unknown'" :size="16" />

@@ -23,6 +23,7 @@ const override = computed(
         primaryColorHover: Tiny(themeColor).lighten(7.5).brighten(1).desaturate(20).spin(-2).toHex8String(),
         primaryColorPressed: Tiny(themeColor).darken(10).saturate(8).spin(2).toHex8String(),
         primaryColorSuppl: Tiny(themeColor).lighten(7.5).brighten(1).desaturate(20).spin(-2).toHex8String(),
+        borderRadius: '5px',
       },
     } as GlobalThemeOverrides)
   },
