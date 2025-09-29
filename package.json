@@ -19,13 +19,13 @@
     "clean": "npm run clean:dist && npm run clean:lock && npm run clean:lib"
   },
   "dependencies": {
-    "dayjs": "^1.11.13",
+    "dayjs": "^1.11.18",
     "lodash-es": "^4.17.21",
     "marked": "^16.3.0",
-    "pinia": "^3.0.2",
-    "vue": "^3.5.16",
-    "vue-gtag": "^3.5.1",
-    "vue-i18n": "^11.1.5",
+    "pinia": "^3.0.3",
+    "vue": "^3.5.22",
+    "vue-gtag": "^3.6.1",
+    "vue-i18n": "^11.1.12",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
