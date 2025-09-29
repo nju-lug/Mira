@@ -38,7 +38,8 @@ export default {
   footer: {
     maintainer: '本镜像站由{name}维护',
     developer: '前端由{name}构建',
-    special: '特别感谢：tuna（文档参考）',
+    site: 'e-Science 中心',
+    center: '人工微结构科学与技术协同创新中心',
     bug: '反馈问题',
     source: '源代码',
     lug: 'NJU.LUG',

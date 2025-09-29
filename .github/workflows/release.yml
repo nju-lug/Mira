@@ -8,6 +8,8 @@ jobs:
   build-and-release:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v2.3.1
@@ -26,8 +28,8 @@ jobs:
           zip -r ../mira-release.zip *
           cd ..
 
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - uses: "ncipollo/release-action@v1"
         with:
-          repo_token: "${{ secrets.RELEASE_PKG_TOKEN }}"
+          allowUpdates: true
           prerelease: false
-          files: mira-release.zip
+          artifacts: mira-release.zip

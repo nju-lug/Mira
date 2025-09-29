@@ -15,31 +15,37 @@ function handleSelect(key: string) {
   <NH2 prefix="bar">
     {{ t('mirror') }}
   </NH2>
-  <NSpace justify="space-between">
+  <NSpace justify="space-around">
     <div>
       <NP class="footer-text">
-        {{
-          t('footer.maintainer', { name: '@yaoge123' })
-        }}
+        <a href="https://www.yaoge123.com/" target="_blank">
+          {{
+            t('footer.maintainer', { name: '@yaoge123' })
+          }}
+        </a>
       </NP>
       <NP class="footer-text">
-        {{
-          t('footer.developer', { name: 'Iori@LinuxUserGroup' })
-        }}
+        <a href="https://github.com/nju-lug/" target="_blank">
+          {{
+            t('footer.developer', { name: 'Iori@LinuxUserGroup' })
+          }}
+        </a>
       </NP>
       <NP class="footer-text">
-        {{ t('footer.special') }}
+        <a href="https://sci.nju.edu.cn" target="_blank">
+          {{ t('footer.site') }}
+        </a>
       </NP>
     </div>
     <NButtonGroup vertical>
       <FeedbackButton />
-      <NButton text @click="handleSelect('https://github.com/iori2333/Mira')">
+      <NButton text @click="handleSelect('https://github.com/nju-lug/Mira')">
         <template #icon>
           <NamedIcon name="code" :size="16" />
         </template>
         {{ t('footer.source') }}
       </NButton>
-      <NButton text @click="handleSelect('https://git.nju.edu.cn/nju-lug')">
+      <NButton text @click="handleSelect('https://github.com/nju-lug')">
         <template #icon>
           <NamedIcon name="male" :size="16" />
         </template>
@@ -47,12 +53,28 @@ function handleSelect(key: string) {
       </NButton>
     </NButtonGroup>
   </NSpace>
-  <NP>人工微结构科学与技术协同创新中心 苏ICP备10085945-1号 南信备568号</NP>
+  <NP>
+    <NSpace class="beian" justify="space-evenly">
+      <span><a href="https://cicam.nju.edu.cn" target="_blank">{{ t('footer.center') }}</a></span>
+      <span><a href="https://beian.miit.gov.cn" target="_blank">苏ICP备10085945-1号</a></span>
+      <span><a href="https://itsc.nju.edu.cn" target="_blank">南信备568号</a></span>
+    </NSpace>
+  </NP>
 </template>
 
 <style scoped lang="less">
 .footer-text {
   font-size: 16px;
   margin: 4px 0;
+}
+
+.footer-text a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.beian span a{
+  text-decoration: none;
+  color: inherit;
 }
 </style>

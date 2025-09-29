@@ -38,7 +38,8 @@ export default {
   footer: {
     maintainer: 'This mirror site is maintained by {name}',
     developer: 'Frontend by {name}',
-    special: 'Special thanks to tuna for their documentations',
+    site: 'e-Science Center',
+    center: 'Collaborative Innovation Center of Advanced Microstructures',
     bug: 'Report Bugs',
     source: 'Source Code',
     lug: 'NJU.LUG',
