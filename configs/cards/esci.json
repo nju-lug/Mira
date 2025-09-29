@@ -1,0 +1,61 @@
+{
+  "title": "e-Science 中心",
+  "url": "https://sci.nju.edu.cn",
+  "links": [
+    {
+      "title": "云盘",
+      "url": "https://box.nju.edu.cn",
+      "icon": "upload"
+    },
+    {
+      "title": "协同表格",
+      "url": "https://table.nju.edu.cn",
+      "icon": "chart"
+    },
+    {
+      "title": "LaTeX",
+      "url": "https://tex.nju.edu.cn",
+      "icon": "doc"
+    },
+    {
+      "title": "代码托管",
+      "url": "https://git.nju.edu.cn",
+      "icon": "gitlab"
+    },
+    {
+      "title": "超级计算",
+      "url": "https://hpc.nju.edu.cn",
+      "icon": "server"
+    },
+    {
+      "title": "数据存储",
+      "url": "https://stor.nju.edu.cn",
+      "icon": "repo"
+    },
+    {
+      "title": "远程控制",
+      "url": "https://entry.nju.edu.cn",
+      "icon": "monitor"
+    },
+    {
+      "title": "网络测速",
+      "url": "http://test.nju.edu.cn",
+      "icon": "speedometer"
+    },
+    {
+      "title": "密码管理",
+      "url": "https://pass.nju.edu.cn",
+      "icon": "bit"
+    },
+    {
+      "title": "网络授时",
+      "url": "https://time.nju.edu.cn",
+      "icon": "time"
+    },
+    {
+      "title": "文档中心",
+      "url": "https://doc.nju.edu.cn",
+      "icon": "document"
+    }
+  ]
+}

@@ -1,0 +1,489 @@
+{
+    "mirrorz": [
+        {
+            "name": "adoptium",
+            "link": "Adoptium"
+        },
+        {
+            "name": "alpine"
+        },
+        {
+            "name": "anaconda"
+        },
+        {
+            "name": "anthon"
+        },
+        {
+            "name": "aosp",
+            "link": "AOSP"
+        },
+        {
+            "name": "aosp-monthly"
+        },
+        {
+            "name": "arch4edu"
+        },
+        {
+            "name": "archlinux"
+        },
+        {
+            "name": "archlinuxarm"
+        },
+        {
+            "name": "archlinuxcn"
+        },
+        {
+            "name": "archriscv"
+        },
+        {
+            "name": "armbian"
+        },
+        {
+            "name": "bazel-apt"
+        },
+        {
+            "name": "binutils-gdb.git"
+        },
+        {
+            "name": "bioconductor"
+        },
+        {
+            "name": "blackarch"
+        },
+        {
+            "name": "centos"
+        },
+        {
+            "name": "centos-altarch"
+        },
+        {
+            "name": "centos-stream"
+        },
+        {
+            "name": "centos-vault"
+        },
+        {
+            "name": "ceph"
+        },
+        {
+            "name": "chef"
+        },
+        {
+            "name": "clojars"
+        },
+        {
+            "name": "CocoaPods"
+        },
+        {
+            "name": "CPAN"
+        },
+        {
+            "name": "CRAN"
+        },
+        {
+            "name": "crates.io-index"
+        },
+        {
+            "name": "crates.io-index.git"
+        },
+        {
+            "name": "CTAN"
+        },
+        {
+            "name": "cygwin"
+        },
+        {
+            "name": "dart-pub"
+        },
+        {
+            "name": "debian"
+        },
+        {
+            "name": "debian-cd"
+        },
+        {
+            "name": "debian-cdimage"
+        },
+        {
+            "name": "debian-elts"
+        },
+        {
+            "name": "deb-multimedia"
+        },
+        {
+            "name": "debian-security"
+        },
+        {
+            "name": "debiancn"
+        },
+        {
+            "name": "docker-ce"
+        },
+        {
+            "name": "eclipse"
+        },
+        {
+            "name": "elasticstack"
+        },
+        {
+            "name": "elpa"
+        },
+        {
+            "name": "elrepo"
+        },
+        {
+            "name": "entware"
+        },
+        {
+            "name": "epel"
+        },
+        {
+            "name": "erlang-solutions"
+        },
+        {
+            "name": "fdroid"
+        },
+        {
+            "name": "fedora"
+        },
+        {
+            "name": "flutter"
+        },
+        {
+            "name": "flutter-sdk.git"
+        },
+        {
+            "name": "freebsd",
+	    "link": "FreeBSD"
+        },
+        {
+            "name": "freebsd-pkg",
+	    "link": "FreeBSD-pkg"
+        },
+        {
+            "name": "freebsd-ports",
+	    "link": "FreeBSD-ports"
+        },
+        {
+            "name": "gcc.git"
+        },
+        {
+            "name": "gentoo"
+        },
+        {
+            "name": "gentoo-portage"
+        },
+        {
+            "name": "gentoo-portage.git"
+        },
+        {
+            "name": "gentoo-portage-prefix"
+        },
+        {
+            "name": "ghcup"
+        },
+        {
+            "name": "git-repo"
+        },
+        {
+            "name": "github-raw"
+        },
+        {
+            "name": "github-release"
+        },
+        {
+            "name": "gitlab-ce"
+        },
+        {
+            "name": "gitlab-runner"
+        },
+        {
+            "name": "glibc.git"
+        },
+        {
+            "name": "grafana"
+        },
+        {
+            "name": "guix.git"
+        },
+        {
+            "name": "hackage"
+        },
+        {
+            "name": "homebrew"
+        },
+        {
+            "name": "homebrew-bottles"
+        },
+        {
+            "name": "immortalwrt"
+        },
+        {
+            "name": "influxdata"
+        },
+        {
+            "name": "julia"
+        },
+        {
+            "name": "julia-releases"
+        },
+        {
+            "name": "kali"
+        },
+        {
+            "name": "kicad"
+        },
+        {
+            "name": "kodi"
+        },
+        {
+            "name": "kubernetes"
+        },
+        {
+	    "name": "lineageos",
+            "link": "lineage-rom"
+        },
+        {
+            "name": "linux.git"
+        },
+        {
+            "name": "linux-firmware.git"
+        },
+        {
+            "name": "linux-next.git"
+        },
+        {
+            "name": "linux-stable.git"
+        },
+        {
+            "name": "linuxliteos"
+        },
+        {
+            "name": "linuxmint"
+        },
+        {
+            "name": "llvm-apt"
+        },
+        {
+            "name": "llvm-project.git"
+        },
+        {
+            "name": "loongarch"
+        },
+        {
+            "name": "lxc-images"
+        },
+        {
+            "name": "mageia"
+        },
+        {
+            "name": "manjaro"
+        },
+        {
+            "name": "mariadb"
+        },
+        {
+            "name": "mongodb"
+        },
+        {
+            "name": "mozilla"
+        },
+        {
+            "name": "msys2"
+        },
+        {
+            "name": "mysql"
+        },
+        {
+            "name": "NetBSD"
+        },
+        {
+            "name": "nix"
+        },
+        {
+            "name": "nix-channels"
+        },
+        {
+            "name": "nixos-images"
+        },
+        {
+            "name": "nixpkgs.git"
+        },
+        {
+            "name": "nodejs-release"
+        },
+        {
+            "name": "ohmyzsh.git"
+        },
+        {
+            "name": "OpenBSD"
+        },
+        {
+            "name": "openmediavault",
+	    "link": "OpenMediaVault"
+        },
+        {
+            "name": "opensuse"
+        },
+        {
+            "name": "openwrt"
+        },
+        {
+            "name": "packagist"
+        },
+        {
+            "name": "packman"
+        },
+        {
+            "name": "pkgsrc"
+        },
+        {
+            "name": "pkgsrc.git"
+        },
+        {
+            "name": "postmarketos"
+        },
+        {
+            "name": "proxmox"
+        },
+        {
+            "name": "pybombs"
+        },
+        {
+            "name": "pypi"
+        },
+        {
+            "name": "qemu.git"
+        },
+        {
+            "name": "qt"
+        },
+        {
+            "name": "qubes",
+	    "link": "qubesos"
+        },
+        {
+            "name": "raspbian"
+        },
+        {
+            "name": "raspberrypi"
+        },
+        {
+            "name": "raspberry-pi-os-images"
+        },
+        {
+            "name": "repo-ck"
+        },
+        {
+            "name": "riscv-toolchains"
+        },
+        {
+            "name": "rocky"
+        },
+        {
+            "name": "ros"
+        },
+        {
+            "name": "ros2"
+        },
+        {
+            "name": "rosdistro"
+        },
+        {
+            "name": "rpmfusion"
+        },
+        {
+            "name": "rubygems"
+        },
+        {
+            "name": "rudder"
+        },
+        {
+            "name": "rustup"
+        },
+        {
+            "name": "scientific"
+        },
+        {
+            "name": "solus"
+        },
+        {
+            "name": "stackage"
+        },
+        {
+            "name": "termux"
+        },
+        {
+            "name": "tlpretest"
+        },
+        {
+            "name": "trisquel"
+        },
+        {
+            "name": "ubuntu"
+        },
+        {
+            "name": "ubuntu-cloud-images"
+        },
+        {
+            "name": "ubuntu-old-releases"
+        },
+        {
+            "name": "ubuntu-ports"
+        },
+        {
+            "name": "virtualbox"
+        },
+        {
+            "name": "voidlinux"
+        },
+        {
+            "name": "wine-builds"
+        },
+        {
+            "name": "winget-source"
+        }
+    ],
+    "doc": [
+        {
+            "name": "gcr",
+            "redirect": "https://doc.nju.edu.cn/books/e1654/page/gcr"
+        },
+        {
+            "name": "ghcr",
+            "redirect": "https://doc.nju.edu.cn/books/e1654/page/ghcr"
+        },
+        {
+            "name": "glcr",
+            "redirect": "https://doc.nju.edu.cn/books/e1654/page/glcr"
+        },
+        {
+            "name": "ngc",
+            "redirect": "https://doc.nju.edu.cn/books/e1654/page/ngc"
+        },
+        {
+            "name": "nvcr",
+            "redirect": "https://doc.nju.edu.cn/books/e1654/page/ngc"
+        },
+        {
+            "name": "quay",
+            "redirect": "https://doc.nju.edu.cn/books/e1654/page/quay"
+        },
+        {
+            "name": "go",
+            "redirect": "https://doc.nju.edu.cn/books/e1654/page/go"
+        },
+        {
+            "name": "k8s",
+            "redirect": "https://doc.nju.edu.cn/books/e1654/page/k8s"
+        },
+        {
+            "name": "maven",
+            "redirect": "https://doc.nju.edu.cn/books/e1654/page/maven"
+        },
+        {
+            "name": "npm",
+            "redirect": "https://doc.nju.edu.cn/books/e1654/page/npm"
+        }
+    ]
+}

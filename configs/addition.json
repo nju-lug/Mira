@@ -1,0 +1,703 @@
+[
+  {
+    "name": "debian-nonfree",
+    "inherit": "debian-cdimage",
+    "path": "/debian-cdimage/unofficial/non-free/"
+  },
+  {
+    "name": "garuda-linux",
+    "inherit": "osdn",
+    "path": "/osdn/storage/g/g/ga/garuda-linux/"
+  },
+  {
+    "name": "brew.git",
+    "inherit": "homebrew",
+    "path": "/git/homebrew/brew.git/"
+  },
+  {
+    "name": "homebrew.git",
+    "inherit": "homebrew",
+    "path": "/git/homebrew/brew.git/"
+  },
+  {
+    "name": "homebrew-cask.git",
+    "inherit": "homebrew",
+    "path": "/git/homebrew/homebrew-cask.git/"
+  },
+  {
+    "name": "homebrew-core.git",
+    "inherit": "homebrew",
+    "path": "/git/homebrew/homebrew-core.git/"
+  },
+  {
+    "name": "homebrew-install.git",
+    "inherit": "homebrew",
+    "path": "/git/homebrew/install.git/"
+  },
+  {
+    "name": "kernel",
+    "inherit": "kernel.org",
+    "path": "/kernel.org/linux/kernel/"
+  },
+  {
+    "name": "linuxlite-cd",
+    "inherit": "osdn",
+    "path": "/osdn/storage/g/l/li/linuxlite/"
+  },
+  {
+    "name": "mxlinux-isos",
+    "inherit": "osdn",
+    "path": "/osdn/storage/g/m/mx/mx-linux/ISOs/"
+  },
+  {
+    "name": "raspbian-addons",
+    "inherit": "osdn",
+    "path": "/osdn/storage/g/r/ra/raspbian-addons/"
+  },
+  {
+    "name": "apptainer",
+    "inherit": "github-release",
+    "path": "/github-release/apptainer/apptainer/"
+  },
+  {
+    "name": "atom",
+    "inherit": "github-release",
+    "path": "/github-release/atom/atom/"
+  },
+  {
+    "name": "be5invis",
+    "inherit": "github-release",
+    "path": "/github-release/be5invis/"
+  },
+  {
+    "name": "bitwarden",
+    "inherit": "github-release",
+    "path": "/github-release/bitwarden/"
+  },
+  {
+    "name": "Bob",
+    "inherit": "github-release",
+    "path": "/github-release/ripperhe/Bob/"
+  },
+  {
+    "name": "cmder",
+    "inherit": "github-release",
+    "path": "/github-release/cmderdev/cmder/"
+  },
+  {
+    "name": "CuteTranslation",
+    "inherit": "github-release",
+    "path": "/github-release/jiangzc/CuteTranslation/"
+  },
+  {
+    "name": "darktable",
+    "inherit": "github-release",
+    "path": "/github-release/darktable-org/darktable/"
+  },
+  {
+    "name": "dbeaver",
+    "inherit": "github-release",
+    "path": "/github-release/dbeaver/dbeaver/"
+  },
+  {
+    "name": "deepmodeling",
+    "inherit": "github-release",
+    "path": "/github-release/deepmodeling/"
+  },
+  {
+    "name": "Ditto",
+    "inherit": "github-release",
+    "path": "/github-release/sabrogden/Ditto/"
+  },
+  {
+    "name": "etcher",
+    "inherit": "github-release",
+    "path": "/github-release/balena-io/etcher/"
+  },
+  {
+    "name": "FreeCAD",
+    "inherit": "github-release",
+    "path": "/github-release/FreeCAD/FreeCAD/"
+  },
+  {
+    "name": "frp",
+    "inherit": "github-release",
+    "path": "/github-release/fatedier/frp/"
+  },
+  {
+    "name": "gephi",
+    "inherit": "github-release",
+    "path": "/github-release/gephi/gephi/"
+  },
+  {
+    "name": "git-for-windows",
+    "inherit": "github-release",
+    "path": "/github-release/git-for-windows/git/"
+  },
+  {
+    "name": "GNS3",
+    "inherit": "github-release",
+    "path": "/github-release/GNS3/gns3-gui/"
+  },
+  {
+    "name": "googlefonts",
+    "inherit": "github-release",
+    "path": "/github-release/googlefonts/"
+  },
+  {
+    "name": "graalvm",
+    "inherit": "github-release",
+    "path": "/github-release/graalvm/graalvm-ce-builds/"
+  },
+  {
+    "name": "HandBrake",
+    "inherit": "github-release",
+    "path": "/github-release/HandBrake/HandBrake/"
+  },
+  {
+    "name": "harbor",
+    "inherit": "github-release",
+    "path": "/github-release/goharbor/harbor/"
+  },
+  {
+    "name": "hyperspy",
+    "inherit": "github-release",
+    "path": "/github-release/hyperspy/hyperspy-bundle/"
+  },
+  {
+    "name": "joplin",
+    "inherit": "github-release",
+    "path": "/github-release/laurent22/"
+  },
+  {
+    "name": "k3s",
+    "inherit": "github-release",
+    "path": "/github-release/k3s-io/k3s/"
+  },
+  {
+    "name": "KataGo",
+    "inherit": "github-release",
+    "path": "/github-release/lightvector/KataGo/"
+  },
+  {
+    "name": "LANDrop",
+    "inherit": "github-release",
+    "path": "/github-release/LANDrop/LANDrop/"
+  },
+  {
+    "name": "librespeed-cli",
+    "inherit": "github-release",
+    "path": "/github-release/librespeed/speedtest-cli/"
+  },
+  {
+    "name": "localsend",
+    "inherit": "github-release",
+    "path": "/github-release/localsend/localsend/"
+  },
+  {
+    "name": "llvm-binary",
+    "inherit": "github-release",
+    "path": "/github-release/llvm/llvm-project/"
+  },
+  {
+    "name": "lossless-cut",
+    "inherit": "github-release",
+    "path": "/github-release/mifi/lossless-cut/"
+  },
+  {
+    "name": "miniforge",
+    "inherit": "github-release",
+    "path": "/github-release/conda-forge/miniforge/"
+  },
+  {
+    "name": "minikube",
+    "inherit": "github-release",
+    "path": "/github-release/kubernetes/minikube/"
+  },
+  {
+    "name": "NanaZip",
+    "inherit": "github-release",
+    "path": "/github-release/M2Team/NanaZip/"
+  },
+  {
+    "name": "neovim",
+    "inherit": "github-release",
+    "path": "/github-release/neovim/neovim/"
+  },
+  {
+    "name": "NJU-Class-Shedule-Flutter",
+    "inherit": "github-release",
+    "path": "/github-release/WheretoSleepinNJU/NJU-Class-Shedule-Flutter/LatestRelease/"
+  },
+  {
+    "name": "NJUThesis",
+    "inherit": "github-release",
+    "path": "/github-release/nju-lug/NJUThesis/LatestRelease/"
+  },
+  {
+    "name": "NJUVisual",
+    "inherit": "github-release",
+    "path": "/github-release/nju-lug/NJUVisual/LatestRelease/"
+  },
+  {
+    "name": "notepad4-zufuliu",
+    "inherit": "github-release",
+    "path": "/github-release/zufuliu/notepad4/"
+  },
+  {
+    "name": "obs-studio",
+    "inherit": "github-release",
+    "path": "/github-release/obsproject/obs-studio/"
+  },
+  {
+    "name": "Office-Tool",
+    "inherit": "github-release",
+    "path": "/github-release/YerongAI/Office-Tool/"
+  },
+  {
+    "name": "orchestrator",
+    "inherit": "github-release",
+    "path": "/github-release/openark/orchestrator/"
+  },
+  {
+    "name": "pandoc",
+    "inherit": "github-release",
+    "path": "/github-release/jgm/pandoc/"
+  },
+  {
+    "name": "PowerShell",
+    "inherit": "github-release",
+    "path": "/github-release/PowerShell/PowerShell/"
+  },
+  {
+    "name": "PowerToys",
+    "inherit": "github-release",
+    "path": "/github-release/microsoft/PowerToys/"
+  },
+  {
+    "name": "prometheus",
+    "inherit": "github-release",
+    "path": "/github-release/prometheus/"
+  },
+  {
+    "name": "python-build-standalone",
+    "inherit": "github-release",
+    "path": "/github-release/astral-sh/python-build-standalone/"
+  },
+  {
+    "name": "q-e",
+    "inherit": "github-release",
+    "path": "/github-release/QEF/q-e/"
+  },
+  {
+    "name": "rclone",
+    "inherit": "github-release",
+    "path": "/github-release/rclone/rclone/"
+  },
+  {
+    "name": "rime-ice",
+    "inherit": "github-release",
+    "path": "/github-release/iDvel/rime-ice/nightly build/"
+  },
+  {
+    "name": "rime-squirrel",
+    "inherit": "github-release",
+    "path": "/github-release/rime/squirrel/"
+  },
+  {
+    "name": "rime-weasel",
+    "inherit": "github-release",
+    "path": "/github-release/rime/weasel/"
+  },
+  {
+    "name": "rubyinstaller2",
+    "inherit": "github-release",
+    "path": "/github-release/oneclick/rubyinstaller2/"
+  },
+  {
+    "name": "rufus",
+    "inherit": "github-release",
+    "path": "/github-release/pbatard/rufus/"
+  },
+  {
+    "name": "rust-analyzer",
+    "inherit": "github-release",
+    "path": "/github-release/rust-analyzer/rust-analyzer/"
+  },
+  {
+    "name": "rustdesk",
+    "inherit": "github-release",
+    "path": "/github-release/rustdesk/rustdesk/"
+  },
+  {
+    "name": "screego",
+    "inherit": "github-release",
+    "path": "/github-release/screego/server/"
+  },
+  {
+    "name": "singularity",
+    "inherit": "github-release",
+    "path": "/github-release/sylabs/singularity/"
+  },
+  {
+    "name": "smiley-sans",
+    "inherit": "github-release",
+    "path": "/github-release/atelier-anchor/smiley-sans/"
+  },
+  {
+    "name": "spyder",
+    "inherit": "github-release",
+    "path": "/github-release/spyder-ide/spyder/"
+  },
+  {
+    "name": "stellarium",
+    "inherit": "github-release",
+    "path": "/github-release/Stellarium/stellarium/"
+  },
+  {
+    "name": "Synergy-Binaries",
+    "inherit": "github-release",
+    "path": "/github-release/DEAKSoftware/Synergy-Binaries/"
+  },
+  {
+    "name": "texstudio",
+    "inherit": "github-release",
+    "path": "/github-release/texstudio-org/texstudio/"
+  },
+  {
+    "name": "Ventoy",
+    "inherit": "github-release",
+    "path": "/github-release/ventoy/Ventoy/"
+  },
+  {
+    "name": "vscodium",
+    "inherit": "github-release",
+    "path": "/github-release/VSCodium/vscodium/"
+  },
+  {
+    "name": "winlibs_mingw",
+    "inherit": "github-release",
+    "path": "/github-release/brechtsanders/winlibs_mingw/"
+  },
+  {
+    "name": "Zettlr",
+    "inherit": "github-release",
+    "path": "/github-release/Zettlr/Zettlr/"
+  },
+  {
+    "name": "aosp",
+    "path": "/git/aosp"
+  },
+  {
+    "name": "autoupdate-oh-my-zsh-plugins.git",
+    "path": "/git/autoupdate-oh-my-zsh-plugins.git"
+  },
+  {
+    "name": "binutils-gdb.git",
+    "path": "/git/binutils-gdb.git"
+  },
+  {
+    "name": "boost.git",
+    "path": "/git/boost.git"
+  },
+  {
+    "name": "CMake.git",
+    "path": "/git/CMake.git"
+  },
+  {
+    "name": "CocoaPods",
+    "path": "/git/CocoaPods"
+  },
+  {
+    "name": "crates.io-index.git",
+    "path": "/git/crates.io-index.git"
+  },
+  {
+    "name": "dpdk.git",
+    "path": "/git/dpdk.git"
+  },
+  {
+    "name": "doom-emacs.git",
+    "path": "/git/doom-emacs.git"
+  },
+  {
+    "name": "emacs.git",
+    "path": "/git/emacs.git"
+  },
+  {
+    "name": "fast-syntax-highlighting.git",
+    "path": "/git/fast-syntax-highlighting.git"
+  },
+  {
+    "name": "flutter-sdk.git",
+    "path": "/git/flutter-sdk.git"
+  },
+  {
+    "name": "gcc.git",
+    "path": "/git/gcc.git"
+  },
+  {
+    "name": "gentoo.git",
+    "path": "/git/gentoo.git"
+  },
+  {
+    "name": "gentoo-portage.git",
+    "path": "/git/gentoo-portage.git"
+  },
+  {
+    "name": "gentoo-zh.git",
+    "path": "/git/gentoo-zh.git"
+  },
+  {
+    "name": "git-repo",
+    "path": "/git/git-repo"
+  },
+  {
+    "name": "glibc.git",
+    "path": "/git/glibc.git"
+  },
+  {
+    "name": "guix.git",
+    "path": "/git/guix.git"
+  },
+  {
+    "name": "hdf5.git",
+    "path": "/git/hdf5.git"
+  },
+  {
+    "name": "homebrew",
+    "path": "/git/homebrew"
+  },
+  {
+    "name": "homebrew-autoupdate.git",
+    "path": "/git/homebrew-autoupdate.git"
+  },
+  {
+    "name": "homebrew-base.git",
+    "path": "/git/homebrew-base.git"
+  },
+  {
+    "name": "homebrew-bio.git",
+    "path": "/git/homebrew-bio.git"
+  },
+  {
+    "name": "homebrew-num.git",
+    "path": "/git/homebrew-num.git"
+  },
+  {
+    "name": "linux-firmware.git",
+    "path": "/git/linux-firmware.git"
+  },
+  {
+    "name": "linux.git",
+    "path": "/git/linux.git"
+  },
+  {
+    "name": "linux-next.git",
+    "path": "/git/linux-next.git"
+  },
+  {
+    "name": "linux-stable.git",
+    "path": "/git/linux-stable.git"
+  },
+  {
+    "name": "llvm-project.git",
+    "path": "/git/llvm-project.git"
+  },
+  {
+    "name": "nixpkgs.git",
+    "path": "/git/nixpkgs.git"
+  },
+  {
+    "name": "ohmyzsh.git",
+    "path": "/git/ohmyzsh.git"
+  },
+  {
+    "name": "open-mpi.git",
+    "path": "/git/open-mpi.git"
+  },
+  {
+    "name": "pkgsrc.git",
+    "path": "/git/pkgsrc.git"
+  },
+  {
+    "name": "powerlevel10k.git",
+    "path": "/git/powerlevel10k.git"
+  },
+  {
+    "name": "q-e.git",
+    "path": "/git/q-e.git"
+  },
+  {
+    "name": "qemu.git",
+    "path": "/git/qemu.git"
+  },
+  {
+    "name": "rime-ice.git",
+    "path": "/git/rime-ice.git"
+  },
+  {
+    "name": "scoop-nonportable.git",
+    "path": "/git/scoop-nonportable.git"
+  },
+  {
+    "name": "scoop-extras.git",
+    "path": "/git/scoop-extras.git"
+  },
+  {
+    "name": "scoop-main.git",
+    "path": "/git/scoop-main.git"
+  },
+  {
+    "name": "scoop-versions.git",
+    "path": "/git/scoop-versions.git"
+  },
+  {
+    "name": "scoop-java.git",
+    "path": "/git/scoop-java.git"
+  },
+  {
+    "name": "scoop-nerd-fonts.git",
+    "path": "/git/scoop-nerd-fonts.git"
+  },
+  {
+    "name": "scoop-nirsoft.git",
+    "path": "/git/scoop-nirsoft.git"
+  },
+  {
+    "name": "scoop.git",
+    "path": "/git/scoop.git"
+  },
+  {
+    "name": "spacemacs.git",
+    "path": "/git/spacemacs.git"
+  },
+  {
+    "name": "spdk.git",
+    "path": "/git/spdk.git"
+  },
+  {
+    "name": "tmux-continuum.git",
+    "path": "/git/tmux-continuum.git"
+  },
+  {
+    "name": "tmux-resurrect.git",
+    "path": "/git/tmux-resurrect.git"
+  },
+  {
+    "name": "zsh-autocomplete.git",
+    "path": "/git/zsh-autocomplete.git"
+  },
+  {
+    "name": "zsh-autosuggestions.git",
+    "path": "/git/zsh-autosuggestions.git"
+  },
+  {
+    "name": "zsh-syntax-highlighting.git",
+    "path": "/git/zsh-syntax-highlighting.git"
+  },
+  {
+    "name": "immortalwrt-snapshots",
+    "path": "/immortalwrt/snapshots"
+  },
+  {
+    "name": "OpenBSD-snapshots",
+    "path": "/OpenBSD/snapshots"
+  },
+  {
+    "name": "opensuse-history",
+    "path": "/opensuse/history"
+  },
+  {
+    "name": "opensuse-ports",
+    "path": "/opensuse/ports"
+  },
+  {
+    "name": "opensuse-tumbleweed",
+    "path": "/opensuse"
+  },
+  {
+    "name": "opensuse-update",
+    "path": "/opensuse/update"
+  },
+  {
+    "name": "qt-snapshots",
+    "path": "/qt/snapshots"
+  },
+  {
+    "name": "openwrt-snapshots",
+    "path": "/openwrt/snapshots"
+  },
+  {
+    "name": "alphafold",
+    "status":"success",
+    "size":"838G",
+    "path": "/alphafold"
+  },
+  {
+    "name": "rosettafold",
+    "status":"success",
+    "size":"210G",
+    "path": "/rosettafold"
+  },
+  {
+    "name": "gcr",
+    "inherit": null,
+    "status":"cache",
+    "path": "https://gcr.nju.edu.cn"
+  },
+  {
+    "name": "ghcr",
+    "inherit": null,
+    "status":"cache",
+    "path": "https://ghcr.nju.edu.cn"
+  },
+  {
+    "name": "glcr",
+    "inherit": null,
+    "status":"cache",
+    "path": "https://glcr.nju.edu.cn"
+  },
+  {
+    "name": "ngc",
+    "inherit": null,
+    "status":"cache",
+    "path": "https://nvcr.nju.edu.cn"
+  },
+  {
+    "name": "nvcr",
+    "inherit": null,
+    "status":"cache",
+    "path": "https://nvcr.nju.edu.cn"
+  },
+  {
+    "name": "quay",
+    "inherit": null,
+    "status":"cache",
+    "path": "https://quay.nju.edu.cn"
+  },
+  {
+    "name": "k8s",
+    "inherit": null,
+    "status":"cache",
+    "path": "https://k8s.nju.edu.cn"
+  },
+  {
+    "name": "go",
+    "inherit": null,
+    "status":"cache",
+    "path": "https://repo.nju.edu.cn/go"
+  },
+  {
+    "name": "maven",
+    "inherit": null,
+    "status":"cache",
+    "path": "https://repo.nju.edu.cn/maven"
+  },
+  {
+    "name": "npm",
+    "inherit": null,
+    "status":"cache",
+    "path": "https://repo.nju.edu.cn/npm"
+  }
+]
