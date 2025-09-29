@@ -41,6 +41,7 @@ export async function fetchNews(item?: NewsEntry): Promise<string> {
   if (item === undefined) {
     return Promise.resolve('No document available.')
   }
-  return await text(`${ServerPrefix}news/${item.content}`, data =>
-    marked(data))
+  return await text(`${ServerPrefix}news/${item.content}`, async (data) => {
+    return await marked(data)
+  })
 }

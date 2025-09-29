@@ -29,13 +29,13 @@ export async function json<T, U = unknown>(
 
 export async function text(
   url: string,
-  callback?: (text: string) => string,
+  callback?: (text: string) => string | Promise<string>,
   config?: RequestInit,
 ): Promise<string> {
   const res = await get(url, config)
   const data = await res.text()
   if (callback) {
-    return callback(data)
+    return await callback(data)
   }
   return data
 }
