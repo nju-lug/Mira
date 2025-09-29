@@ -3,7 +3,6 @@ import type { DownloadContent } from '@/models/downloads'
 import type { State } from '@/store'
 import { AppsOutline, ColorPaletteOutline, DesktopOutline } from '@vicons/ionicons5'
 import { NIcon } from 'naive-ui'
-import { useI18n } from 'vue-i18n'
 import { RouterLink } from 'vue-router'
 
 function toOptions(items: DownloadContent[]) {
@@ -18,11 +17,11 @@ function toOptions(items: DownloadContent[]) {
   )
 }
 
-export default function fetchDownloadRoutes(state: State, filter = '') {
-  const { t } = useI18n()
-  const osText = t('sider.os')
-  const appsText = t('sider.apps')
-  const fontsText = t('sider.fonts')
+export default function fetchDownloadRoutes(state: State, filter = '', translations: {
+  osText: string
+  appsText: string
+  fontsText: string
+}) {
   const contents = state.downloadContents.filter(value =>
     value.distro.toLocaleLowerCase().includes(filter.toLocaleLowerCase()),
   )
@@ -31,7 +30,7 @@ export default function fetchDownloadRoutes(state: State, filter = '') {
   const fonts = contents.filter(value => value.category === 'font')
   return [
     {
-      label: `${osText} ${os.length}`,
+      label: `${translations.osText} ${os.length}`,
       key: 'OS',
       icon: () => (
         <NIcon>
@@ -41,7 +40,7 @@ export default function fetchDownloadRoutes(state: State, filter = '') {
       children: toOptions(os),
     },
     {
-      label: `${appsText} ${apps.length}`,
+      label: `${translations.appsText} ${apps.length}`,
       key: 'Apps',
       icon: () => (
         <NIcon>
@@ -51,7 +50,7 @@ export default function fetchDownloadRoutes(state: State, filter = '') {
       children: toOptions(apps),
     },
     {
-      label: `${fontsText} ${fonts.length}`,
+      label: `${translations.fontsText} ${fonts.length}`,
       key: 'Fonts',
       icon: () => (
         <NIcon>

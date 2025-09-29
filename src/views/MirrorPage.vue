@@ -1,61 +1,55 @@
 <script setup lang="tsx">
-import type { DataTableColumn } from 'naive-ui'
+import type {
+  DataTableColumn,
+} from 'naive-ui'
 import type { SyncEntry } from '@/models/mirrors'
-import { HelpCircleOutline, SearchOutline } from '@vicons/ionicons5'
-import { NButton, NDataTable, NH2, NIcon, NInput, NSpace, NTag } from 'naive-ui'
-import { computed, reactive } from 'vue'
+import { SearchOutline } from '@vicons/ionicons5'
+import {
+  NDataTable,
+  NH2,
+  NIcon,
+  NInput,
+  NSpace,
+  NTag,
+} from 'naive-ui'
+import { computed, onMounted, onUnmounted, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
+import RouteButton from '@/components/Mirror/RouteButton.vue'
 import { useDebounce, useMutableRef, usePromiseEffect } from '@/hooks'
 import { fetchEntries } from '@/models/mirrors'
 import { useStore } from '@/store'
 import { timeFromNow } from '@/utils/time'
 
 const { t, locale } = useI18n()
-const router = useRouter()
 const store = useStore()
 const [entries, setEntries] = useMutableRef([] as SyncEntry[])
 const [loading, setLoading] = useMutableRef(true)
 const [filter, setFilter] = useMutableRef('')
 const onInput = useDebounce(setFilter)
+const searchInputRef = ref<HTMLElement>()
+
+function handleKeyDown(event: KeyboardEvent) {
+  if ((event.ctrlKey || event.metaKey) && event.key === 'f') {
+    event.preventDefault()
+    if (searchInputRef.value) {
+      searchInputRef.value.focus();
+      (searchInputRef.value as HTMLInputElement).select()
+    }
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('keydown', handleKeyDown)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('keydown', handleKeyDown)
+})
 
 usePromiseEffect(fetchEntries, (res) => {
   setEntries(res.sort((a, b) => a.name.localeCompare(b.name)))
   setLoading(false)
 })
-
-function RouteButton({ data }: { data: SyncEntry }) {
-  const doc = store.docItems.find(value => value.name === data.name)
-  return (
-    <>
-      <NButton
-        text
-        onClick={() => {
-          if (data.route) {
-            router.push(data.route)
-          }
-          else {
-            window.location.href = data.path || `/${data.name}`
-          }
-        }}
-      >
-        {data.name}
-      </NButton>
-      <NButton
-        text
-        v-show={doc}
-        onClick={() =>
-          doc?.redirect
-            ? (window.location.href = doc.redirect)
-            : router.push(`/help/${doc?.name}` || '')}
-      >
-        <NIcon>
-          <HelpCircleOutline />
-        </NIcon>
-      </NButton>
-    </>
-  )
-}
 
 function StatusTag({ data }: { data: SyncEntry }) {
   let status: 'info' | 'success' | 'error' = 'info'
@@ -131,7 +125,12 @@ const columns = computed(() =>
 <template>
   <NH2 prefix="bar">
     <span>{{ t('header.mirrors') }}</span>
-    <NInput :placeholder="t('table.searchText')" @input="onInput">
+    <NInput
+      id="mirror-search-input"
+      ref="searchInputRef"
+      :placeholder="t('table.searchText')"
+      @input="onInput"
+    >
       <template #prefix>
         <NIcon>
           <SearchOutline />

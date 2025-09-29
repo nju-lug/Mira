@@ -93,7 +93,11 @@ export const router = createRouter({
   routes,
 })
 
-export type MenuCaller = (state: State, filter: string) => MenuOption[]
+export type MenuCaller = (state: State, filter: string, translations: {
+  osText: string
+  appsText: string
+  fontsText: string
+}) => MenuOption[]
 
 router.beforeEach((_to, _from, next) => {
   loadingRef.value?.start()

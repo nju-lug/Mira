@@ -20,8 +20,8 @@ Documentations and other configurations have been transferred to repo [NJU Mirro
 
 ### Report Bugs
 
-Please go to [Issues](https://github.com/iori2333/Mira/issues) and report your environment (system,
+Please go to [Issues](https://github.com/nju-lug/Mira/issues) and report your environment (system,
 browser version, etc.) as well as how to trigger the bug. Note that different types of bugs should be reported in
 different issues.
 
-You can preview this project on [Github Pages](https://iori2333.github.io/Mira/).
+You can preview this project on [Github Pages](https://nju-lug.github.io/Mira/).
