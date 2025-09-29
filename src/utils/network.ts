@@ -1,40 +1,41 @@
 export async function get(url: string, config?: RequestInit) {
   const res = await fetch(url, {
     ...config,
-    method: 'GET'
-  });
+    method: 'GET',
+  })
 
   if (!res.ok) {
+    // eslint-disable-next-line prefer-promise-reject-errors
     return Promise.reject({
       status: res.status,
-      message: `Request failed with status ${res.status}: ${res.statusText}`
-    });
+      message: `Request failed with status ${res.status}: ${res.statusText}`,
+    })
   }
-  return res;
+  return res
 }
 
 export async function json<T, U = unknown>(
   url: string,
   callback?: (elem: U) => T,
-  config?: RequestInit
+  config?: RequestInit,
 ): Promise<T> {
-  const res = await get(url, config);
-  const data = await res.json();
+  const res = await get(url, config)
+  const data = await res.json()
   if (callback) {
-    return callback(data as U);
+    return callback(data as U)
   }
-  return data as T;
+  return data as T
 }
 
 export async function text(
   url: string,
   callback?: (text: string) => string,
-  config?: RequestInit
+  config?: RequestInit,
 ): Promise<string> {
-  const res = await get(url, config);
-  const data = await res.text();
+  const res = await get(url, config)
+  const data = await res.text()
   if (callback) {
-    return callback(data);
+    return callback(data)
   }
-  return data;
+  return data
 }

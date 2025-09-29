@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
-import { NCard } from 'naive-ui';
+import { NCard } from 'naive-ui'
+import { reactive } from 'vue'
 
 const props = defineProps<{
   item: {
-    title: string;
-    description: string;
-    url: string;
-  };
-}>();
+    title: string
+    description: string
+    url: string
+  }
+}>()
 
-const { title, description, url } = reactive(props.item);
+const { title, description, url } = reactive(props.item)
 </script>
 
 <template>

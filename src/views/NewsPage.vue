@@ -1,30 +1,28 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
-import { useI18n } from 'vue-i18n';
-import { NH2, NResult, NSpace, NTag } from 'naive-ui';
+import { NH2, NResult, NSpace, NTag } from 'naive-ui'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRoute } from 'vue-router'
+import MarkdownContainer from '@/components/MarkdownContainer'
+import { useMutableRef, usePromiseWatch } from '@/hooks'
+import { fetchNews } from '@/models/news'
+import { useStore } from '@/store'
+import { convertTimestamp } from '@/utils/time'
 
-import { useMutableRef, usePromiseWatch } from '@/hooks';
-import { useStore } from '@/store';
-import { fetchNews } from '@/models/news';
-import { convertTimestamp } from '@/utils/time';
-
-import MarkdownContainer from '@/components/MarkdownContainer';
-
-const { t } = useI18n();
-const route = useRoute();
-const store = useStore();
-const [content, setContent] = useMutableRef('');
+const { t } = useI18n()
+const route = useRoute()
+const store = useStore()
+const [content, setContent] = useMutableRef('')
 
 const news = computed(() => {
-  const name = route.params.title;
+  const name = route.params.title
   if (typeof name != 'string') {
-    return undefined;
+    return undefined
   }
-  return store.state.newsEntries[parseInt(name)];
-});
+  return store.newsEntries[Number.parseInt(name)]
+})
 
-usePromiseWatch(() => fetchNews(news.value), setContent);
+usePromiseWatch(() => fetchNews(news.value), setContent)
 </script>
 
 <template>
@@ -45,7 +43,9 @@ usePromiseWatch(() => fetchNews(news.value), setContent);
     <MarkdownContainer :content="content" />
   </div>
   <div v-else>
-    <NH2 prefix="bar">{{ t('header.news') }}</NH2>
+    <NH2 prefix="bar">
+      {{ t('header.news') }}
+    </NH2>
     <NResult
       size="huge"
       status="info"

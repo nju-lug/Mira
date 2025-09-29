@@ -1,28 +1,35 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n';
-import { NH2, NP, NSpace, NButton, NButtonGroup } from 'naive-ui';
+import { NButton, NButtonGroup, NH2, NP, NSpace } from 'naive-ui'
+import { useI18n } from 'vue-i18n'
+import NamedIcon from '@/components/NamedIcon.vue'
+import FeedbackButton from './FeedbackButton.vue'
 
-import FeedbackButton from './FeedbackButton.vue';
-import NamedIcon from '@/components/NamedIcon.vue';
-
-const { t } = useI18n();
+const { t } = useI18n()
 
 function handleSelect(key: string) {
-  window.open(key);
+  window.open(key)
 }
 </script>
 
 <template>
-  <NH2 prefix="bar">{{ t('mirror') }}</NH2>
+  <NH2 prefix="bar">
+    {{ t('mirror') }}
+  </NH2>
   <NSpace justify="space-between">
     <div>
-      <NP class="footer-text">{{
-        t('footer.maintainer', { name: '@yaoge123' })
-      }}</NP>
-      <NP class="footer-text">{{
-        t('footer.developer', { name: 'Iori@LinuxUserGroup' })
-      }}</NP>
-      <NP class="footer-text">{{ t('footer.special') }}</NP>
+      <NP class="footer-text">
+        {{
+          t('footer.maintainer', { name: '@yaoge123' })
+        }}
+      </NP>
+      <NP class="footer-text">
+        {{
+          t('footer.developer', { name: 'Iori@LinuxUserGroup' })
+        }}
+      </NP>
+      <NP class="footer-text">
+        {{ t('footer.special') }}
+      </NP>
     </div>
     <NButtonGroup vertical>
       <FeedbackButton />

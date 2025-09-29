@@ -1,14 +1,15 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import { LoadingBarApi, MenuOption } from 'naive-ui';
-import fetchDocRoutes from '@/routes/docs';
-import fetchDownloadRoutes from '@/routes/downloads';
-import { State } from '@/store';
-import fetchNewsRoutes from './news';
+import type { LoadingBarApi, MenuOption } from 'naive-ui'
+import type { RouteRecordRaw } from 'vue-router'
+import type { State } from '@/store'
+import { createRouter, createWebHistory } from 'vue-router'
+import fetchDocRoutes from '@/routes/docs'
+import fetchDownloadRoutes from '@/routes/downloads'
+import fetchNewsRoutes from './news'
 
-export const loadingRef: { value?: LoadingBarApi } = {};
-export const setLoadingRef = (loadingBar: LoadingBarApi) => {
-  loadingRef.value = loadingBar;
-};
+export const loadingRef: { value?: LoadingBarApi } = {}
+export function setLoadingRef(loadingBar: LoadingBarApi) {
+  loadingRef.value = loadingBar
+}
 
 const routes: RouteRecordRaw[] = [
   {
@@ -16,8 +17,8 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     component: () => import('@/views/MirrorPage.vue'),
     meta: {
-      title: 'Mirrors'
-    }
+      title: 'Mirrors',
+    },
   },
   {
     name: 'Help',
@@ -26,13 +27,13 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: ':distro',
-        component: () => import('@/views/HelpPage.vue')
-      }
+        component: () => import('@/views/HelpPage.vue'),
+      },
     ],
     meta: {
       title: 'Help',
-      sider: fetchDocRoutes
-    }
+      sider: fetchDocRoutes,
+    },
   },
   {
     name: 'Downloads',
@@ -41,13 +42,13 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: ':distro',
-        component: () => import('@/views/DownloadPage.vue')
-      }
+        component: () => import('@/views/DownloadPage.vue'),
+      },
     ],
     meta: {
       title: 'Downloads',
-      sider: fetchDownloadRoutes
-    }
+      sider: fetchDownloadRoutes,
+    },
   },
   {
     name: 'News',
@@ -56,54 +57,54 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: ':title',
-        component: () => import('@/views/NewsPage.vue')
-      }
+        component: () => import('@/views/NewsPage.vue'),
+      },
     ],
     meta: {
       title: 'News',
-      sider: fetchNewsRoutes
-    }
+      sider: fetchNewsRoutes,
+    },
   },
   {
     name: 'About',
     path: '/about',
     component: () => import('@/views/AboutPage.vue'),
     meta: {
-      title: 'About'
-    }
+      title: 'About',
+    },
   },
   {
     name: 'Error',
     path: '/error',
     component: () => import('@/views/ErrorPage.vue'),
     meta: {
-      title: 'Error'
-    }
+      title: 'Error',
+    },
   },
   {
     name: 'NotFound',
     path: '/:pathMatch(.*)*',
-    redirect: '/error'
-  }
-];
+    redirect: '/error',
+  },
+]
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
-});
+  routes,
+})
 
-export type MenuCaller = (state: State, filter: string) => MenuOption[];
+export type MenuCaller = (state: State, filter: string) => MenuOption[]
 
 router.beforeEach((_to, _from, next) => {
-  loadingRef.value?.start();
-  next();
-});
+  loadingRef.value?.start()
+  next()
+})
 
-router.afterEach(to => {
-  document.title = (to.meta?.title as string) || 'NJU Mirror';
-  loadingRef.value?.finish();
-});
+router.afterEach((to) => {
+  document.title = (to.meta?.title as string) || 'NJU Mirror'
+  loadingRef.value?.finish()
+})
 
 router.onError(() => {
-  loadingRef.value?.error();
-});
+  loadingRef.value?.error()
+})

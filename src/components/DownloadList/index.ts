@@ -1,3 +1,3 @@
-import DownloadList from './DownloadList.vue';
+import DownloadList from './DownloadList.vue'
 
-export default DownloadList;
+export default DownloadList

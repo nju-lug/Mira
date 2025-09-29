@@ -1,38 +1,26 @@
 <script setup lang="ts">
-import { ComponentPublicInstance, computed } from 'vue';
-import { RouterView } from 'vue-router';
-import {
-  NLayout,
-  NLayoutHeader,
-  NLayoutSider,
-  NBackTop,
-  NDivider
-} from 'naive-ui';
+import type { ComponentPublicInstance } from 'vue'
+import { NBackTop, NDivider, NLayout, NLayoutHeader, NLayoutSider } from 'naive-ui'
+import { computed } from 'vue'
+import { RouterView } from 'vue-router'
+import PageFooter from '@/components/PageFooter'
+import SideBar from '@/components/SideBar'
+import TopNavi from '@/components/TopNavi'
+import { useElementRef, useLoadingBar, usePromiseEffect, useWidth, useWidthObserver } from '@/hooks'
 
-import { useStore } from '@/store';
-import { fetchDocs } from '@/models/documents';
-import { fetchNewsList } from '@/models/news';
-import {
-  useElementRef,
-  useWidth,
-  useWidthObserver,
-  useLoadingBar,
-  usePromiseEffect
-} from '@/hooks';
+import { fetchDocs } from '@/models/documents'
+import { fetchNewsList } from '@/models/news'
+import { useStore } from '@/store'
 
-import TopNavi from '@/components/TopNavi';
-import PageFooter from '@/components/PageFooter';
-import SideBar from '@/components/SideBar';
+const store = useStore()
+const { isMobile } = useWidth()
+const boxRef = useElementRef<ComponentPublicInstance>()
+const el = computed(() => boxRef.value?.$el)
 
-const store = useStore();
-const { isMobile } = useWidth();
-const boxRef = useElementRef<ComponentPublicInstance>();
-const el = computed(() => boxRef.value?.$el);
-
-useWidthObserver(el);
-useLoadingBar();
-usePromiseEffect(fetchDocs, res => store.commit('setDocs', res));
-usePromiseEffect(fetchNewsList, res => store.commit('setNews', res));
+useWidthObserver(el)
+useLoadingBar()
+usePromiseEffect(fetchDocs, res => store.setDocs(res))
+usePromiseEffect(fetchNewsList, res => store.setNews(res))
 </script>
 
 <template>
@@ -41,20 +29,20 @@ usePromiseEffect(fetchNewsList, res => store.commit('setNews', res));
       <TopNavi />
     </NLayoutHeader>
     <NLayout
+      ref="boxRef"
       position="absolute"
       sider-placement="left"
-      ref="boxRef"
       style="top: var(--header-height)"
       has-sider
     >
       <NLayoutSider
+        v-if="!isMobile"
         :native-scrollbar="false"
         :collapsed-width="0"
         width="320px"
         collapse-mode="transform"
         bordered
         show-trigger="bar"
-        v-if="!isMobile"
       >
         <SideBar />
       </NLayoutSider>

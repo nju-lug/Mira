@@ -1,24 +1,27 @@
 <script setup lang="tsx">
-import { VNode, computed } from 'vue';
+import type { VNode } from 'vue'
 import {
+  ArrowForwardCircleOutline,
+  BarChartOutline,
+  BugOutline,
+  CloudUploadOutline,
+  CodeOutline,
+  CodeSlashOutline,
+  DesktopOutline,
+  DocumentTextOutline,
+  HelpCircleOutline,
+  LogoGithub,
+  LogoGitlab,
+  MailOutline,
   MaleOutline,
   SchoolOutline,
-  CloudUploadOutline,
-  BarChartOutline,
   ServerOutline,
-  CodeSlashOutline,
-  LogoGitlab,
-  DocumentTextOutline,
   SpeedometerOutline,
-  DesktopOutline,
-  ArrowForwardCircleOutline,
-  LogoGithub,
-  MailOutline,
-  CodeOutline,
-  BugOutline,
-  HelpCircleOutline
-} from '@vicons/ionicons5';
-import { NIcon } from 'naive-ui';
+} from '@vicons/ionicons5'
+import { NIcon } from 'naive-ui'
+import { computed } from 'vue'
+
+const props = defineProps<{ name: string, size: number }>()
 
 const icons: Record<string, () => VNode> = {
   male: () => <MaleOutline />,
@@ -36,12 +39,10 @@ const icons: Record<string, () => VNode> = {
   code: () => <CodeOutline />,
   bug: () => <BugOutline />,
   unknown: () => <ArrowForwardCircleOutline />,
-  fallback: () => <HelpCircleOutline />
-};
+  fallback: () => <HelpCircleOutline />,
+}
 
-const props = defineProps<{ name: string; size: number }>();
-
-const MyIcon = computed(() => icons[props.name] ?? icons.unknown);
+const MyIcon = computed(() => icons[props.name] ?? icons.unknown)
 </script>
 
 <template>

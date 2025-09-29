@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { NCard, NButton, NRow, NIcon, NH3 } from 'naive-ui';
-import { InformationCircleOutline } from '@vicons/ionicons5';
+import type { CardItem } from '@/models/cards'
+import { InformationCircleOutline } from '@vicons/ionicons5'
+import { NButton, NCard, NH3, NIcon, NRow } from 'naive-ui'
+import NamedIcon from '@/components/NamedIcon.vue'
 
-import { CardItem } from '@/models/cards';
-
-import NamedIcon from '@/components/NamedIcon.vue';
-
-defineProps<{ entry: CardItem }>();
+defineProps<{ entry: CardItem }>()
 </script>
 
 <template>
@@ -15,9 +13,9 @@ defineProps<{ entry: CardItem }>();
       <NH3>
         {{ entry.title }}
         <NButton
+          v-if="entry.url"
           tag="a"
           text
-          v-if="entry.url"
           :href="entry.url"
           target="_black"
         >
