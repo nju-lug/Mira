@@ -2,7 +2,7 @@
 import type { DataTableColumn } from 'naive-ui'
 import type { SyncEntry } from '@/models/mirrors'
 import { HelpCircleOutline, SearchOutline } from '@vicons/ionicons5'
-import { NButton, NCheckbox, NDataTable, NFlex, NH2, NIcon, NInput, NTag } from 'naive-ui'
+import { NButton, NCheckbox, NDataTable, NFlex, NH2, NHighlight, NIcon, NInput, NTag, useThemeVars } from 'naive-ui'
 import { computed, h, ref, shallowRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
@@ -14,9 +14,11 @@ import { timeFromNow } from '@/utils/time'
 const { t, locale } = useI18n()
 const router = useRouter()
 const store = useStore()
+const themeVars = useThemeVars()
 const entries = shallowRef<SyncEntry[]>([])
 const loading = ref(true)
 const filter = ref('')
+const searchInput = ref('')
 const statusFilter = ref<string[]>([])
 const onSearchInput = useDebounce((value: string) => filter.value = value)
 
@@ -48,7 +50,7 @@ function renderNextUpdate(data: SyncEntry) {
   return data.nextUpdate ? timeFromNow(data.nextUpdate, locale.value as 'zh' | 'en') : '-'
 }
 
-function renderRouteButton(data: SyncEntry) {
+function renderName(data: SyncEntry) {
   const doc = store.docItems.find(value => value.name === data.name)
   const docButton = doc
     ? h(NButton, {
@@ -75,7 +77,17 @@ function renderRouteButton(data: SyncEntry) {
             window.location.href = data.path || `/${data.name}`
           }
         },
-      }, { default: () => data.name }),
+      }, { default: () => h(NHighlight, {
+        text: data.name,
+        patterns: [searchInput.value],
+        highlightStyle: {
+          borderRadius: themeVars.value.borderRadius,
+          display: 'inline-block',
+          color: themeVars.value.baseColor,
+          background: themeVars.value.primaryColor,
+          transition: `all .3s ${themeVars.value.cubicBezierEaseInOut}`,
+        },
+      }) }),
       docButton,
     ],
   })
@@ -105,7 +117,7 @@ const columns = computed(() => {
       title: t('table.name'),
       key: 'name',
       align: 'left',
-      render: renderRouteButton,
+      render: renderName,
       filter: filterByName,
       filterOptionValue: filter.value,
       sorter: (row1, row2) => row1.name.localeCompare(row2.name),
@@ -186,7 +198,7 @@ const filteredEntries = computed(() => {
 <template>
   <NH2 prefix="bar">
     <span>{{ t('header.mirrors') }}</span>
-    <NInput :placeholder="t('table.searchText')" @input="onSearchInput">
+    <NInput v-model:value="searchInput" :placeholder="t('table.searchText')" clearable @input="onSearchInput">
       <template #prefix>
         <NIcon>
           <SearchOutline />
