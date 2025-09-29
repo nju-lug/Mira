@@ -3,13 +3,15 @@ import type { VNode } from 'vue'
 import {
   ArrowForwardCircleOutline,
   BarChartOutline,
+  BookOutline,
   BugOutline,
+  CalculatorOutline,
   CloudUploadOutline,
   CodeOutline,
-  CodeSlashOutline,
   DesktopOutline,
   DocumentTextOutline,
   HelpCircleOutline,
+  LockClosedOutline,
   LogoGithub,
   LogoGitlab,
   MailOutline,
@@ -17,6 +19,7 @@ import {
   SchoolOutline,
   ServerOutline,
   SpeedometerOutline,
+  Timer,
 } from '@vicons/ionicons5'
 import { NIcon } from 'naive-ui'
 import { computed } from 'vue'
@@ -28,8 +31,8 @@ const icons: Record<string, () => VNode> = {
   school: () => <SchoolOutline />,
   upload: () => <CloudUploadOutline />,
   chart: () => <BarChartOutline />,
-  server: () => <ServerOutline />,
-  repo: () => <CodeSlashOutline />,
+  server: () => <CalculatorOutline />,
+  repo: () => <ServerOutline />,
   github: () => <LogoGithub />,
   gitlab: () => <LogoGitlab />,
   mail: () => <MailOutline />,
@@ -40,6 +43,9 @@ const icons: Record<string, () => VNode> = {
   bug: () => <BugOutline />,
   unknown: () => <ArrowForwardCircleOutline />,
   fallback: () => <HelpCircleOutline />,
+  bit: () => <LockClosedOutline />,
+  time: () => <Timer />,
+  document: () => <BookOutline />,
 }
 
 const MyIcon = computed(() => icons[props.name] ?? icons.unknown)
