@@ -2,7 +2,7 @@
 import type { DataTableColumn } from 'naive-ui'
 import type { SyncEntry } from '@/models/mirrors'
 import { HelpCircleOutline, SearchOutline } from '@vicons/ionicons5'
-import { NButton, NDataTable, NH2, NIcon, NInput, NSpace, NTag } from 'naive-ui'
+import { NButton, NCheckbox, NDataTable, NFlex, NH2, NIcon, NInput, NTag } from 'naive-ui'
 import { computed, h, ref, shallowRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
@@ -17,6 +17,7 @@ const store = useStore()
 const entries = shallowRef<SyncEntry[]>([])
 const loading = ref(true)
 const filter = ref('')
+const statusFilter = ref<string[]>([])
 const onSearchInput = useDebounce((value: string) => filter.value = value)
 
 usePromiseEffect(fetchEntries, (res) => {
@@ -31,6 +32,14 @@ function filterByName(value: unknown, row: SyncEntry) {
   return false
 }
 
+const statusOptions = computed(() => {
+  const allStatuses = [...new Set(entries.value.map(entry => entry.status))]
+  return allStatuses.map(status => ({
+    label: status,
+    value: status,
+  }))
+})
+
 function renderLastUpdate(data: SyncEntry) {
   return data.lastUpdate ? timeFromNow(data.lastUpdate, locale.value as 'zh' | 'en') : '-'
 }
@@ -41,32 +50,35 @@ function renderNextUpdate(data: SyncEntry) {
 
 function renderRouteButton(data: SyncEntry) {
   const doc = store.docItems.find(value => value.name === data.name)
-  return [
-    h(NButton, {
-      text: true,
-      onClick: () => {
-        if (data.route) {
-          router.push(data.route)
-        }
-        else {
-          window.location.href = data.path || `/${data.name}`
-        }
-      },
-    }, () => data.name),
-    doc
-      ? h(NButton, {
-          text: true,
-          onClick: () => {
-            if (doc.redirect) {
-              window.location.href = doc.redirect
-            }
-            else {
-              router.push(`/help/${doc?.name}` || '')
-            }
-          },
-        }, () => h(NIcon, () => h(HelpCircleOutline)))
-      : null,
-  ]
+  const docButton = doc
+    ? h(NButton, {
+        text: true,
+        onClick: () => {
+          if (doc.redirect) {
+            window.location.href = doc.redirect
+          }
+          else {
+            router.push(`/help/${doc?.name}` || '')
+          }
+        },
+      }, { default: () => h(NIcon, () => h(HelpCircleOutline)) })
+    : undefined
+  return h(NFlex, { align: 'center', inline: true, style: { gap: '4px' } }, {
+    default: () => [
+      h(NButton, {
+        text: true,
+        onClick: () => {
+          if (data.route) {
+            router.push(data.route)
+          }
+          else {
+            window.location.href = data.path || `/${data.name}`
+          }
+        },
+      }, { default: () => data.name }),
+      docButton,
+    ],
+  })
 }
 
 function renderStatusTag(data: SyncEntry) {
@@ -84,7 +96,7 @@ function renderStatusTag(data: SyncEntry) {
       status = 'info'
       break
   }
-  return h(NTag, { type: status }, () => data.status)
+  return h(NTag, { type: status }, { default: () => data.status })
 }
 
 const columns = computed(() => {
@@ -96,12 +108,39 @@ const columns = computed(() => {
       render: renderRouteButton,
       filter: filterByName,
       filterOptionValue: filter.value,
+      sorter: (row1, row2) => row1.name.localeCompare(row2.name),
     },
     {
       title: t('table.status'),
       key: 'status',
       align: 'center',
       render: renderStatusTag,
+      filter: (value: string | number, row: SyncEntry) => {
+        value = `${value}`
+        if (!value || value.length === 0)
+          return true
+        return value.includes(row.status as string)
+      },
+      filterMultiple: true,
+      renderFilterMenu: () => {
+        return h('div', { style: { padding: '8px' } }, [
+          ...statusOptions.value.map(option =>
+            h('div', { style: { marginBottom: '4px' } }, [
+              h(NCheckbox, {
+                checked: statusFilter.value.includes(option.value as string),
+                onUpdateChecked: (checked: boolean) => {
+                  if (checked) {
+                    statusFilter.value = [...statusFilter.value, option.value as string]
+                  }
+                  else {
+                    statusFilter.value = statusFilter.value.filter((v: string) => v !== option.value as string)
+                  }
+                },
+              }, () => option.label),
+            ]),
+          ),
+        ])
+      },
     },
   ]
 
@@ -131,11 +170,16 @@ const columns = computed(() => {
 })
 
 const filteredEntries = computed(() => {
-  if (!filter.value)
-    return entries.value
-  return entries.value.filter(entry =>
-    entry.name.toLocaleLowerCase().includes(filter.value.toLocaleLowerCase()),
-  )
+  let result = entries.value
+  if (filter.value) {
+    result = result.filter(entry =>
+      entry.name.toLocaleLowerCase().includes(filter.value.toLocaleLowerCase()),
+    )
+  }
+  if (statusFilter.value.length > 0) {
+    result = result.filter(entry => statusFilter.value.includes(entry.status as string))
+  }
+  return result
 })
 </script>
 
@@ -150,17 +194,15 @@ const filteredEntries = computed(() => {
       </template>
     </NInput>
   </NH2>
-  <NSpace vertical>
-    <NDataTable
-      size="small"
-      :loading="loading"
-      :columns="columns"
-      :data="filteredEntries"
-      :row-key="(row: SyncEntry) => row.name"
-      max-height="calc(100vh - 12.125rem)"
-      virtual-scroll
-    />
-  </NSpace>
+  <NDataTable
+    size="small"
+    :loading="loading"
+    :columns="columns"
+    :data="filteredEntries"
+    :row-key="(row: SyncEntry) => row.name"
+    max-height="calc(100vh - 12.125rem)"
+    virtual-scroll
+  />
 </template>
 
 <style scoped lang="less">
