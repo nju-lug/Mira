@@ -51,6 +51,13 @@ export default {
     lastUpdate: '上次同步',
     nextUpdate: '下次同步',
     searchText: '搜索镜像...',
+    statusTitle: {
+      success: '同步成功',
+      cache: '已缓存',
+      proxy: '代理中',
+      failed: '同步失败',
+      syncing: '正在同步',
+    },
   },
   error: {
     description: '我...在哪儿？',

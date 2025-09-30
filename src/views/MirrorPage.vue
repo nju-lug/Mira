@@ -1,136 +1,285 @@
 <script setup lang="tsx">
-import type {
-  DataTableColumn,
-} from 'naive-ui'
+import type { DataTableColumn } from 'naive-ui'
 import type { SyncEntry } from '@/models/mirrors'
-import { SearchOutline } from '@vicons/ionicons5'
-import {
-  NDataTable,
-  NH2,
-  NIcon,
-  NInput,
-  NSpace,
-  NTag,
-} from 'naive-ui'
-import { computed, onMounted, onUnmounted, reactive, ref } from 'vue'
+import { CheckmarkOutline, CloseOutline, CloudDoneOutline, GlobeOutline, HelpCircleOutline, SearchOutline } from '@vicons/ionicons5'
+import { NButton, NCheckbox, NDataTable, NFlex, NH2, NHighlight, NIcon, NInput, NTag, useThemeVars } from 'naive-ui'
+import { computed, h, ref, shallowRef } from 'vue'
 import { useI18n } from 'vue-i18n'
-import RouteButton from '@/components/Mirror/RouteButton.vue'
-import { useDebounce, useMutableRef, usePromiseEffect } from '@/hooks'
+import { useRouter } from 'vue-router'
+import { useDebounce, usePromiseEffect } from '@/hooks'
 import { fetchEntries } from '@/models/mirrors'
 import { useStore } from '@/store'
 import { timeFromNow } from '@/utils/time'
 
 const { t, locale } = useI18n()
+const router = useRouter()
 const store = useStore()
-const [entries, setEntries] = useMutableRef([] as SyncEntry[])
-const [loading, setLoading] = useMutableRef(true)
-const [filter, setFilter] = useMutableRef('')
-const onInput = useDebounce(setFilter)
-const searchInputRef = ref<HTMLElement>()
-
-function handleKeyDown(event: KeyboardEvent) {
-  if ((event.ctrlKey || event.metaKey) && event.key === 'f') {
-    event.preventDefault()
-    if (searchInputRef.value) {
-      searchInputRef.value.focus();
-      (searchInputRef.value as HTMLInputElement).select()
-    }
-  }
-}
-
-onMounted(() => {
-  document.addEventListener('keydown', handleKeyDown)
-})
-
-onUnmounted(() => {
-  document.removeEventListener('keydown', handleKeyDown)
-})
+const themeVars = useThemeVars()
+const entries = shallowRef<SyncEntry[]>([])
+const loading = ref(true)
+const filter = ref('')
+const searchInput = ref('')
+const statusFilter = ref<string[]>([])
+const onSearchInput = useDebounce((value: string) => filter.value = value)
 
 usePromiseEffect(fetchEntries, (res) => {
-  setEntries(res.sort((a, b) => a.name.localeCompare(b.name)))
-  setLoading(false)
+  entries.value = res.sort((a, b) => a.name.localeCompare(b.name))
+  loading.value = false
 })
 
-function StatusTag({ data }: { data: SyncEntry }) {
-  let status: 'info' | 'success' | 'error' = 'info'
-  switch (data.status) {
-    case 'cache':
-    case 'proxy':
-    case 'success':
-      status = 'success'
-      break
-    case 'failed':
-      status = 'error'
-      break
-    case 'syncing':
-      status = 'info'
-      break
+function filterByName(value: unknown, row: SyncEntry) {
+  if (typeof value === 'string') {
+    return row.name.toLocaleLowerCase().includes(value.toLocaleLowerCase())
   }
-  return <NTag type={status}>{data.status}</NTag>
+  return false
 }
 
-const extraColumns = computed(() =>
-  store.isMobile
-    ? []
-    : ([
-        {
-          title: t('table.size'),
-          key: 'size',
-          align: 'center',
-        },
-        {
-          title: t('table.lastUpdate'),
-          key: 'lastUpdate',
-          align: 'center',
-          render: data =>
-            data.lastUpdate
-              ? timeFromNow(data.lastUpdate, locale.value as 'zh' | 'en')
-              : '-',
-        },
-        {
-          title: t('table.nextUpdate'),
-          key: 'nextUpdate',
-          align: 'center',
-          render: data =>
-            data.nextUpdate
-              ? timeFromNow(data.nextUpdate, locale.value as 'zh' | 'en')
-              : '-',
-        },
-      ] as DataTableColumn<SyncEntry>[]),
-)
+const statusOptions = computed(() => {
+  return [...new Set(entries.value.map(entry => entry.status))]
+})
 
-const columns = computed(() =>
-  reactive([
+function renderLastUpdate(data: SyncEntry) {
+  return data.lastUpdate ? timeFromNow(data.lastUpdate, locale.value as 'zh' | 'en') : '-'
+}
+
+function renderNextUpdate(data: SyncEntry) {
+  return data.nextUpdate ? timeFromNow(data.nextUpdate, locale.value as 'zh' | 'en') : '-'
+}
+
+function renderName(data: SyncEntry) {
+  const doc = store.docItems.find(value => value.name === data.name)
+  const docButton = doc
+    ? h(NButton, {
+        text: true,
+        onClick: () => {
+          if (doc.redirect) {
+            window.location.href = doc.redirect
+          }
+          else {
+            router.push(`/help/${doc?.name}` || '')
+          }
+        },
+      }, { default: () => h(NIcon, () => h(HelpCircleOutline)) })
+    : undefined
+  return h(NFlex, { align: 'center', inline: true, style: { gap: '4px' } }, {
+    default: () => [
+      h(NButton, {
+        text: true,
+        size: 'large',
+        onClick: () => {
+          if (data.route) {
+            router.push(data.route)
+          }
+          else {
+            window.location.href = data.path || `/${data.name}`
+          }
+        },
+      }, { default: () => h(NHighlight, {
+        text: data.name,
+        patterns: [searchInput.value],
+        highlightStyle: {
+          borderRadius: themeVars.value.borderRadius,
+          display: 'inline-block',
+          color: themeVars.value.baseColor,
+          background: themeVars.value.primaryColor,
+          transition: `all .3s ${themeVars.value.cubicBezierEaseInOut}`,
+        },
+      }) }),
+      docButton,
+    ],
+  })
+}
+
+const loadingIcon = h('svg', {
+  xmlns: 'http://www.w3.org/2000/svg',
+  width: '32',
+  height: '32',
+  viewBox: '0 0 24 24',
+}, [
+  h('g', { stroke: 'currentColor' }, [
+    h('circle', {
+      'cx': '12',
+      'cy': '12',
+      'r': '9.5',
+      'fill': 'none',
+      'stroke-linecap': 'round',
+      'stroke-width': '2',
+    }, [
+      h('animate', {
+        attributeName: 'stroke-dasharray',
+        calcMode: 'spline',
+        dur: '1.5s',
+        keySplines: '0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1',
+        keyTimes: '0;0.475;0.95;1',
+        repeatCount: 'indefinite',
+        values: '0 150;42 150;42 150;42 150',
+      }),
+      h('animate', {
+        attributeName: 'stroke-dashoffset',
+        calcMode: 'spline',
+        dur: '1.5s',
+        keySplines: '0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1',
+        keyTimes: '0;0.475;0.95;1',
+        repeatCount: 'indefinite',
+        values: '0;-16;-59;-59',
+      }),
+    ]),
+    h('animateTransform', {
+      attributeName: 'transform',
+      dur: '2s',
+      repeatCount: 'indefinite',
+      type: 'rotate',
+      values: '0 12 12;360 12 12',
+    }),
+  ]),
+])
+
+function renderStatusTag(data: SyncEntry) {
+  let statusType: 'info' | 'success' | 'warning' | 'error' = 'info'
+  let statusTitle = data.status as string
+  let statusIcon = loadingIcon
+  let statusIconSize = '18'
+  switch (data.status) {
+    case 'proxy':
+      statusType = 'warning'
+      statusTitle = t('table.statusTitle.proxy')
+      statusIcon = h(GlobeOutline)
+      statusIconSize = '16'
+      break
+    case 'cache':
+      statusType = 'warning'
+      statusTitle = t('table.statusTitle.cache')
+      statusIcon = h(CloudDoneOutline)
+      statusIconSize = '16'
+      break
+    case 'success':
+      statusType = 'success'
+      statusTitle = t('table.statusTitle.success')
+      statusIcon = h(CheckmarkOutline)
+      statusIconSize = '18'
+      break
+    case 'failed':
+      statusType = 'error'
+      statusTitle = t('table.statusTitle.failed')
+      statusIcon = h(CloseOutline)
+      statusIconSize = '20'
+      break
+    case 'syncing':
+      statusType = 'info'
+      statusTitle = t('table.statusTitle.syncing')
+      statusIcon = loadingIcon
+      statusIconSize = '18'
+      break
+  }
+
+  return h(NTag, {
+    type: statusType,
+    bordered: !store.darkMode,
+    style: { borderRadius: '5px' },
+  }, {
+    icon: () => !store.isMobile ? h(NIcon, { size: statusIconSize }, () => statusIcon) : undefined,
+    default: () => statusTitle,
+  })
+}
+
+function renderFilterMenu() {
+  const labelsMap = {
+    proxy: t('table.statusTitle.proxy'),
+    cache: t('table.statusTitle.cache'),
+    success: t('table.statusTitle.success'),
+    failed: t('table.statusTitle.failed'),
+    syncing: t('table.statusTitle.syncing'),
+  }
+  return h(NFlex, { vertical: true, style: { padding: '8px' } }, { default: () => [
+    ...statusOptions.value.map(option =>
+      h(NCheckbox, {
+        focusable: false,
+        checked: statusFilter.value.includes(option as string),
+        onUpdateChecked: (checked: boolean) => {
+          if (checked) {
+            statusFilter.value = [...statusFilter.value, option as string]
+          }
+          else {
+            statusFilter.value = statusFilter.value.filter((v: string) => v !== option as string)
+          }
+        },
+      }, {
+        default: () => labelsMap[option as keyof typeof labelsMap] || option,
+      }),
+    ),
+  ] })
+}
+
+const columns = computed(() => {
+  const baseColumns: DataTableColumn<SyncEntry>[] = [
     {
       title: t('table.name'),
       key: 'name',
       align: 'left',
-      render: data => <RouteButton data={data} />,
-      filter: (value, row) =>
-        row.name
-          .toLocaleLowerCase()
-          .includes((value as string).toLocaleLowerCase()),
-      filterOptionValue: filter,
+      render: renderName,
+      filter: filterByName,
+      filterOptionValue: filter.value,
+      sorter: (row1, row2) => row1.name.localeCompare(row2.name),
     },
     {
       title: t('table.status'),
       key: 'status',
       align: 'center',
-      render: data => <StatusTag data={data} />,
+      render: renderStatusTag,
+      filter: (value: string | number, row: SyncEntry) => {
+        value = `${value}`
+        if (!value || value.length === 0)
+          return true
+        return value.includes(row.status as string)
+      },
+      filterMultiple: true,
+      renderFilterMenu,
     },
-  ] as DataTableColumn<SyncEntry>[]),
-)
+  ]
+
+  if (!store.isMobile) {
+    baseColumns.push(
+      {
+        title: t('table.size'),
+        key: 'size',
+        align: 'center',
+      },
+      {
+        title: t('table.lastUpdate'),
+        key: 'lastUpdate',
+        align: 'center',
+        render: renderLastUpdate,
+      },
+      {
+        title: t('table.nextUpdate'),
+        key: 'nextUpdate',
+        align: 'center',
+        render: renderNextUpdate,
+      },
+    )
+  }
+
+  return baseColumns
+})
+
+const filteredEntries = computed(() => {
+  let result = entries.value
+  if (filter.value) {
+    result = result.filter(entry =>
+      entry.name.toLocaleLowerCase().includes(filter.value.toLocaleLowerCase()),
+    )
+  }
+  if (statusFilter.value.length > 0) {
+    result = result.filter(entry => statusFilter.value.includes(entry.status as string))
+  }
+  return result
+})
 </script>
 
 <template>
   <NH2 prefix="bar">
     <span>{{ t('header.mirrors') }}</span>
-    <NInput
-      id="mirror-search-input"
-      ref="searchInputRef"
-      :placeholder="t('table.searchText')"
-      @input="onInput"
-    >
+    <NInput v-model:value="searchInput" :placeholder="t('table.searchText')" clearable style="max-width: 300px" @input="onSearchInput">
       <template #prefix>
         <NIcon>
           <SearchOutline />
@@ -138,16 +287,16 @@ const columns = computed(() =>
       </template>
     </NInput>
   </NH2>
-  <NSpace vertical>
-    <NDataTable
-      size="small"
-      :loading="loading"
-      :columns="columns.concat(extraColumns)"
-      :data="entries"
-      max-height="calc(100vh - 12.125rem)"
-      virtual-scroll
-    />
-  </NSpace>
+  <NDataTable
+    size="small"
+    single-column
+    :loading="loading"
+    :columns="columns"
+    :data="filteredEntries"
+    :row-key="(row: SyncEntry) => row.name"
+    :max-height="!store.isMobile ? 'calc(100vh - 12.125rem)' : 'calc(100vh - 12.125rem + 24px)'"
+    virtual-scroll
+  />
 </template>
 
 <style scoped lang="less">
