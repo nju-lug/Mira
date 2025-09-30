@@ -51,6 +51,13 @@ export default {
     lastUpdate: 'Last Sync',
     nextUpdate: 'Next Sync',
     searchText: 'Search mirrors...',
+    statusTitle: {
+      success: 'Synced',
+      cache: 'Cached',
+      proxy: 'Proxying',
+      failed: 'Failed',
+      syncing: 'Syncing',
+    },
   },
   error: {
     description: 'Where...am I?',

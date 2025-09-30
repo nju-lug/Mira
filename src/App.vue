@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { GlobalThemeOverrides } from 'naive-ui'
 import { darkTheme, NConfigProvider, NLoadingBarProvider, NMessageProvider } from 'naive-ui'
+import Tiny from 'tinycolor2'
 import { computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -13,15 +14,20 @@ const store = useStore()
 
 const theme = computed(() => (store.darkMode ? darkTheme : null))
 const override = computed(
-  () =>
-    ({
+  () => {
+    const themeColor = store.darkMode ? '#a879db' : '#6f106e'
+    return ({
       common: {
-        primaryColor: store.darkMode ? '#ffffff' : '#6f106e',
-        primaryColorHover: store.darkMode ? '#fcfcfc' : '#6f106e',
-        primaryColorPressed: store.darkMode ? 'd4d4d4' : '#560c56',
-        primaryColorSuppl: '#6f106e',
+        primaryColor: Tiny(themeColor).toHex8String(),
+        primaryColorSecondary: Tiny(themeColor).setAlpha(0.16).toHex8String(),
+        primaryColorHover: Tiny(themeColor).lighten(7.5).brighten(1).desaturate(20).spin(-2).toHex8String(),
+        primaryColorPressed: Tiny(themeColor).darken(10).saturate(8).spin(2).toHex8String(),
+        primaryColorSuppl: Tiny(themeColor).lighten(7.5).brighten(1).desaturate(20).spin(-2).toHex8String(),
+        borderRadius: '5px',
       },
-    } as GlobalThemeOverrides),
+    } as GlobalThemeOverrides)
+  },
+
 )
 
 onMounted(
