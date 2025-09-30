@@ -3,7 +3,7 @@ import type { DataTableColumn } from 'naive-ui'
 import type { SyncEntry } from '@/models/mirrors'
 import { CheckmarkOutline, CloseOutline, CloudDoneOutline, GlobeOutline, HelpCircleOutline, SearchOutline } from '@vicons/ionicons5'
 import { NButton, NCheckbox, NDataTable, NFlex, NH2, NHighlight, NIcon, NInput, NTag, useThemeVars } from 'naive-ui'
-import { computed, h, ref, shallowRef } from 'vue'
+import { computed, h, onMounted, onUnmounted, ref, shallowRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { useDebounce, usePromiseEffect } from '@/hooks'
@@ -21,6 +21,25 @@ const filter = ref('')
 const searchInput = ref('')
 const statusFilter = ref<string[]>([])
 const onSearchInput = useDebounce((value: string) => filter.value = value)
+const searchInputRef = ref<HTMLElement>()
+
+function handleKeyDown(event: KeyboardEvent) {
+  if ((event.ctrlKey || event.metaKey) && event.key === 'f') {
+    event.preventDefault()
+    if (searchInputRef.value) {
+      searchInputRef.value.focus();
+      (searchInputRef.value as HTMLInputElement).select()
+    }
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('keydown', handleKeyDown)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('keydown', handleKeyDown)
+})
 
 usePromiseEffect(fetchEntries, (res) => {
   entries.value = res.sort((a, b) => a.name.localeCompare(b.name))
@@ -46,11 +65,23 @@ function renderNextUpdate(data: SyncEntry) {
   return data.nextUpdate ? timeFromNow(data.nextUpdate, locale.value as 'zh' | 'en') : '-'
 }
 
+function getAbsolutePath(path: string) {
+  if (path.startsWith('http')) {
+    return path
+  }
+  else if (path.startsWith('/')) {
+    return window.location.href.replace(/\/$/, '') + path
+  }
+  return `${window.location.href.replace(/\/$/, '')}/${path}`
+}
+
 function renderName(data: SyncEntry) {
   const doc = store.docItems.find(value => value.name === data.name)
   const docButton = doc
     ? h(NButton, {
+        tag: 'a',
         text: true,
+        href: getAbsolutePath(doc.redirect || `${window.location.href}${doc?.name}`),
         onClick: () => {
           if (doc.redirect) {
             window.location.href = doc.redirect
@@ -61,10 +92,13 @@ function renderName(data: SyncEntry) {
         },
       }, { default: () => h(NIcon, () => h(HelpCircleOutline)) })
     : undefined
+  const linkHref = getAbsolutePath(data.route ? data.route : (data.path ? data.path : `/${data.name}`))
   return h(NFlex, { align: 'center', inline: true, style: { gap: '4px' } }, {
     default: () => [
       h(NButton, {
+        tag: 'a',
         text: true,
+        href: linkHref,
         size: 'large',
         onClick: () => {
           if (data.route) {
@@ -279,7 +313,15 @@ const filteredEntries = computed(() => {
 <template>
   <NH2 prefix="bar">
     <span>{{ t('header.mirrors') }}</span>
-    <NInput v-model:value="searchInput" :placeholder="t('table.searchText')" clearable style="max-width: 300px" @input="onSearchInput">
+    <NInput
+      id="mirror-search-input"
+      ref="searchInputRef"
+      v-model:value="searchInput"
+      :placeholder="t('table.searchText')"
+      clearable
+      style="max-width: 300px"
+      @input="onSearchInput"
+    >
       <template #prefix>
         <NIcon>
           <SearchOutline />
