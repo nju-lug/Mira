@@ -13,9 +13,9 @@ function onUpdate() {
 <template>
   <NButton
     quaternary
-    size="small"
+    :size="store.isMobile ? 'medium' : 'small'"
+    :style="{ padding: store.isMobile ? '0 8px' : '0 6px' }"
     :focusable="false"
-    style="padding: 0 6px"
     @click="onUpdate"
   >
     <template #icon>

@@ -9,6 +9,7 @@ export default {
     doc: '帮助文档',
     about: '关于',
     error: '出错了',
+    homeTips: '你已经在首页了',
   },
   sider: {
     news: '新闻',

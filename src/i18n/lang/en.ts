@@ -9,6 +9,7 @@ export default {
     doc: 'Documentation',
     about: 'About',
     error: 'Error',
+    homeTips: 'You are already on the home page',
   },
   sider: {
     news: 'NEWS',
