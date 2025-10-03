@@ -87,6 +87,9 @@ watch(
     </NSpace>
 
     <NSpace class="nav-end" align="center">
+      <SelectLocale />
+      <ThemeSwitch />
+
       <NButton
         v-if="store.isMobile"
         quaternary
@@ -99,8 +102,6 @@ watch(
           <NewspaperOutline />
         </NIcon>
       </NButton>
-      <SelectLocale />
-      <ThemeSwitch />
 
       <NDropdown
         v-if="store.isMobile"
