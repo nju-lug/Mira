@@ -79,6 +79,7 @@ watch(
         :key="item.key"
         :type="isActiveRoute(item.key as string) ? 'primary' : undefined"
         quaternary
+        size="small"
         :focusable="false"
         v-bind="item?.props as any"
       >
