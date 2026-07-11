@@ -7,6 +7,7 @@ import { router } from '@/routes'
 import 'vfonts/Lato.css'
 import 'vfonts/FiraCode.css'
 import '@/assets/Markdown.css'
+import '@/assets/naive-overrides.css'
 
 const app = createApp(App)
 const pinia = createPinia()

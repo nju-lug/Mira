@@ -25,7 +25,7 @@ usePromiseEffect(fetchNewsList, res => store.setNews(res))
 
 <template>
   <NLayout position="absolute">
-    <NLayoutHeader style="height: var(--header-height)">
+    <NLayoutHeader bordered style="height: var(--header-height)">
       <TopNavi />
     </NLayoutHeader>
     <NLayout

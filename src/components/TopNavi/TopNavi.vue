@@ -59,7 +59,6 @@ watch(
 
 <template>
   <NSpace
-    class="nav-bar"
     justify="space-between"
     style="height: var(--header-height)"
   >
@@ -135,10 +134,6 @@ watch(
 </template>
 
 <style scoped lang="less">
-.nav-bar {
-  background-color: rgba(216, 216, 216, 0.13);
-}
-
 .nav-mid {
   height: 100%;
   display: flex;

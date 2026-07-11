@@ -14,7 +14,7 @@ export interface SyncEntry {
 interface RawEntry {
   name: string
   is_master: boolean
-  status: 'proxy' | 'cache' | 'success' | 'failed' | 'syncing'
+  status: 'proxy' | 'cache' | 'success' | 'failed' | 'syncing' | 'paused'
   last_update: string
   last_update_ts: number
   last_started: string

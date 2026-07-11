@@ -25,8 +25,12 @@ const logoUrl = computed(() => {
   </NH2>
   <NLayout class="about-content">
     <img class="about-logo" :src="logoUrl" alt="Mirror Logo" @click="hit++">
-    <NH1 class="title">NJU Mirror</NH1>
-    <NP class="about-text">Created by NJU LUG</NP>
+    <NH1 class="title">
+      NJU Mirror
+    </NH1>
+    <NP class="about-text">
+      Created by NJU LUG
+    </NP>
   </NLayout>
 </template>
 

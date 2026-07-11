@@ -1,6 +1,11 @@
 export default {
   locale: 'English',
   mirror: '南京大学开源镜像站',
+  theme: {
+    system: '跟随系统',
+    light: '亮色模式',
+    dark: '暗黑模式',
+  },
   header: {
     mirrors: '镜像列表',
     downloads: '下载',
@@ -58,6 +63,7 @@ export default {
       proxy: '代理中',
       failed: '同步失败',
       syncing: '正在同步',
+      paused: '已暂停',
     },
   },
   error: {

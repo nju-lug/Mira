@@ -1,8 +1,9 @@
 <script setup lang="tsx">
 import type { DataTableColumn } from 'naive-ui'
+import type { VNodeChild } from 'vue'
 import type { SyncEntry } from '@/models/mirrors'
-import { CheckmarkOutline, CloseOutline, CloudDoneOutline, GlobeOutline, HelpCircleOutline, SearchOutline } from '@vicons/ionicons5'
-import { NButton, NCheckbox, NDataTable, NFlex, NH2, NHighlight, NIcon, NInput, NTag, useThemeVars } from 'naive-ui'
+import { CheckmarkOutline, Close, CloudDoneOutline, GlobeOutline, HelpCircleOutline, PauseOutline, SearchOutline } from '@vicons/ionicons5'
+import { NCheckbox, NDataTable, NFlex, NH2, NIcon, NInput, useOsTheme } from 'naive-ui'
 import { computed, h, onMounted, onUnmounted, ref, shallowRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
@@ -14,7 +15,12 @@ import { timeFromNow } from '@/utils/time'
 const { t, locale } = useI18n()
 const router = useRouter()
 const store = useStore()
-const themeVars = useThemeVars()
+const osTheme = useOsTheme()
+const isDark = computed(() =>
+  store.themeMode === 'system'
+    ? osTheme.value === 'dark'
+    : store.themeMode === 'dark',
+)
 const entries = shallowRef<SyncEntry[]>([])
 const loading = ref(true)
 const filter = ref('')
@@ -75,14 +81,35 @@ function getAbsolutePath(path: string) {
   return `${window.location.href.replace(/\/$/, '')}/${path}`
 }
 
+function renderHighlightedName(name: string, pattern: string): VNodeChild[] {
+  if (!pattern)
+    return [name]
+  const lowerName = name.toLocaleLowerCase()
+  const lowerPattern = pattern.toLocaleLowerCase()
+  const parts: VNodeChild[] = []
+  let cursor = 0
+  while (true) {
+    const matchIndex = lowerName.indexOf(lowerPattern, cursor)
+    if (matchIndex === -1) {
+      parts.push(name.slice(cursor))
+      break
+    }
+    if (matchIndex > cursor)
+      parts.push(name.slice(cursor, matchIndex))
+    parts.push(h('mark', { class: 'name-highlight' }, name.slice(matchIndex, matchIndex + lowerPattern.length)))
+    cursor = matchIndex + lowerPattern.length
+  }
+  return parts
+}
+
 function renderName(data: SyncEntry) {
   const doc = store.docItems.find(value => value.name === data.name)
-  const docButton = doc
-    ? h(NButton, {
-        tag: 'a',
-        text: true,
+  const docLink = doc
+    ? h('a', {
+        class: 'mirror-doc-link',
         href: getAbsolutePath(doc.redirect || `${window.location.href}${doc?.name}`),
-        onClick: () => {
+        onClick: (event: MouseEvent) => {
+          event.preventDefault()
           if (doc.redirect) {
             window.location.href = doc.redirect
           }
@@ -90,130 +117,94 @@ function renderName(data: SyncEntry) {
             router.push(`/help/${doc?.name}` || '')
           }
         },
-      }, { default: () => h(NIcon, () => h(HelpCircleOutline)) })
+      }, [h(HelpCircleOutline, { class: 'mirror-doc-icon' })])
     : undefined
   const linkHref = getAbsolutePath(data.route ? data.route : (data.path ? data.path : `/${data.name}`))
-  return h(NFlex, { align: 'center', inline: true, style: { gap: '4px' } }, {
-    default: () => [
-      h(NButton, {
-        tag: 'a',
-        text: true,
-        href: linkHref,
-        size: 'large',
-        onClick: () => {
-          if (data.route) {
-            router.push(data.route)
-          }
-          else {
-            window.location.href = data.path || `/${data.name}`
-          }
-        },
-      }, { default: () => h(NHighlight, {
-        text: data.name,
-        patterns: [searchInput.value],
-        highlightStyle: {
-          borderRadius: themeVars.value.borderRadius,
-          display: 'inline-block',
-          color: themeVars.value.baseColor,
-          background: themeVars.value.primaryColor,
-          transition: `all .3s ${themeVars.value.cubicBezierEaseInOut}`,
-        },
-      }) }),
-      docButton,
-    ],
-  })
+  return h('div', { class: 'mirror-name-cell' }, [
+    h('a', {
+      class: 'mirror-name-link',
+      href: linkHref,
+      onClick: (event: MouseEvent) => {
+        event.preventDefault()
+        if (data.route) {
+          router.push(data.route)
+        }
+        else {
+          window.location.href = data.path || `/${data.name}`
+        }
+      },
+    }, renderHighlightedName(data.name, searchInput.value)),
+    docLink,
+  ])
 }
 
-const loadingIcon = h('svg', {
+const loadingIcon = h('div', {
+  style: 'width: 14px; height: 14px;',
+}, [h('svg', {
   xmlns: 'http://www.w3.org/2000/svg',
   width: '32',
   height: '32',
   viewBox: '0 0 24 24',
 }, [
-  h('g', { stroke: 'currentColor' }, [
-    h('circle', {
-      'cx': '12',
-      'cy': '12',
-      'r': '9.5',
-      'fill': 'none',
-      'stroke-linecap': 'round',
-      'stroke-width': '2',
-    }, [
-      h('animate', {
-        attributeName: 'stroke-dasharray',
-        calcMode: 'spline',
-        dur: '1.5s',
-        keySplines: '0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1',
-        keyTimes: '0;0.475;0.95;1',
-        repeatCount: 'indefinite',
-        values: '0 150;42 150;42 150;42 150',
-      }),
-      h('animate', {
-        attributeName: 'stroke-dashoffset',
-        calcMode: 'spline',
-        dur: '1.5s',
-        keySplines: '0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1',
-        keyTimes: '0;0.475;0.95;1',
-        repeatCount: 'indefinite',
-        values: '0;-16;-59;-59',
-      }),
-    ]),
+  h('path', {
+    fill: 'currentColor',
+    d: 'M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z',
+  }, [
     h('animateTransform', {
       attributeName: 'transform',
-      dur: '2s',
+      dur: '1s',
       repeatCount: 'indefinite',
       type: 'rotate',
       values: '0 12 12;360 12 12',
     }),
   ]),
-])
+])])
 
 function renderStatusTag(data: SyncEntry) {
-  let statusType: 'info' | 'success' | 'warning' | 'error' = 'info'
+  let statusType: 'info' | 'success' | 'warning' | 'error' = 'warning'
   let statusTitle = data.status as string
-  let statusIcon = loadingIcon
-  let statusIconSize = '18'
+  let statusIcon: VNodeChild | undefined
   switch (data.status) {
     case 'proxy':
-      statusType = 'warning'
+      statusType = 'info'
       statusTitle = t('table.statusTitle.proxy')
       statusIcon = h(GlobeOutline)
-      statusIconSize = '16'
       break
     case 'cache':
-      statusType = 'warning'
+      statusType = 'success'
       statusTitle = t('table.statusTitle.cache')
       statusIcon = h(CloudDoneOutline)
-      statusIconSize = '16'
       break
     case 'success':
       statusType = 'success'
       statusTitle = t('table.statusTitle.success')
       statusIcon = h(CheckmarkOutline)
-      statusIconSize = '18'
       break
     case 'failed':
       statusType = 'error'
       statusTitle = t('table.statusTitle.failed')
-      statusIcon = h(CloseOutline)
-      statusIconSize = '20'
+      statusIcon = h(Close)
       break
     case 'syncing':
       statusType = 'info'
       statusTitle = t('table.statusTitle.syncing')
       statusIcon = loadingIcon
-      statusIconSize = '18'
+      break
+    case 'paused':
+      statusType = 'warning'
+      statusTitle = t('table.statusTitle.paused')
+      statusIcon = h(PauseOutline)
       break
   }
 
-  return h(NTag, {
-    type: statusType,
-    bordered: !store.darkMode,
-    style: { borderRadius: '5px' },
-  }, {
-    icon: () => !store.isMobile ? h(NIcon, { size: statusIconSize }, () => statusIcon) : undefined,
-    default: () => statusTitle,
-  })
+  return h('div', { class: 'status-tag-cell' }, [
+    h('span', { class: `status-tag status-tag--${statusType}` }, [
+      !store.isMobile && statusIcon
+        ? h('span', { class: 'status-tag__icon' }, [statusIcon])
+        : undefined,
+      h('span', {}, statusTitle),
+    ]),
+  ])
 }
 
 function renderFilterMenu() {
@@ -223,6 +214,7 @@ function renderFilterMenu() {
     success: t('table.statusTitle.success'),
     failed: t('table.statusTitle.failed'),
     syncing: t('table.statusTitle.syncing'),
+    paused: t('table.statusTitle.paused'),
   }
   return h(NFlex, { vertical: true, style: { padding: '8px' } }, { default: () => [
     ...statusOptions.value.map(option =>
@@ -329,16 +321,21 @@ const filteredEntries = computed(() => {
       </template>
     </NInput>
   </NH2>
-  <NDataTable
-    size="small"
-    single-column
-    :loading="loading"
-    :columns="columns"
-    :data="filteredEntries"
-    :row-key="(row: SyncEntry) => row.name"
-    :max-height="!store.isMobile ? 'calc(100vh - 12.125rem)' : 'calc(100vh - 12.125rem + 24px)'"
-    virtual-scroll
-  />
+  <div
+    class="mirror-table-wrapper"
+    :class="{ 'is-dark': isDark }"
+    :style="{ '--mirror-primary': isDark ? '#a879db' : '#6f106e' }"
+  >
+    <NDataTable
+      size="small"
+      single-column
+      :loading="loading"
+      :columns="columns"
+      :data="filteredEntries"
+      :row-key="(row: SyncEntry) => row.name"
+      max-height="100%"
+    />
+  </div>
 </template>
 
 <style scoped lang="less">
@@ -348,6 +345,136 @@ const filteredEntries = computed(() => {
   align-items: center;
   .n-input {
     width: max(30%, 200px);
+  }
+}
+.mirror-table-wrapper {
+  min-height: 0;
+  contain: content;
+  will-change: contents;
+}
+</style>
+
+<style lang="less">
+.mirror-name-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mirror-name-link {
+  font-size: 16px;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--mirror-primary);
+  }
+}
+
+.name-highlight {
+  border-radius: 5px;
+  display: inline-block;
+  padding: 0 2px;
+  color: #fff;
+  background: var(--mirror-primary);
+}
+
+.mirror-doc-link {
+  display: inline-flex;
+  align-items: center;
+  color: inherit;
+  opacity: 0.6;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+    color: var(--mirror-primary);
+  }
+}
+
+.mirror-doc-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.status-tag-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 5px;
+  padding: 0 5px;
+  font-size: 12px;
+  line-height: 1;
+  height: 20px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+
+  &__icon {
+    display: inline-flex;
+    width: 14px;
+    height: 14px;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  }
+
+  &--warning {
+    color: #de9c1e;
+    background: rgba(240, 160, 32, 0.12);
+    border-color: rgba(240, 160, 32, 0.3);
+  }
+
+  &--success {
+    color: #18a058;
+    background: rgba(24, 160, 88, 0.12);
+    border-color: rgba(24, 160, 88, 0.3);
+  }
+
+  &--error {
+    color: #d03050;
+    background: rgba(208, 48, 80, 0.12);
+    border-color: rgba(208, 48, 80, 0.3);
+  }
+
+  &--info {
+    color: #2080f0;
+    background: rgba(32, 128, 240, 0.12);
+    border-color: rgba(32, 128, 240, 0.3);
+  }
+}
+
+.is-dark .status-tag {
+  border-color: transparent;
+
+  &--warning {
+    color: #f2c97d;
+    background: rgba(242, 201, 125, 0.16);
+  }
+
+  &--success {
+    color: #63e2b7;
+    background: rgba(99, 226, 183, 0.16);
+  }
+
+  &--error {
+    color: #e88080;
+    background: rgba(232, 128, 128, 0.16);
+  }
+
+  &--info {
+    color: #6cc2ff;
+    background: rgba(108, 194, 255, 0.16);
   }
 }
 </style>
