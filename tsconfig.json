@@ -6,7 +6,7 @@
     "lib": ["esnext", "dom"],
     "useDefineForClassFields": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "paths": {
       "@/*": ["./src/*"]
     },

@@ -4,13 +4,15 @@
 
 ## How to Build the Project
 
-Run `npm install` to install all dependencies for development.
+Run `pnpm i` to install all dependencies for development.
 
-Run `npm run build` to compile for production.
+Run `pnpm dev` to start the development server.
 
-Run `npm run preview` to compile for GitHub Pages.
+Run `pnpm build` to compile for production.
 
-Run `npm run serve` to start the development server.
+Run `pnpm preview` to compile for GitHub Pages.
+
+Run `pnpm serve` to start the production server.
 
 ## How to Contribute
 
