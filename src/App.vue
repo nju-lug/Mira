@@ -19,9 +19,6 @@ const theme = computed(() => {
   return store.themeMode === 'dark' ? darkTheme : null
 })
 
-// Naive UI 会给主题相关的颜色/边框属性默认加上过渡动画，当页面内元素较多（例如镜像列表表格）时，
-// 切换主题会导致大量元素同时触发 transition，造成明显的卡顿/假死。
-// 这里在主题切换的瞬间临时关闭全局过渡动画，等新样式应用完成后再恢复。
 function disableTransitionsTemporarily() {
   const { classList } = document.documentElement
   classList.add('disable-theme-transition')
@@ -32,7 +29,6 @@ function disableTransitionsTemporarily() {
   })
 }
 
-// 主题切换动画：使用 View Transition API 实现从点击位置圆形扩展的效果
 watch(theme, () => {
   if (!document.startViewTransition) {
     disableTransitionsTemporarily()
@@ -193,13 +189,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-// 主题切换瞬间禁用所有过渡动画，避免大量元素（如镜像列表表格）同时执行 transition 造成掉帧/假死。
 .disable-theme-transition,
 .disable-theme-transition * {
   transition: none !important;
 }
 
-// View Transition 动画期间保留默认过渡，避免与自定义 clip-path 动画冲突
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;

@@ -11,7 +11,6 @@ const { t } = useI18n()
 const store = useStore()
 const osTheme = useOsTheme()
 
-// 通过全局 pointerdown 捕获最近点击坐标，用于 startViewTransition 动画原点
 const clickX = ref(0)
 const clickY = ref(0)
 function onPointerDown(e: PointerEvent) {

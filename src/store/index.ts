@@ -9,7 +9,6 @@ export type ThemeMode = 'light' | 'dark' | 'system'
 export interface State {
   isMobile: boolean
   themeMode: ThemeMode
-  /** 主题切换点击坐标，用于 startViewTransition 圆形扩展动画 */
   _tx: number
   _ty: number
   locale: 'zh' | 'en'
@@ -22,7 +21,6 @@ function getInitialThemeMode(): ThemeMode {
   const stored = sessionStorage.getItem('themeMode')
   if (stored === 'light' || stored === 'dark' || stored === 'system')
     return stored
-  // 兼容旧的 darkMode 字段
   const legacy = sessionStorage.getItem('darkMode')
   if (legacy !== null)
     return legacy === 'true' ? 'dark' : 'light'
