@@ -4,19 +4,35 @@ import type { NewsEntry } from '@/models/news'
 import { defineStore } from 'pinia'
 import { MobileWidth } from '@/configs'
 
+export type ThemeMode = 'light' | 'dark' | 'system'
+
 export interface State {
   isMobile: boolean
-  darkMode: boolean
+  themeMode: ThemeMode
+  _tx: number
+  _ty: number
   locale: 'zh' | 'en'
   newsEntries: NewsEntry[]
   docItems: DocItem[]
   downloadContents: DownloadContent[]
 }
 
+function getInitialThemeMode(): ThemeMode {
+  const stored = sessionStorage.getItem('themeMode')
+  if (stored === 'light' || stored === 'dark' || stored === 'system')
+    return stored
+  const legacy = sessionStorage.getItem('darkMode')
+  if (legacy !== null)
+    return legacy === 'true' ? 'dark' : 'light'
+  return 'system'
+}
+
 export const useStore = defineStore('main', {
   state: (): State => ({
     isMobile: document.body.clientWidth < MobileWidth,
-    darkMode: sessionStorage.getItem('darkMode') === 'true',
+    themeMode: getInitialThemeMode(),
+    _tx: 0,
+    _ty: 0,
     locale: 'zh',
     newsEntries: [],
     docItems: [],
@@ -26,9 +42,11 @@ export const useStore = defineStore('main', {
     setWidth(width: number) {
       this.isMobile = width < MobileWidth
     },
-    setDarkMode(darkMode: boolean) {
-      this.darkMode = darkMode
-      sessionStorage.setItem('darkMode', darkMode.toString())
+    setThemeMode(mode: ThemeMode, x = 0, y = 0) {
+      this._tx = x
+      this._ty = y
+      this.themeMode = mode
+      sessionStorage.setItem('themeMode', mode)
     },
     setNews(entries: NewsEntry[]) {
       this.newsEntries = entries

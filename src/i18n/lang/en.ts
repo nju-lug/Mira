@@ -1,6 +1,11 @@
 export default {
   locale: '中文',
   mirror: 'NJU Open Source Mirror',
+  theme: {
+    system: 'System',
+    light: 'Light',
+    dark: 'Dark',
+  },
   header: {
     mirrors: 'Mirrors',
     downloads: 'Downloads',
@@ -58,6 +63,7 @@ export default {
       proxy: 'Proxying',
       failed: 'Failed',
       syncing: 'Syncing',
+      paused: 'Paused',
     },
   },
   error: {

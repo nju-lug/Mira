@@ -17,20 +17,17 @@ export default defineConfig({
       },
     }),
     VueI18nVitePlugin({
-      include: path.resolve(__dirname, './src/i18n/lang/**'),
+      include: path.resolve(import.meta.dirname, './src/i18n/lang/**'),
     }),
     vueJsx({}),
     visualizer() as PluginOption,
   ],
   resolve: {
+    tsconfigPaths: true,
     alias: [
       {
         find: 'vue-i18n',
         replacement: 'vue-i18n/dist/vue-i18n.runtime.esm-bundler.js',
-      },
-      {
-        find: '@',
-        replacement: path.resolve(__dirname, './src'),
       },
       {
         find: 'vue',
@@ -38,12 +35,23 @@ export default defineConfig({
       },
     ],
   },
+  server: {
+    proxy: {
+      '/configs': {
+        target: 'https://mirrors.nju.edu.cn',
+        changeOrigin: true,
+        secure: true,
+      },
+    },
+  },
   build: {
-    rollupOptions: {
+    rolldownOptions: {
       output: {
-        manualChunks: {
-          vue: ['vue', 'vue-router', 'vue-gtag', 'vue-i18n'],
-          utils: ['dayjs', 'marked', 'lodash-es'],
+        codeSplitting: {
+          groups: [
+            { name: 'vue', test: /[\\/]node_modules[\\/](vue|vue-router|vue-gtag|vue-i18n)[\\/]/ },
+            { name: 'utils', test: /[\\/]node_modules[\\/](dayjs|marked|lodash-es)[\\/]/ },
+          ],
         },
       },
     },

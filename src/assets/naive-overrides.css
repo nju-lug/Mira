@@ -1,0 +1,56 @@
+/* Naive UI 组件样式覆盖 */
+/* 菜单内选项间距 */
+.n-dropdown-menu {
+  padding: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.n-base-select-menu {
+  padding: 0.25rem;
+}
+.n-base-select-menu-option-wrapper,
+.n-base-select-menu .v-vl-visible-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.n-dropdown-menu .n-dropdown-option .n-dropdown-option-body::before {
+  left: 0.25rem;
+  right: 0.25rem;
+  border-radius: calc(var(--n-border-radius) - 2px);
+}
+.n-base-select-menu .n-base-select-option::before {
+  left: 0;
+  right: 0;
+  border-radius: calc(var(--n-border-radius) - 2px);
+}
+.n-base-select-menu .n-base-select-group-header {
+    align-items: end;
+    bottom: 0.25rem;
+}
+.n-dropdown-menu .v-vl-items,
+.n-base-select-menu .v-vl-items,
+.n-base-select-menu-option-wrapper {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+.n-tree-select-menu .n-scrollbar-content {
+  padding: 0.25rem !important;
+}
+.n-tree-select-menu .n-scrollbar-content > :first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.n-tree-select-menu .n-scrollbar-content .n-tree-node-wrapper {
+  padding: 0 !important;
+}
+.n-dropdown-menu .n-dropdown-divider {
+  margin: 0 0.25rem;
+}
+
+/* Dropdown 选项图标 */
+.n-dropdown-menu .n-dropdown-option .n-dropdown-option-body .n-dropdown-option-body__prefix.n-dropdown-option-body__prefix--show-icon {
+  padding-left: 6px;
+}

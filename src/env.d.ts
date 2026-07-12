@@ -13,3 +13,13 @@ interface ImportMetaEnv {
    */
   readonly VITE_GA: string
 }
+
+// View Transition API
+interface ViewTransition {
+  readonly ready: Promise<void>
+  readonly transitionDirection: 'forward' | 'back'
+}
+
+interface Document {
+  startViewTransition?: (callback: () => Promise<void> | void) => ViewTransition
+}

@@ -99,9 +99,9 @@ export type MenuCaller = (state: State, filter: string, translations: {
   fontsText: string
 }) => MenuOption[]
 
-router.beforeEach((_to, _from, next) => {
+router.beforeEach((_to, _from) => {
   loadingRef.value?.start()
-  next()
+  return true
 })
 
 router.afterEach((to) => {
