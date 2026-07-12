@@ -1,0 +1,1 @@
+var e=typeof document<`u`&&typeof window<`u`;function t(e){return e.replace(/#|\(|\)|,|\s|\./g,`_`)}export{e as n,t};
